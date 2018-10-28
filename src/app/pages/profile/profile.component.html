@@ -1,0 +1,45 @@
+<button mat-raised-button color="primary" (click)=" postService.compose = !postService.compose ">CREATE POST</button>
+<div *ngIf=" postService.compose ">
+  <app-post-create></app-post-create>
+  <hr>
+</div>
+
+<div class="m-2" *ngIf=" userService.user['info'] ">
+
+  {{ userService.user['info'] | json }}
+
+</div>
+
+<hr>
+
+<div class="m-2" *ngIf=" userService.user['posts'] ">
+
+  <div *ngIf=" userService.user['posts']['published'] ">
+    <h3> Published Posts (<small> visible to other users </small> ) </h3>
+    <div class="m-2" *ngFor="let published of userService.user['posts']['published'] ">
+      {{ published | json }}
+    </div>
+  </div>
+
+  <div *ngIf=" !userService.user['posts']['published'] ">
+    <p> No posts .. </p>
+  </div>
+
+  <hr>
+
+  <div *ngIf=" userService.isLogged && userService.user['posts']['drafts'] ">
+    <h3> Drafts Posts (<small> not visible to other users </small>) </h3>
+    <div class="m-2" *ngFor="let drafted of userService.user['posts']['drafts'] ">
+      {{ drafted | json }}
+    </div>
+  </div>
+
+
+</div>
+
+
+<div class="m-2" *ngIf=" !userService.user ">
+
+  Fetching Data ...
+
+</div>

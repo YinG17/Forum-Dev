@@ -1,0 +1,18 @@
+<div>
+
+  <input type="text" placeholder="title" class="mx-3" [(ngModel)]=" postForm.title ">
+  <input type="text" placeholder="content" class="mx-3" [(ngModel)]=" postForm.content ">
+  <select [(ngModel)]=" postForm.status ">
+    <option *ngFor="let stat of status" [value]=" stat "> {{ stat }} </option>
+  </select>
+
+  <button (click)=" post() "> Submit </button>
+
+</div>
+
+<!--
+  * add
+    featured media
+    tags
+    comment status
+  -->

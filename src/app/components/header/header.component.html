@@ -1,0 +1,27 @@
+<header class="p-2 mb-5">
+  <button mat-button class="p-2" [routerLink]="[ '/forum' ]" routerLinkActive="active" *ngIf=" userService.isLogged ">
+    FORUM
+  </button>
+
+  <button mat-button class="p-2" [routerLink]="[ '/test' ]" routerLinkActive="active" *ngIf=" userService.isLogged ">
+    TESTING AREA
+  </button>
+
+  <span class="spacer"></span>
+
+  <button mat-button class="p-2" *ngIf=" userService.isLogged " disabled>
+    {{ userService.myInfo['name'] | uppercase }}
+  </button>
+
+  <button mat-icon-button class="my-auto menu" [matMenuTriggerFor]="menu" *ngIf=" userService.isLogged ">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button class="menu w-100" mat-button (click)=" getProfile() ">
+      <span> PROFILE</span>
+    </button>
+    <button class="menu w-100" mat-button (click)=" userService.logout() ">
+      <span>LOGOUT</span>
+    </button>
+  </mat-menu>
+</header>
