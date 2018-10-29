@@ -1,6 +1,10 @@
-<div class="card">
-  <div class="card-body" *ngFor="let user of userService.users ">
-    name : {{ user.name }}
-    <button (click)=" profile( user.id ) "> profile </button>
+<div class="card" *ngIf=" userService.users ">
+  <div *ngFor="let user of userService.users ">
+
+    <div (click)=" profile( user.id ) " class=" w-100 ">
+      <span> <img [src]=" user.avatar_urls['24'] " alt=" user.name "> </span>
+      <span> {{ user.name }} </span>
+    </div>
+
   </div>
 </div>

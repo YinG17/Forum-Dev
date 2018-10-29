@@ -1,7 +1,3 @@
-@import 'bootstrap/scss/bootstrap.scss';
+@import 'custom_bootstrap';
 
-@import './base.scss';
-@import './layout.scss';
-@import './module.scss';
-@import './template.scss';
-@import './theme.scss';
+@import 'base', 'layout', 'module', 'template', 'theme';

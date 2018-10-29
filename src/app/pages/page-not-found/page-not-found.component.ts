@@ -47,6 +47,6 @@ export class PageNotFoundComponent implements OnInit {
     // console.log(data);
 
     // this.postService.postList();
-    this.userService.profile(null, '?orderby=name');
+    this.userService.profile(null, '/' + this.userService.myInfo['id']);
   }
 }

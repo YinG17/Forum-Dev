@@ -5,18 +5,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MaterialButtonModule } from 'src/app/shared/modules/material/material-button.module';
 import { MaterialFormModule } from 'src/app/shared/modules/material/material-form.module';
-import { MatInputModule } from '@angular/material';
+import { MatInputModule, MatCardModule } from '@angular/material';
 import { PostCreateModule } from '../shared/post-create/post-create.module';
-import { PostEditComponent } from './post-edit/post-edit.component';
+import { InfoComponent } from './info/info.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ProfileComponent
-  },
-  {
-    path: 'post/edit',
-    component: PostEditComponent
   }
 ];
 
@@ -24,12 +20,13 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    MatCardModule,
     MaterialButtonModule,
     MaterialFormModule,
     MatInputModule,
     PostCreateModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ProfileComponent, PostEditComponent]
+  declarations: [ProfileComponent, InfoComponent]
 })
 export class ProfileModule {}

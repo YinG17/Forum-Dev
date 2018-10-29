@@ -1,11 +1,14 @@
-<div class="mb-5 card" *ngFor=" let post of postService.posts ">
-  <!-- todo view -->
-  <div class="card-body">
-    {{ post | json }} for post
-
-    <!-- {{ post._embedded.author | json }} for author -->
-
-    <!-- {{ post._embeded.comments | json }} for post comments, if any -->
-  </div>
-  <div class="card-footer"></div>
+<div class="mb-5" *ngIf=" postService.posts ">
+  <mat-card class=" mb-2 " *ngFor=" let post of postService.posts ">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <img mat-card-avatar [src]=" post._embedded.author[0].avatar_urls['48'] ">
+      </div>
+      <mat-card-title>{{ post._embedded.author[0].name }}</mat-card-title>
+      <mat-card-subtitle>{{ post.date }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div [innerHTML]="post.content.rendered"></div>
+    </mat-card-content>
+  </mat-card>
 </div>

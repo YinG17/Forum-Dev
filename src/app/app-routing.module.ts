@@ -20,6 +20,14 @@ const routes: Routes = [
       './pages/page-not-found/page-not-found.module#PageNotFoundModule'
   },
   {
+    path: 'post',
+    loadChildren: './pages/post/post.module#PostModule'
+  },
+  {
+    path: 'post/edit',
+    loadChildren: './pages/post/post.module#PostModule'
+  },
+  {
     path: '**',
     loadChildren:
       './pages/page-not-found/page-not-found.module#PageNotFoundModule'

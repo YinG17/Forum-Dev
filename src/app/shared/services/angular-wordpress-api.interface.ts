@@ -25,7 +25,10 @@ export interface UserResponseInterface extends UserInterface {
   id?: number; // L, P, U - Required in L, P, U, R
   meta?: Array<any>; // P, U
   slug?: string; // U
-  posts?: Array<any>; // P
+  posts?: {
+    published: Array<any>;
+    drafts: Array<any>;
+  }; // P
   locale?: string; // U
   avatar_urls?: {}; // P
   extra_capabilities?: {};
@@ -72,7 +75,11 @@ export interface PostInterface {
 }
 
 export interface PostResponseInterface extends PostInterface {
-  _embedded?: Array<any>;
+  _embedded?: {
+    author: {
+      name: string;
+    };
+  };
   _links?: Array<any>;
 }
 

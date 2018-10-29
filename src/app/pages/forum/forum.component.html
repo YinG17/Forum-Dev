@@ -1,22 +1,20 @@
 <div class="row">
-  <div class="col-8">
-    <div class="row">
-      <app-menu></app-menu>
+
+  <div class="col-md-2">
+    <app-menu></app-menu>
+  </div>
+
+  <div class="col-md-8">
+    <div class="col-md-12" *ngIf=" postService.compose ">
+      <app-post-create></app-post-create>
     </div>
 
-    <hr>
-    <div *ngIf=" postService.compose ">
-      <app-post-create></app-post-create>
-      <hr>
-    </div>
-    <div *ngIf=" postService.posts ">
+    <div>
       <app-posts></app-posts>
     </div>
   </div>
 
-  <div class="col-3">
-    <div *ngIf=" userService.users ">
-      <app-users></app-users>
-    </div>
+  <div class="col-md-2">
+    <app-users></app-users>
   </div>
 </div>

@@ -17,10 +17,12 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AngularWordpressApiPostService {
-  selectedCategory: number;
   categories: CategoryInterface;
+  selectedCategory: number;
+
   post: PostResponseInterface;
   posts: PostResponseInterface;
+
   compose = false;
 
   constructor(
@@ -51,24 +53,38 @@ export class AngularWordpressApiPostService {
   /**
    * @method getPost - get single post
    */
-  getPost(id) {
+  getPost(id, isEdit?) {
+    let endPoint = 'post';
+
+    if (isEdit) {
+      endPoint = 'post/edit';
+    }
+
     return this.http
-      .get<PostResponseInterface>(restApiUrl + postsEndpoint + id)
+      .get<PostResponseInterface>(
+        restApiUrl + postsEndpoint + id,
+        this.authService.loginAuth
+      )
       .subscribe(data => {
         this.post = data;
-        this.router.navigateByUrl('profile/post/edit');
+        this.router.navigateByUrl(endPoint);
       });
   }
 
   /**
    * @method editPost
    */
-  editPost(post, id) {
-    return this.http.post<PostInterface>(
-      restApiUrl + postsEndpoint + id,
-      post,
-      this.authService.loginAuth
-    );
+  updatePost(post, id) {
+    return this.http
+      .post<PostInterface>(
+        restApiUrl + postsEndpoint + id,
+        post,
+        this.authService.loginAuth
+      )
+      .subscribe(data => {
+        console.log(data);
+        this.router.navigateByUrl('profile');
+      });
   }
 
   /**
@@ -91,7 +107,10 @@ export class AngularWordpressApiPostService {
 
   categoryList() {
     return this.http
-      .get<CategoryInterface>(restApiUrl + categoriesEndpoint)
+      .get<CategoryInterface>(
+        restApiUrl + categoriesEndpoint,
+        this.authService.loginAuth
+      )
       .pipe(
         tap(data => {
           this.categories = data;

@@ -6,7 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import {
   MatSelectModule,
   MatFormFieldModule,
-  MatButtonModule
+  MatButtonModule,
+  MatCardModule
 } from '@angular/material';
 import { PostCreateModule } from '../shared/post-create/post-create.module';
 import { UsersComponent } from './users/users.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
+    MatCardModule,
     MatButtonModule,
     MatSelectModule,
     MatFormFieldModule,

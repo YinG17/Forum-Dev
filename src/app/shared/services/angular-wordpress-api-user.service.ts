@@ -64,6 +64,7 @@ export class AngularWordpressApiUserService {
         )
         .subscribe(data => {
           this.user = data;
+          // console.log(data);
           this.router.navigateByUrl('profile');
         });
     }
