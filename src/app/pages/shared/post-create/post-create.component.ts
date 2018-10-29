@@ -20,12 +20,8 @@ export class PostCreateComponent {
   post() {
     this.postForm.categories = this.postService.selectedCategory;
 
-    this.postService.postCreate(this.postForm).subscribe(
-      data => {
-        console.log(data);
-        console.log(data.author.valueOf());
-      },
-      err => console.log(err)
-    );
+    this.postService
+      .postCreate(this.postForm)
+      .subscribe(data => {}, err => console.log(err));
   }
 }

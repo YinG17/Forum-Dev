@@ -1,0 +1,13 @@
+<button mat-raised-button color="primary" (click)=" postService.compose = !postService.compose ">CREATE POST</button>
+<span class="spacer"></span>
+<div *ngIf=" postService.categories ">
+  <mat-form-field>
+    <mat-select [(ngModel)]=" postService.selectedCategory" placeholder="{{ postService.selectedCategory ? 'Category' : 'All Post' }}"
+      (ngModelChange)=" getData() ">
+      <mat-option>All Post</mat-option>
+      <mat-option *ngFor="let category of postService.categories" value="{{ category.id }}">
+        {{ category.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

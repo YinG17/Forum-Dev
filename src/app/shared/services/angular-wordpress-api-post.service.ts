@@ -56,7 +56,6 @@ export class AngularWordpressApiPostService {
       .get<PostResponseInterface>(restApiUrl + postsEndpoint + id)
       .subscribe(data => {
         this.post = data;
-        console.log(data);
         this.router.navigateByUrl('profile/post/edit');
       });
   }
@@ -65,13 +64,11 @@ export class AngularWordpressApiPostService {
    * @method editPost
    */
   editPost(post, id) {
-    return this.http
-      .post<PostInterface>(
-        restApiUrl + postsEndpoint + id,
-        post,
-        this.authService.loginAuth
-      )
-      .subscribe(data => console.log(data));
+    return this.http.post<PostInterface>(
+      restApiUrl + postsEndpoint + id,
+      post,
+      this.authService.loginAuth
+    );
   }
 
   /**

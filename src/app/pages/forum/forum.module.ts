@@ -8,7 +8,10 @@ import {
   MatFormFieldModule,
   MatButtonModule
 } from '@angular/material';
-import { PostCreateModule } from '../post-create/post-create.module';
+import { PostCreateModule } from '../shared/post-create/post-create.module';
+import { UsersComponent } from './users/users.component';
+import { PostsComponent } from './posts/posts.component';
+import { MenuComponent } from './menu/menu.component';
 
 const routes: Routes = [
   {
@@ -27,6 +30,6 @@ const routes: Routes = [
     MatFormFieldModule,
     PostCreateModule
   ],
-  declarations: [ForumComponent]
+  declarations: [ForumComponent, UsersComponent, PostsComponent, MenuComponent]
 })
 export class ForumModule {}

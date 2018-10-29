@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MaterialButtonModule } from 'src/app/shared/modules/material/material-button.module';
 import { MaterialFormModule } from 'src/app/shared/modules/material/material-form.module';
 import { MatInputModule } from '@angular/material';
-import { PostCreateModule } from '../post-create/post-create.module';
+import { PostCreateModule } from '../shared/post-create/post-create.module';
 import { PostEditComponent } from './post-edit/post-edit.component';
 
 const routes: Routes = [

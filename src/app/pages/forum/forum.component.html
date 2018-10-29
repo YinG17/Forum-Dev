@@ -1,19 +1,7 @@
 <div class="row">
   <div class="col-8">
     <div class="row">
-      <button mat-raised-button color="primary" (click)=" postService.compose = !postService.compose ">CREATE POST</button>
-      <span class="spacer"></span>
-      <div *ngIf=" postService.categories ">
-        <mat-form-field>
-          <mat-select [(ngModel)]=" postService.selectedCategory" placeholder="{{ postService.selectedCategory ? 'Category' : 'All Post' }}"
-            (ngModelChange)=" getData() ">
-            <mat-option>All Post</mat-option>
-            <mat-option *ngFor="let category of postService.categories" value="{{ category.id }}">
-              {{ category.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+      <app-menu></app-menu>
     </div>
 
     <hr>
@@ -22,28 +10,13 @@
       <hr>
     </div>
     <div *ngIf=" postService.posts ">
-      <div class="mb-5 card" *ngFor=" let post of postService.posts ">
-        <!-- todo view -->
-        <div class="card-body">
-          {{ post | json }} for post
-
-          <!-- {{ post._embedded.author | json }} for author -->
-
-          <!-- {{ post._embeded.comments | json }} for post comments, if any -->
-        </div>
-        <div class="card-footer"></div>
-      </div>
+      <app-posts></app-posts>
     </div>
   </div>
 
   <div class="col-3">
     <div *ngIf=" userService.users ">
-      <div class="card">
-        <div class="card-body" *ngFor="let user of userService.users ">
-          name : {{ user.name }}
-          <button (click)=" profile( user.id ) "> profile </button>
-        </div>
-      </div>
+      <app-users></app-users>
     </div>
   </div>
 </div>

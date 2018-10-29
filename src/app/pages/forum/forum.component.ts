@@ -22,18 +22,4 @@ export class ForumComponent implements OnInit {
       this.userService.users = data;
     });
   }
-
-  getData() {
-    let url = 'categories=' + this.postService.selectedCategory;
-
-    if (!this.postService.selectedCategory) {
-      url = '';
-    }
-
-    this.postService.postList(url);
-  }
-
-  profile(id) {
-    this.userService.profile(null, '/' + id);
-  }
 }

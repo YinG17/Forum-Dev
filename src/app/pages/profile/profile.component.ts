@@ -22,7 +22,6 @@ export class ProfileComponent implements OnInit {
   update() {
     this.userService.updateProfile(this.userForm).subscribe(data => {
       this.isEdit = !this.isEdit;
-      console.log(data);
     });
   }
 }
