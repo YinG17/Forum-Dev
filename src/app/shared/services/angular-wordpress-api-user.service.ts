@@ -46,29 +46,35 @@ export class AngularWordpressApiUserService {
    * @arg - rawUser - supplied when logging in an existing account
    */
   profile(rawUser?, id?) {
+    // for login
     if (rawUser) {
       const option = this.httpOption.getHttpOptions(rawUser);
       return this.http
         .get<UserResponseInterface>(customApiUrl + profileEndpoint, option)
-        .pipe(
-          tap(data => {
-            this.saveUserData(data);
-          }),
-          catchError(this.logService.error)
-        );
-    } else {
-      let url = restApiUrl;
-
-      if (id === Number) {
-        url = customApiUrl;
-      }
-
-      return this.http
-        .get<UserResponseInterface>(url + usersEndpoint + id, this.loginAuth)
         .subscribe(data => {
-          console.log(data);
+          this.saveUserData(data);
+          this.router.navigateByUrl('forum');
+        });
+    } else {
+      // for fetching user info
+      return this.http
+        .get<UserResponseInterface>(
+          customApiUrl + usersEndpoint + id,
+          this.loginAuth
+        )
+        .subscribe(data => {
+          this.user = data;
+          this.router.navigateByUrl('profile');
         });
     }
+  }
+
+  /**
+   * @method getUsers - get user list
+   * @param param - filter
+   */
+  getUsers(param) {
+    return this.http.get<UserInterface>(restApiUrl + usersEndpoint + param);
   }
 
   /**

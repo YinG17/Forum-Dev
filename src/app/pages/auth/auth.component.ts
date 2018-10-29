@@ -27,9 +27,7 @@ export class AuthComponent implements OnInit {
         user_login: this.userForm.username,
         user_pass: this.userForm.security_code
       };
-      this.userService.profile(rawUser).subscribe(data => {
-        this.router.navigateByUrl('forum');
-      });
+      this.userService.profile(rawUser);
     } else {
       this.userService.register(this.userForm).subscribe(data => {
         this.router.navigateByUrl('forum');

@@ -7,11 +7,16 @@ import { MaterialButtonModule } from 'src/app/shared/modules/material/material-b
 import { MaterialFormModule } from 'src/app/shared/modules/material/material-form.module';
 import { MatInputModule } from '@angular/material';
 import { PostCreateModule } from '../post-create/post-create.module';
+import { PostEditComponent } from './post-edit/post-edit.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ProfileComponent
+  },
+  {
+    path: 'post/edit',
+    component: PostEditComponent
   }
 ];
 
@@ -25,6 +30,6 @@ const routes: Routes = [
     PostCreateModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ProfileComponent]
+  declarations: [ProfileComponent, PostEditComponent]
 })
 export class ProfileModule {}

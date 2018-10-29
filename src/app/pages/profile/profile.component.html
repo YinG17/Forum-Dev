@@ -17,7 +17,12 @@
   <div *ngIf=" userService.user['posts']['published'] ">
     <h3> Published Posts (<small> visible to other users </small> ) </h3>
     <div class="m-2" *ngFor="let published of userService.user['posts']['published'] ">
-      {{ published | json }}
+      <div> {{ published | json }} </div>
+      <span>
+        <button *ngIf="  userService.isLogged && userService.myInfo['id'] == published.post_author " (click)=" postService.getPost( '/' + published.ID ) ">
+          EDIT
+        </button>
+      </span>
     </div>
   </div>
 

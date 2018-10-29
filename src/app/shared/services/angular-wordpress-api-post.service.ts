@@ -11,6 +11,7 @@ import {
 import { AngularWordpressApiUserService } from './angular-wordpress-api-user.service';
 import { LogService } from './log.service';
 import { tap, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,13 @@ import { tap, catchError } from 'rxjs/operators';
 export class AngularWordpressApiPostService {
   selectedCategory: number;
   categories: CategoryInterface;
+  post: PostResponseInterface;
   posts: PostResponseInterface;
   compose = false;
 
   constructor(
     public authService: AngularWordpressApiUserService,
+    public router: Router,
     public http: HttpClient,
     public log: LogService
   ) {}
@@ -43,6 +46,32 @@ export class AngularWordpressApiPostService {
       post,
       this.authService.loginAuth
     );
+  }
+
+  /**
+   * @method getPost - get single post
+   */
+  getPost(id) {
+    return this.http
+      .get<PostResponseInterface>(restApiUrl + postsEndpoint + id)
+      .subscribe(data => {
+        this.post = data;
+        console.log(data);
+        this.router.navigateByUrl('profile/post/edit');
+      });
+  }
+
+  /**
+   * @method editPost
+   */
+  editPost(post, id) {
+    return this.http
+      .post<PostInterface>(
+        restApiUrl + postsEndpoint + id,
+        post,
+        this.authService.loginAuth
+      )
+      .subscribe(data => console.log(data));
   }
 
   /**

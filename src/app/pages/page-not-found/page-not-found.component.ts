@@ -38,7 +38,7 @@ export class PageNotFoundComponent implements OnInit {
   // test search user
 
   function2() {
-    this.userService.profile(null, '/' + this.otherUserId);
+    this.userService.profile();
   }
 
   function3() {

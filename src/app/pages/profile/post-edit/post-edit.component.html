@@ -1,0 +1,13 @@
+<div *ngIf=" postService.post ">
+  title:
+  <input type="text" [(ngModel)]=" editForm.title " [placeholder]=" postService.post.title['rendered']">
+
+  <br> <br>
+
+  content:
+  <input type="text" [(ngModel)]=" editForm.content " [placeholder]=" postService.post.content['rendered'] ">
+
+
+  <button (click)=" submit() ">text</button>
+
+</div>

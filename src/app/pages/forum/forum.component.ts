@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularWordpressApiPostService } from 'src/app/shared/services/angular-wordpress-api-post.service';
 import { AngularWordpressApiUserService } from 'src/app/shared/services/angular-wordpress-api-user.service';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-forum',
@@ -17,7 +16,10 @@ export class ForumComponent implements OnInit {
   ngOnInit() {
     this.postService.categoryList().subscribe(data => {
       this.postService.categories = data;
-      this.userService.profile(null, '?orderby=name');
+    });
+
+    this.userService.getUsers('?orderby=name').subscribe(data => {
+      this.userService.users = data;
     });
   }
 
@@ -29,5 +31,9 @@ export class ForumComponent implements OnInit {
     }
 
     this.postService.postList(url);
+  }
+
+  profile(id) {
+    this.userService.profile(null, '/' + id);
   }
 }
