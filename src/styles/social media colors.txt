@@ -9,23 +9,23 @@ Hex: #55acee Twttr
 
 App
 |
-|-header / footer : #364652 
-|    |- buttons #364652 
-|          |-`text : #AAB7B5
-|	       |-active   : #CCDDDA 
+|-header / footer : #364652
+|    |- buttons #364652
+|        |-`text : #AAB7B5
+|	       |-active   : #CCDDDA
 |
 |
 |-body
 |   |- buttons
-|   |	 |- submit / confirm   : #5CBC70 / #537685 
-|   |	 |- cancel / close     : #B32E2E 
-|   |    |      |- button text : white
+|   |	 |- submit / confirm   : #5CBC70 / #537685
+|   |	 |- cancel / close     : #B32E2E
+|   |  |      |- button text : white
 |   |	 |
-|   |    |- disabled : #E8ECEC
-|   |    	
+|   |  |- disabled : #E8ECEC
+|   |
 |   |
 |   |- text status
-|	 |- warning  : #FF9C20
-|	 |- error    : #F00314
-|	 |- success  : #46D146
-|	 |- disabled : #E0E4E4
+|	  |- warning  : #FF9C20
+|	  |- error    : #F00314
+|	  |- success  : #46D146
+|	  |- disabled : #E0E4E4

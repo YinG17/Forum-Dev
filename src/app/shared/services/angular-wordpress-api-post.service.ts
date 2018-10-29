@@ -65,10 +65,7 @@ export class AngularWordpressApiPostService {
 
   categoryList() {
     return this.http
-      .get<CategoryInterface>(
-        restApiUrl + categoriesEndpoint,
-        this.authService.loginAuth
-      )
+      .get<CategoryInterface>(restApiUrl + categoriesEndpoint)
       .pipe(
         tap(data => {
           this.categories = data;

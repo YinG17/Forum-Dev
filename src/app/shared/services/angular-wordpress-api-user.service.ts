@@ -19,6 +19,7 @@ import { AngularWordpressApiHttpHeaderService } from './angular-wordpress-api-ht
 })
 export class AngularWordpressApiUserService {
   user: UserResponseInterface;
+  users: UserResponseInterface;
 
   constructor(
     public logService: LogService,
@@ -56,12 +57,17 @@ export class AngularWordpressApiUserService {
           catchError(this.logService.error)
         );
     } else {
+      let url = restApiUrl;
+
+      if (id === Number) {
+        url = customApiUrl;
+      }
+
       return this.http
-        .get<UserResponseInterface>(
-          customApiUrl + usersEndpoint + id,
-          this.loginAuth
-        )
-        .pipe(catchError(this.logService.error));
+        .get<UserResponseInterface>(url + usersEndpoint + id, this.loginAuth)
+        .subscribe(data => {
+          console.log(data);
+        });
     }
   }
 

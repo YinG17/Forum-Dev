@@ -38,9 +38,7 @@ export class PageNotFoundComponent implements OnInit {
   // test search user
 
   function2() {
-    this.userService.profile(null, '/' + this.otherUserId).subscribe(data => {
-      console.log(data);
-    });
+    this.userService.profile(null, '/' + this.otherUserId);
   }
 
   function3() {
@@ -48,6 +46,7 @@ export class PageNotFoundComponent implements OnInit {
 
     // console.log(data);
 
-    this.postService.postList();
+    // this.postService.postList();
+    this.userService.profile(null, '?orderby=name');
   }
 }
