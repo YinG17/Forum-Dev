@@ -72,9 +72,6 @@ export interface PostInterface {
   sticky?: string;
   template?: string;
   tags?: Array<any>;
-}
-
-export interface PostResponseInterface extends PostInterface {
   _embedded?: {
     author: {
       name: string;
@@ -93,7 +90,7 @@ export const customApiUrl = wordpressUrl + '/custom/api';
 /**
  * common endpoints for both customApiUrl and restApiUrl
  */
-export const usersEndpoint = '/users';
+export const usersEndpoint = '/users/';
 
 /**
  * declare here an endpoint dedicated only for restApiUrl use
@@ -105,3 +102,15 @@ export const postsEndpoint = '/posts';
  * declare here an endpoint dedicated only for customApiUrl use
  */
 export const profileEndpoint = '/profile';
+
+const ERROR_LOGIN_EMPTY_PASSWORD = 'empty_password';
+const ERROR_LOGIN_INCORRECT_PASSWORD = 'incorrect_password';
+const ERROR_LOGIN_INVALID_USERNAME = 'invalid_username';
+const ERROR_LOGIN_INVALID_EMAIL = 'invalid_email';
+
+const ERROR_REG_INVALID_PARAM = 'rest_invalid_param';
+const ERROR_REG_INVALID_PARAM_EMAIL = 'Invalid parameter(s): email';
+const ERROR_REG_INVALID_PARAM_PASSWORD = 'Invalid parameter(s): password';
+const ERROR_REG_MISSING_PARAM_USERNAME = 'Missing parameter(s): username';
+
+const ERROR_SEARCH_INVALID_ID = 'rest_user_invalid_id';

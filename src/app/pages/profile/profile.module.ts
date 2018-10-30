@@ -8,6 +8,7 @@ import { MaterialFormModule } from 'src/app/shared/modules/material/material-for
 import { MatInputModule, MatCardModule } from '@angular/material';
 import { PostCreateModule } from '../shared/post-create/post-create.module';
 import { InfoComponent } from './info/info.component';
+import { PostsModule } from '../shared/posts/posts.module';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
     MaterialFormModule,
     MatInputModule,
     PostCreateModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    PostsModule
   ],
   declarations: [ProfileComponent, InfoComponent]
 })

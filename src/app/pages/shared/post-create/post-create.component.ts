@@ -16,8 +16,6 @@ export class PostCreateComponent {
   post() {
     this.postForm.categories = this.awService.currentCategory;
 
-    this.awService
-      .postCreate(this.postForm)
-      .subscribe(data => {}, err => console.log(err));
+    this.awService.postCreate(this.postForm);
   }
 }

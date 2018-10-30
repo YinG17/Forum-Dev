@@ -6,6 +6,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
 import { MaterialButtonModule } from 'src/app/shared/modules/material/material-button.module';
 import { MatIconModule, MatMenuModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
@@ -23,7 +24,7 @@ import { FormsModule } from '@angular/forms';
     MatMenuModule
   ],
   exports: [],
-  providers: [],
+  providers: [AngularWordpressApiService],
   bootstrap: [AppComponent],
   entryComponents: []
 })

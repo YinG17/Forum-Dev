@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse
+} from '@angular/common/http';
 import {
   PostInterface,
   CategoryInterface,
-  PostResponseInterface,
   categoriesEndpoint,
   postsEndpoint,
   restApiUrl,
@@ -13,28 +16,25 @@ import {
   customApiUrl,
   profileEndpoint
 } from './angular-wordpress-api.interface';
-import { LogService } from './log.service';
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AngularWordpressApiService {
+  users: UserResponseInterface;
+  posts: PostInterface;
   categories: CategoryInterface;
+
   currentCategory: number;
-  post: PostResponseInterface;
-  posts: PostResponseInterface;
   compose = false;
 
+  post: PostInterface;
   user: UserResponseInterface;
-  users: UserResponseInterface;
 
-  constructor(
-    public router: Router,
-    public http: HttpClient,
-    public log: LogService
-  ) {}
+  constructor(public router: Router, public http: HttpClient) {}
 
   /**
    * Returns Http Options
@@ -66,43 +66,40 @@ export class AngularWordpressApiService {
    * @param post - post data object
    */
   postCreate(post: PostInterface) {
-    return this.http.post<PostInterface>(
-      restApiUrl + postsEndpoint,
-      post,
-      this.loginAuth
-    );
+    let param = 'categories=' + this.currentCategory;
+
+    if (!this.currentCategory) {
+      param = '';
+    }
+    return this.http
+      .post(restApiUrl + postsEndpoint, post, this.loginAuth)
+      .subscribe(data => {
+        this.postList(param);
+      });
   }
 
   /**
    * @method getPost - get single post
+   *
+   * @param id - post id
    */
-  postGet(id, path) {
+  postGet(id) {
     return this.http
-      .get<PostResponseInterface>(
-        restApiUrl + postsEndpoint + id,
-        this.loginAuth
-      )
+      .get<PostInterface>(restApiUrl + postsEndpoint + id, this.loginAuth)
       .subscribe(data => {
         this.post = data;
-        this.router.navigateByUrl(path);
       });
   }
 
   /**
    * @method editPost
    */
-  postUpdate(post, id) {
-    return this.http
-      .post<PostInterface>(
-        restApiUrl + postsEndpoint + id,
-        post,
-        this.loginAuth
-      )
-      .pipe(
-        tap(data => {
-          this.postGet(id, 'post');
-        })
-      );
+  postUpdate(post: PostInterface, id) {
+    return this.http.post(
+      restApiUrl + postsEndpoint + id,
+      post,
+      this.loginAuth
+    );
   }
 
   /**
@@ -117,9 +114,8 @@ export class AngularWordpressApiService {
     }
 
     return this.http
-      .get<PostResponseInterface>(url + '_embed', { observe: 'response' })
+      .get<PostInterface>(url + '_embed', { observe: 'response' })
       .subscribe(data => {
-        console.log(data);
         this.posts = data.body;
       });
   }
@@ -146,10 +142,9 @@ export class AngularWordpressApiService {
    *
    */
   register(user: UserInterface) {
-    return this.http.post<UserInterface>(restApiUrl + usersEndpoint, user).pipe(
-      tap(data => this.saveUserData(data)),
-      catchError(this.log.error)
-    );
+    return this.http
+      .post(restApiUrl + usersEndpoint, user)
+      .pipe(tap(data => this.saveUserData(<UserInterface>data)));
   }
 
   /**
@@ -183,14 +178,6 @@ export class AngularWordpressApiService {
   }
 
   /**
-   * @method getUsers - get user list
-   * @param param - filter
-   */
-  userList(param) {
-    return this.http.get<UserInterface>(restApiUrl + usersEndpoint + param);
-  }
-
-  /**
    * @method updateProfile - updateUser
    * Login user can update only his user data.
    * @param user User update data
@@ -199,22 +186,23 @@ export class AngularWordpressApiService {
    */
   updateProfile(user: UserInterface) {
     return this.http
-      .post<UserInterface>(
-        restApiUrl + usersEndpoint + '/me',
-        user,
-        this.loginAuth
-      )
+      .post(restApiUrl + usersEndpoint + '/me', user, this.loginAuth)
       .pipe(
-        tap(data => this.saveUserData(data)),
-        catchError(this.log.error)
+        tap(data => this.saveUserData(<UserInterface>data)),
+        catchError(this.error)
       );
   }
 
+  /**
+   * @method getUsers - get user list
+   * @param param - filter
+   */
+  userList(param) {
+    return this.http.get<UserInterface>(restApiUrl + usersEndpoint + param);
+  }
+
   logout() {
-    return (
-      localStorage.removeItem('current_user_info'),
-      this.router.navigateByUrl('')
-    );
+    return localStorage.removeItem('current_user_info');
   }
 
   /**
@@ -249,5 +237,27 @@ export class AngularWordpressApiService {
     };
 
     return this.getHttpOptions(user);
+  }
+
+  /**
+   * ===============
+   * Error handling
+   * ===============
+   */
+
+  error(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error);
+    } else {
+      // backend returned an unsuccessful response code.
+      console.error('An error occurred:', error.error.code);
+      console.error(
+        `Backend returned code ${error.status}, ` +
+          `body was: ${error.error.message}`
+      );
+    }
+    // return an observable with a user-facing error message
+    return throwError('Something bad happened; please try again later.');
   }
 }

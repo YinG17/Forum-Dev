@@ -6,13 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 import {
   MatSelectModule,
   MatFormFieldModule,
-  MatButtonModule,
-  MatCardModule
+  MatButtonModule
 } from '@angular/material';
 import { PostCreateModule } from '../shared/post-create/post-create.module';
 import { UsersComponent } from './users/users.component';
-import { PostsComponent } from './posts/posts.component';
 import { MenuComponent } from './menu/menu.component';
+import { PostsModule } from '../shared/posts/posts.module';
+import { EmptyModule } from '../shared/empty/empty.module';
 
 const routes: Routes = [
   {
@@ -26,12 +26,13 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
-    MatCardModule,
     MatButtonModule,
     MatSelectModule,
     MatFormFieldModule,
-    PostCreateModule
+    PostCreateModule,
+    PostsModule,
+    EmptyModule
   ],
-  declarations: [ForumComponent, UsersComponent, PostsComponent, MenuComponent]
+  declarations: [ForumComponent, UsersComponent, MenuComponent]
 })
 export class ForumModule {}

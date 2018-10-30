@@ -14,12 +14,9 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   getProfile() {
-    this.awService
-      .userProfile('/' + this.awService.myInfo['id'])
-      .subscribe(data => {
-        console.log(data);
-        this.router.navigateByUrl('profile');
-      });
+    this.awService.userProfile(this.awService.myInfo['id']).subscribe(data => {
+      this.router.navigateByUrl('profile');
+    });
   }
 
   ngOnInit() {}

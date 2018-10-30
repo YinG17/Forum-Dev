@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularWordpressApiUserService } from 'src/app/shared/services/angular-wordpress-api-user.service';
+import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,14 +9,15 @@ import { Router } from '@angular/router';
 })
 export class UsersComponent implements OnInit {
   constructor(
-    public userService: AngularWordpressApiUserService,
+    public awService: AngularWordpressApiService,
     public router: Router
   ) {}
 
   ngOnInit() {}
 
   profile(id) {
-    this.userService.userProfile('/' + id).subscribe(data => {
+    this.awService.userProfile(id).subscribe(data => {
+      this.awService.posts = null;
       this.router.navigateByUrl('profile');
     });
   }

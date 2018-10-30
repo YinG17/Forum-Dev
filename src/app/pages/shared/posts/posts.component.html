@@ -8,6 +8,7 @@
       <mat-card-subtitle>{{ post.date }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
+      <div [innerHTML]="post.title.rendered"></div>
       <div [innerHTML]="post.content.rendered"></div>
     </mat-card-content>
   </mat-card>

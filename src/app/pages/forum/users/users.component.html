@@ -1,5 +1,5 @@
-<div class="card" *ngIf=" userService.users ">
-  <div *ngFor="let user of userService.users ">
+<div class="card" *ngIf=" awService.users ">
+  <div *ngFor="let user of awService.users ">
 
     <div (click)=" profile( user.id ) " class=" w-100 ">
       <span> <img [src]=" user.avatar_urls['24'] " alt=" user.name "> </span>

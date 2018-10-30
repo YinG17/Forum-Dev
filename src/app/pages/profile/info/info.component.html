@@ -1,12 +1,11 @@
-<div class="mb-5" *ngIf=" userService.user ">
+<div class="mb-5" *ngIf=" awService.user ">
   <mat-card class=" mb-2 ">
     <mat-card-header>
       <div mat-card-avatar>
-        <img mat-card-avatar [src]=" userService.user['info'].avatars_urls['96'] ">
+        <img mat-card-avatar [src]=" awService.user.avatar_urls['96'] ">
       </div>
       <mat-card-title-group>
-        <mat-card-title>{{ userService.user['info'].name }}</mat-card-title>
-        <mat-card-subtitle *ngFor="let role of userService.user['info'].roles ">{{ role }}</mat-card-subtitle>
+        <mat-card-title>{{ awService.user.name }}</mat-card-title>
       </mat-card-title-group>
     </mat-card-header>
   </mat-card>
@@ -14,5 +13,5 @@
 
 
 <!-- <p>
-  {{ userService.user['info'] | json }}
+  {{ awService.user['info'] | json }}
 </p> -->

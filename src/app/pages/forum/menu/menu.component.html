@@ -5,7 +5,7 @@
   </div>
 
   <div class="category-menu">
-    <button mat-raised-button (click)=" getData() " class.active=" awService.selectedCategory === category.id ">
+    <button mat-raised-button (click)=" getData() " class=" awService.currentCategory ? '' : 'active'">
       ALL POSTS
     </button>
     <button mat-raised-button *ngFor="let category of awService.categories" (click)=" getData(category.id) ">
@@ -14,17 +14,3 @@
   </div>
 
 </div>
-
-<!-- <div class="spacer"></div> -->
-
-<!-- <div *ngIf=" awService.categories ">
-    <mat-form-field>
-      <mat-select [(ngModel)]=" awService.selectedCategory" placeholder="{{ awService.selectedCategory ? 'Category' : 'All Post' }}"
-        (ngModelChange)=" ">
-        <mat-option>All Post</mat-option>
-        <mat-option *ngFor="let category of awService.categories" value="{{ category.id }}">
-          {{ category.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div> -->

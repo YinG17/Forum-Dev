@@ -5,12 +5,13 @@
   </div>
 
   <div class="col-md-8">
-    <div class="col-md-12" *ngIf=" postService.compose ">
+    <div class="col-md-12" *ngIf=" awService.compose ">
       <app-post-create></app-post-create>
     </div>
 
     <div>
       <app-posts></app-posts>
+      <app-empty emptyPost=" No post found ..."></app-empty>
     </div>
   </div>
 

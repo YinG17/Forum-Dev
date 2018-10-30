@@ -12,6 +12,8 @@ export class MenuComponent implements OnInit {
   ngOnInit() {}
 
   getData(id?) {
+    this.awService.currentCategory = id;
+
     let url = '';
 
     if (id) {

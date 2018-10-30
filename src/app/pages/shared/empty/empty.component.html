@@ -1,3 +1,7 @@
-<p>
-  empty works!
-</p>
+<div *ngIf=" !awService.posts.id ">
+  {{ emptyPost }}
+</div>
+
+<div *ngIf=" !awService.posts ">
+  <app-spinner></app-spinner>
+</div>

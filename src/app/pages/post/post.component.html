@@ -1,11 +1,11 @@
-<div *ngIf=" postService.post ">
+<div *ngIf=" awService.post ">
   title:
-  <input type="text" [(ngModel)]=" editForm.title " [placeholder]=" postService.post.title['rendered']">
+  <input type="text" [(ngModel)]=" editForm.title " [placeholder]=" awService.post.title['rendered']">
 
   <br> <br>
 
   content:
-  <input type="text" [(ngModel)]=" editForm.content " [placeholder]=" postService.post.content['rendered'] ">
+  <input type="text" [(ngModel)]=" editForm.content " [placeholder]=" awService.post.content['rendered'] ">
 
 
   <button (click)=" submit() ">text</button>
