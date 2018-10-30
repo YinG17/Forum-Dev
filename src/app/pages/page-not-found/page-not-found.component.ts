@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularWordpressApiUserService } from 'src/app/shared/services/angular-wordpress-api-user.service';
+import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
 import { UserInterface } from 'src/app/shared/services/angular-wordpress-api.interface';
-import { AngularWordpressApiPostService } from 'src/app/shared/services/angular-wordpress-api-post.service';
+
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -17,8 +17,7 @@ export class PageNotFoundComponent implements OnInit {
   otherProfile;
 
   constructor(
-    public userService: AngularWordpressApiUserService,
-    public postService: AngularWordpressApiPostService,
+    public awService: AngularWordpressApiService,
     public http: HttpClient
   ) {}
 
@@ -30,7 +29,7 @@ export class PageNotFoundComponent implements OnInit {
 
   // test get my profile
   function1() {
-    const data = this.userService.myInfo;
+    const data = this.awService.myInfo;
 
     console.log(data);
   }
@@ -38,15 +37,15 @@ export class PageNotFoundComponent implements OnInit {
   // test search user
 
   function2() {
-    this.userService.profile();
+    // this.awService.userProfile();
   }
 
   function3() {
-    // const data = this.userService.myInfo;
+    // const data = this.awService.myInfo;
 
     // console.log(data);
 
     // this.postService.postList();
-    this.userService.profile(null, '/' + this.userService.myInfo['id']);
+    this.awService.userProfile('/' + this.awService.myInfo['id']);
   }
 }

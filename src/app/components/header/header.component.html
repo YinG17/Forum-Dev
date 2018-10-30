@@ -1,24 +1,24 @@
 <nav class="px-5">
-  <button mat-button class="p-2" [routerLink]="[ '/forum' ]" routerLinkActive="active" *ngIf=" userService.isLogged ">
+  <button mat-button class="p-2" [routerLink]="[ '/forum' ]" routerLinkActive="active" *ngIf=" awService.isLogged ">
     FORUM
   </button>
-  <button mat-button class="p-2" [routerLink]="[ '/test' ]" routerLinkActive="active" *ngIf=" userService.isLogged ">
+  <button mat-button class="p-2" [routerLink]="[ '/test' ]" routerLinkActive="active" *ngIf=" awService.isLogged ">
     TESTING AREA
   </button>
 
   <span class="spacer"></span>
 
-  <button mat-button class="p-2" *ngIf=" userService.isLogged " disabled>
-    {{ userService.myInfo['name'] | uppercase }}
+  <button mat-button class="p-2" *ngIf=" awService.isLogged " disabled>
+    {{ awService.myInfo['name'] | uppercase }}
   </button>
-  <button mat-icon-button class="my-auto menu" [matMenuTriggerFor]="menu" *ngIf=" userService.isLogged ">
+  <button mat-icon-button class="my-auto menu" [matMenuTriggerFor]="menu" *ngIf=" awService.isLogged ">
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
     <button class="menu w-100" mat-button (click)=" getProfile() ">
       <span> PROFILE</span>
     </button>
-    <button class="menu w-100" mat-button (click)=" userService.logout() ">
+    <button class="menu w-100" mat-button (click)=" awService.logout() ">
       <span>LOGOUT</span>
     </button>
   </mat-menu>

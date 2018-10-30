@@ -1,14 +1,14 @@
-<div class="forum-menu mb-3" *ngIf=" postService.categories ">
+<div class="forum-menu mb-3" *ngIf=" awService.categories ">
 
   <div class="post-menu">
-    <button mat-raised-button (click)=" postService.compose = !postService.compose ">CREATE POST</button>
+    <button mat-raised-button (click)=" awService.compose = !awService.compose ">CREATE POST</button>
   </div>
 
   <div class="category-menu">
-    <button mat-raised-button (click)=" getData() " class.active=" postService.selectedCategory === category.id ">
+    <button mat-raised-button (click)=" getData() " class.active=" awService.selectedCategory === category.id ">
       ALL POSTS
     </button>
-    <button mat-raised-button *ngFor="let category of postService.categories" (click)=" postService.selectedCategory = category.id; getData() ">
+    <button mat-raised-button *ngFor="let category of awService.categories" (click)=" getData(category.id) ">
       {{ category.name | uppercase }}
     </button>
   </div>
@@ -17,12 +17,12 @@
 
 <!-- <div class="spacer"></div> -->
 
-<!-- <div *ngIf=" postService.categories ">
+<!-- <div *ngIf=" awService.categories ">
     <mat-form-field>
-      <mat-select [(ngModel)]=" postService.selectedCategory" placeholder="{{ postService.selectedCategory ? 'Category' : 'All Post' }}"
+      <mat-select [(ngModel)]=" awService.selectedCategory" placeholder="{{ awService.selectedCategory ? 'Category' : 'All Post' }}"
         (ngModelChange)=" ">
         <mat-option>All Post</mat-option>
-        <mat-option *ngFor="let category of postService.categories" value="{{ category.id }}">
+        <mat-option *ngFor="let category of awService.categories" value="{{ category.id }}">
           {{ category.name }}
         </mat-option>
       </mat-select>

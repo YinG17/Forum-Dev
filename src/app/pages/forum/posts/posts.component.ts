@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularWordpressApiPostService } from 'src/app/shared/services/angular-wordpress-api-post.service';
+import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
 
 @Component({
   selector: 'app-posts',
@@ -7,7 +7,7 @@ import { AngularWordpressApiPostService } from 'src/app/shared/services/angular-
   styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent implements OnInit {
-  constructor(public postService: AngularWordpressApiPostService) {}
+  constructor(public awService: AngularWordpressApiService) {}
 
   ngOnInit() {}
 }

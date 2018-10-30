@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularWordpressApiUserService } from 'src/app/shared/services/angular-wordpress-api-user.service';
+import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
 
 @Component({
   selector: 'app-header',
@@ -9,16 +9,17 @@ import { AngularWordpressApiUserService } from 'src/app/shared/services/angular-
 })
 export class HeaderComponent implements OnInit {
   constructor(
-    public userService: AngularWordpressApiUserService,
+    public awService: AngularWordpressApiService,
     public router: Router
   ) {}
 
-  logout() {
-    this.userService.logout();
-  }
-
   getProfile() {
-    this.userService.profile(null, '/' + this.userService.myInfo['id']);
+    this.awService
+      .userProfile('/' + this.awService.myInfo['id'])
+      .subscribe(data => {
+        console.log(data);
+        this.router.navigateByUrl('profile');
+      });
   }
 
   ngOnInit() {}

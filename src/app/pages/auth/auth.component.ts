@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserInterface } from '../../shared/services/angular-wordpress-api.interface';
-import { AngularWordpressApiUserService } from 'src/app/shared/services/angular-wordpress-api-user.service';
+import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
 
 @Component({
   selector: 'app-auth',
@@ -13,7 +13,7 @@ export class AuthComponent implements OnInit {
   userForm: UserInterface = <any>{};
 
   constructor(
-    public userService: AngularWordpressApiUserService,
+    public awService: AngularWordpressApiService,
     public router: Router
   ) {}
 
@@ -27,9 +27,12 @@ export class AuthComponent implements OnInit {
         user_login: this.userForm.username,
         user_pass: this.userForm.security_code
       };
-      this.userService.profile(rawUser);
+      this.awService.login(rawUser).subscribe(data => {
+        console.log(data);
+        this.router.navigateByUrl('forum');
+      });
     } else {
-      this.userService.register(this.userForm).subscribe(data => {
+      this.awService.register(this.userForm).subscribe(data => {
         this.router.navigateByUrl('forum');
       });
     }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularWordpressApiPostService } from 'src/app/shared/services/angular-wordpress-api-post.service';
+import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,17 +7,17 @@ import { AngularWordpressApiPostService } from 'src/app/shared/services/angular-
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  constructor(public postService: AngularWordpressApiPostService) {}
+  constructor(public awService: AngularWordpressApiService) {}
 
   ngOnInit() {}
 
-  getData() {
-    let url = 'categories=' + this.postService.selectedCategory;
+  getData(id?) {
+    let url = '';
 
-    if (!this.postService.selectedCategory) {
-      url = '';
+    if (id) {
+      url = 'categories=' + id;
     }
 
-    this.postService.postList(url);
+    this.awService.postList(url);
   }
 }

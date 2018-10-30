@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostInterface } from 'src/app/shared/services/angular-wordpress-api.interface';
-import { AngularWordpressApiPostService } from 'src/app/shared/services/angular-wordpress-api-post.service';
+import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -10,11 +11,18 @@ import { AngularWordpressApiPostService } from 'src/app/shared/services/angular-
 export class PostComponent implements OnInit {
   editForm: PostInterface = <any>{};
 
-  constructor(public postService: AngularWordpressApiPostService) {}
+  constructor(
+    public awService: AngularWordpressApiService,
+    public router: Router
+  ) {}
 
   ngOnInit() {}
 
   submit() {
-    this.postService.updatePost(this.editForm, '/' + this.postService.post.id);
+    this.awService
+      .postUpdate(this.editForm, '/' + this.awService.post.id)
+      .subscribe(data => {
+        this.router.navigateByUrl('post');
+      });
   }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularWordpressApiUserService } from './shared/services/angular-wordpress-api-user.service';
-import { AngularWordpressApiPostService } from './shared/services/angular-wordpress-api-post.service';
+import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
 
 @Component({
   selector: 'app-root',
@@ -12,13 +11,12 @@ export class AppComponent implements OnInit {
   title = 'forum-dev';
 
   constructor(
-    public userService: AngularWordpressApiUserService,
-    public postService: AngularWordpressApiPostService,
+    public awService: AngularWordpressApiService,
     public router: Router
   ) {}
 
   ngOnInit() {
-    if (this.userService.isLogged) {
+    if (this.awService.isLogged) {
       this.router.navigateByUrl('forum');
     } else {
       this.router.navigateByUrl('');

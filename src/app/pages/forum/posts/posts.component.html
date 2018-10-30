@@ -1,5 +1,5 @@
-<div class="mb-5" *ngIf=" postService.posts ">
-  <mat-card class=" mb-2 " *ngFor=" let post of postService.posts ">
+<div class="mb-5" *ngIf=" awService.posts ">
+  <mat-card class=" mb-2 " *ngFor=" let post of awService.posts ">
     <mat-card-header>
       <div mat-card-avatar>
         <img mat-card-avatar [src]=" post._embedded.author[0].avatar_urls['48'] ">

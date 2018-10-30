@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularWordpressApiPostService } from 'src/app/shared/services/angular-wordpress-api-post.service';
-import { AngularWordpressApiUserService } from 'src/app/shared/services/angular-wordpress-api-user.service';
+import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
 import { PostInterface } from 'src/app/shared/services/angular-wordpress-api.interface';
 
 @Component({
@@ -12,15 +11,12 @@ export class PostCreateComponent {
   status = ['draft', 'publish'];
   postForm: PostInterface = <any>{};
 
-  constructor(
-    public postService: AngularWordpressApiPostService,
-    public userService: AngularWordpressApiUserService
-  ) {}
+  constructor(public awService: AngularWordpressApiService) {}
 
   post() {
-    this.postForm.categories = this.postService.selectedCategory;
+    this.postForm.categories = this.awService.currentCategory;
 
-    this.postService
+    this.awService
       .postCreate(this.postForm)
       .subscribe(data => {}, err => console.log(err));
   }
