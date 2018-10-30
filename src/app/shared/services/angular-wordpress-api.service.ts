@@ -71,6 +71,11 @@ export class AngularWordpressApiService {
     if (!this.currentCategory) {
       param = '';
     }
+
+    if (this.router.url === '/profile') {
+      param += '&author=' + this.myInfo['id'];
+    }
+
     return this.http
       .post(restApiUrl + postsEndpoint, post, this.loginAuth)
       .subscribe(data => {
@@ -92,7 +97,7 @@ export class AngularWordpressApiService {
   }
 
   /**
-   * @method editPost
+   * @method postUdate - update a post
    */
   postUpdate(post: PostInterface, id) {
     return this.http.post(
@@ -104,7 +109,7 @@ export class AngularWordpressApiService {
 
   /**
    * @method postList - retrieve list of post
-   * @param filter - used for searching according to the provided request filter if any
+   * @param filter - list filter argument (author, id, category, and so on..)
    */
   postList(filter?) {
     let url = restApiUrl + postsEndpoint + '?';
@@ -120,6 +125,9 @@ export class AngularWordpressApiService {
       });
   }
 
+  /**
+   * @method categoryList - retrieves the list of categories
+   */
   categoryList() {
     return this.http
       .get<CategoryInterface>(restApiUrl + categoriesEndpoint, this.loginAuth)
@@ -135,10 +143,11 @@ export class AngularWordpressApiService {
    * ===================
    * User Related Codes
    * ===================
-   *
-   *   /**
+   */
+
+  /**
    * @method register - createUser
-   * @param user user object
+   * @param user user data object (username, password)
    *
    */
   register(user: UserInterface) {
@@ -148,9 +157,8 @@ export class AngularWordpressApiService {
   }
 
   /**
-   * @method login - Get user data from wordpress via rest api
-   * @param user - User update data
-   * @arg - rawUser - supplied when logging in an existing account
+   * @method login - Get user data from wordpress via rest api using raw username and password
+   * @param rawUser - user data object (username, password)
    */
   login(rawUser) {
     const option = this.getHttpOptions(rawUser);
@@ -163,6 +171,9 @@ export class AngularWordpressApiService {
       );
   }
 
+  /**
+   * @param id - user id
+   */
   userProfile(id) {
     return this.http
       .get<UserResponseInterface>(
@@ -195,14 +206,17 @@ export class AngularWordpressApiService {
 
   /**
    * @method getUsers - get user list
-   * @param param - filter
+   * @param filter - filter user by (name, id, ascending or descending)
    */
-  userList(param) {
-    return this.http.get<UserInterface>(restApiUrl + usersEndpoint + param);
+  userList(filter) {
+    return this.http.get<UserInterface>(restApiUrl + usersEndpoint + filter);
   }
 
   logout() {
-    return localStorage.removeItem('current_user_info');
+    return (
+      localStorage.removeItem('current_user_info'),
+      this.router.navigateByUrl('')
+    );
   }
 
   /**
@@ -228,7 +242,7 @@ export class AngularWordpressApiService {
   }
 
   /**
-   * @method GetLogAuth - get current user credentials from localstorage
+   * get current user credentials from localstorage
    */
   get loginAuth() {
     const user = {
@@ -260,4 +274,8 @@ export class AngularWordpressApiService {
     // return an observable with a user-facing error message
     return throwError('Something bad happened; please try again later.');
   }
+
+  // showme() {
+  //   console.log(this.router.url);
+  // }
 }

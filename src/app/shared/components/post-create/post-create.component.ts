@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
-import { PostInterface } from 'src/app/shared/services/angular-wordpress-api.interface';
+import { AngularWordpressApiService } from '../../services/angular-wordpress-api.service';
+import { PostInterface } from '../../services/angular-wordpress-api.interface';
 
 @Component({
   selector: 'app-post-create',

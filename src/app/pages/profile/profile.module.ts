@@ -5,10 +5,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MaterialButtonModule } from 'src/app/shared/modules/material/material-button.module';
 import { MaterialFormModule } from 'src/app/shared/modules/material/material-form.module';
-import { MatInputModule, MatCardModule } from '@angular/material';
-import { PostCreateModule } from '../shared/post-create/post-create.module';
+import { PostCreateModule } from '../../shared/components/post-create/post-create.module';
 import { InfoComponent } from './info/info.component';
-import { PostsModule } from '../shared/posts/posts.module';
+import { PostsModule } from '../../shared/components/posts/posts.module';
+import { EmptyModule } from 'src/app/shared/components/empty/empty.module';
+import { MaterialLayoutModule } from 'src/app/shared/modules/material/material-layout.module';
 
 const routes: Routes = [
   {
@@ -21,13 +22,13 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    MatCardModule,
+    MaterialLayoutModule,
     MaterialButtonModule,
     MaterialFormModule,
-    MatInputModule,
     PostCreateModule,
     RouterModule.forChild(routes),
-    PostsModule
+    PostsModule,
+    EmptyModule
   ],
   declarations: [ProfileComponent, InfoComponent]
 })

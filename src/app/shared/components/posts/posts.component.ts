@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
+import { AngularWordpressApiService } from '../../services/angular-wordpress-api.service';
 
 @Component({
   selector: 'app-posts',

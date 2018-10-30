@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { AuthComponent } from './auth.component';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MaterialFormModule } from 'src/app/shared/modules/material/material-form.module';
+
 import { MaterialButtonModule } from 'src/app/shared/modules/material/material-button.module';
+import { MaterialFormModule } from 'src/app/shared/modules/material/material-form.module';
 
 const routes: Routes = [
   {

@@ -28,7 +28,6 @@ export class AuthComponent implements OnInit {
         user_pass: this.userForm.security_code
       };
       this.awService.login(rawUser).subscribe(data => {
-        console.log(data);
         this.router.navigateByUrl('forum');
       });
     } else {
