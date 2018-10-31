@@ -1,9 +1,16 @@
 mat-card {
-  max-height: 250px;
-  overflow: scroll;
-  overflow-x: hidden;
+  ::ng-deep .mat-card-header-text {
+    /* CSS styles go here */
+    margin: 0 auto; // for example to remove the margin
+  }
 
-  &::-webkit-scrollbar {
-    display: none;
+  mat-card-content {
+    max-height: 250px;
+    overflow: scroll;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }

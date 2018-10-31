@@ -10,6 +10,8 @@ export class ForumComponent implements OnInit {
   constructor(public awService: AngularWordpressApiService) {}
 
   ngOnInit() {
+    this.awService.user = <any>{};
+
     this.awService.categoryList().subscribe(data => {
       this.awService.categories = data;
     });

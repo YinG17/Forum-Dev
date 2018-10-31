@@ -56,7 +56,7 @@ export interface PostInterface {
   password?: string;
   author: number; // Required author ID
   title: string; // Required
-  categories: {}; // Required
+  categories: number[]; // Required
   content: string; // Required
   id: number; // Required
   date?: string;

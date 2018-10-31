@@ -1,0 +1,18 @@
+<div class="mb-3" *ngIf=" awService.categories ">
+
+  <div class="post-menu" *ngIf=" !awService.isProfileRoute || awService.user.id === awService.myInfo['id'] && awService.isProfileRoute ">
+    <button mat-button (click)=" awService.compose = !awService.compose ">
+      CREATE POST
+    </button>
+  </div>
+
+  <div class="category-menu">
+    <button mat-button (click)=" getData() " [class.active]=" !awService.currentCategory ">
+      ALL POSTS
+    </button>
+    <button mat-button *ngFor="let category of awService.categories" (click)=" getData(category.id) " [class.active]=" awService.currentCategory === category.id ">
+      {{ category.name | uppercase }}
+    </button>
+  </div>
+
+</div>

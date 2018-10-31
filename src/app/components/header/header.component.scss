@@ -9,7 +9,7 @@ mat-toolbar {
 
   button {
     &:hover,
-    &:active {
+    &.active {
       color: #ccddda;
     }
   }

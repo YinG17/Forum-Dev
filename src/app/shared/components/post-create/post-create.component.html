@@ -6,13 +6,20 @@
     <option *ngFor="let stat of status" [value]=" stat "> {{ stat }} </option>
   </select>
 
+  <div class="form-check" *ngIf=" awService.isProfileRoute ">
+    <label class="form-check-label" *ngFor="let category of awService.categories ">
+      <input type="checkbox" class="form-check-input" [value]=" category.id " (change)=" postCategory( category.id ) ">
+      {{ category.name }}
+    </label>
+  </div>
   <button (click)=" post() "> Submit </button>
 
 </div>
 
 <!--
   * add
-    featured media
+    featured media - later
     tags
     comment status
+    categories
   -->

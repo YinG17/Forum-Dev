@@ -10,6 +10,7 @@ import { InfoComponent } from './info/info.component';
 import { PostsModule } from '../../shared/components/posts/posts.module';
 import { EmptyModule } from 'src/app/shared/components/empty/empty.module';
 import { MaterialLayoutModule } from 'src/app/shared/modules/material/material-layout.module';
+import { MenuModule } from 'src/app/shared/components/menu/menu.module';
 
 const routes: Routes = [
   {
@@ -28,7 +29,8 @@ const routes: Routes = [
     PostCreateModule,
     RouterModule.forChild(routes),
     PostsModule,
-    EmptyModule
+    EmptyModule,
+    MenuModule
   ],
   declarations: [ProfileComponent, InfoComponent]
 })

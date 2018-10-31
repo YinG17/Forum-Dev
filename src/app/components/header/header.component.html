@@ -8,7 +8,7 @@
 
   <span class="spacer"></span>
 
-  <button mat-button class="p-2" *ngIf=" awService.isLogged " disabled>
+  <button mat-button class="p-2" *ngIf=" awService.isLogged ">
     {{ awService.myInfo['name'] | uppercase }}
   </button>
   <button mat-icon-button class="my-auto menu" [matMenuTriggerFor]="menu" *ngIf=" awService.isLogged ">

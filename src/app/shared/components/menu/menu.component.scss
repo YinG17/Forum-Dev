@@ -3,7 +3,7 @@ button {
   width: 100%;
   margin-bottom: 1em;
 
-  &:active {
+  &.active {
     background-color: #ccddda;
   }
 }

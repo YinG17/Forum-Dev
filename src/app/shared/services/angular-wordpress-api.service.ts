@@ -24,15 +24,15 @@ import { throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class AngularWordpressApiService {
-  users: UserResponseInterface;
-  posts: PostInterface;
-  categories: CategoryInterface;
+  users: UserResponseInterface = <any>[];
+  posts: PostInterface = <any>[];
+  categories: CategoryInterface = <any>[];
 
   currentCategory: number;
   compose = false;
 
-  post: PostInterface;
-  user: UserResponseInterface;
+  post: PostInterface = <any>[];
+  user: UserResponseInterface = <any>[];
 
   constructor(public router: Router, public http: HttpClient) {}
 
@@ -182,6 +182,7 @@ export class AngularWordpressApiService {
       )
       .pipe(
         tap(data => {
+          console.log(this.myInfo.id, data.id);
           this.user = data;
           this.postList('author=' + id);
         })
@@ -278,4 +279,8 @@ export class AngularWordpressApiService {
   // showme() {
   //   console.log(this.router.url);
   // }
+
+  get isProfileRoute() {
+    return this.router.url === '/profile' ? true : false;
+  }
 }
