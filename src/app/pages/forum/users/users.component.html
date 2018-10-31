@@ -1,10 +1,14 @@
-<div class="card" *ngIf=" awService.users ">
-  <div *ngFor="let user of awService.users ">
+<h4 class="my-1">
+  FORUM USERS
+</h4>
 
-    <div (click)=" profile( user.id ) " class=" w-100 ">
-      <span> <img [src]=" user.avatar_urls['24'] " alt=" user.name "> </span>
-      <span> {{ user.name }} </span>
+<mat-card class="py-2 px-0">
+  <!-- <mat-card-header  class=" px-auto "> -->
+  <div *ngFor="let user of awService.users " class="text-center my-2">
+    <div mat-card-avatar class=" mx-auto ">
+      <img mat-card-avatar [src]=" user.avatar_urls['24'] " matTooltip=" {{ user.name }} ">
     </div>
-
+    <small> {{ user.name }} </small>
   </div>
-</div>
+  <!-- </mat-card-header> -->
+</mat-card>

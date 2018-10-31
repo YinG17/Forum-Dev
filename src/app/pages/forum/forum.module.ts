@@ -10,6 +10,9 @@ import { PostsModule } from '../../shared/components/posts/posts.module';
 import { EmptyModule } from 'src/app/shared/components/empty/empty.module';
 import { MaterialFormModule } from 'src/app/shared/modules/material/material-form.module';
 import { MaterialButtonModule } from 'src/app/shared/modules/material/material-button.module';
+import { MaterialLayoutModule } from 'src/app/shared/modules/material/material-layout.module';
+import { MaterialPopupModule } from 'src/app/shared/modules/material/material-popup.module';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 
 const routes: Routes = [
   {
@@ -23,8 +26,11 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
+    MaterialLayoutModule,
     MaterialButtonModule,
+    ScrollDispatchModule,
     MaterialFormModule,
+    MaterialPopupModule,
     PostCreateModule,
     PostsModule,
     EmptyModule

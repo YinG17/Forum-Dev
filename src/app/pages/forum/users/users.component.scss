@@ -1,0 +1,9 @@
+mat-card {
+  max-height: 250px;
+  overflow: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

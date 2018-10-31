@@ -1,21 +1,19 @@
 <div class="row">
   <div class="col-md-5 mt-5">
-    <div class="card">
-      <div class="card-body">
-        <div>
-          <mat-form-field>
-            <input matInput type="username" placeholder="Username" [(ngModel)]="userForm.username">
-          </mat-form-field>
-          <mat-form-field *ngIf=" !isLogin ">
-            <input matInput type="email" placeholder="Email" [(ngModel)]="userForm.email">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput type="password" placeholder="Password" [(ngModel)]="userForm.security_code">
-          </mat-form-field>
-        </div>
+    <mat-card>
+      <mat-card-content>
+
+        <mat-form-field>
+          <input matInput type="username" placeholder="Username" [(ngModel)]="userForm.username">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password" [(ngModel)]="userForm.security_code">
+        </mat-form-field>
 
         <div *ngIf=" !isLogin ">
-          <hr>
+          <mat-form-field>
+            <input matInput type="email" placeholder="Email" [(ngModel)]="userForm.email">
+          </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Name" [(ngModel)]="userForm.name">
           </mat-form-field>
@@ -29,16 +27,19 @@
             <input matInput placeholder="Nickname" [(ngModel)]="userForm.nickname">
           </mat-form-field>
         </div>
-      </div>
-      <div class="card-footer text-center">
+
+      </mat-card-content>
+
+      <mat-card-actions class="text-center">
         <button mat-button color="primary" class="mx-2" (click)="onSubmit()">
           {{ isLogin ? 'LOGIN' :'SUBMIT' }}
         </button>
         <button mat-button color="warn" (click)="isLogin = !isLogin">
           {{ isLogin ? 'NEW ACCOUNT' : 'LOG IN' }}
         </button>
-      </div>
-    </div>
+      </mat-card-actions>
+
+    </mat-card>
   </div>
   <div class="col-md-6 my-5">
     <h1>

@@ -8,8 +8,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
 import { MaterialButtonModule } from 'src/app/shared/modules/material/material-button.module';
-import { MatIconModule, MatMenuModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { MaterialNavigationModule } from './shared/modules/material/material-navigation.module';
+import { MaterialIndicatorModule } from './shared/modules/material/material-indicator.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],
@@ -20,8 +21,8 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     MaterialButtonModule,
-    MatIconModule,
-    MatMenuModule
+    MaterialIndicatorModule,
+    MaterialNavigationModule
   ],
   exports: [],
   providers: [AngularWordpressApiService],
