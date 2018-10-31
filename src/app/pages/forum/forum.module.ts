@@ -11,7 +11,6 @@ import { MaterialFormModule } from 'src/app/shared/modules/material/material-for
 import { MaterialButtonModule } from 'src/app/shared/modules/material/material-button.module';
 import { MaterialLayoutModule } from 'src/app/shared/modules/material/material-layout.module';
 import { MaterialPopupModule } from 'src/app/shared/modules/material/material-popup.module';
-import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { MaterialNavigationModule } from 'src/app/shared/modules/material/material-navigation.module';
 import { MenuModule } from 'src/app/shared/components/menu/menu.module';
 
@@ -30,7 +29,6 @@ const routes: Routes = [
     MaterialLayoutModule,
     MaterialNavigationModule,
     MaterialButtonModule,
-    ScrollDispatchModule,
     MaterialFormModule,
     MaterialPopupModule,
     PostCreateModule,
