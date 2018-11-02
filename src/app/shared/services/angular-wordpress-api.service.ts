@@ -158,7 +158,7 @@ export class AngularWordpressApiService {
    */
   register(user: UserInterface) {
     return this.http
-      .post(restApiUrl + usersEndpoint, user)
+      .post<UserResponseInterface>(restApiUrl + usersEndpoint, user)
       .pipe(tap(data => this.saveUserData(<UserInterface>data)));
   }
 
@@ -183,7 +183,7 @@ export class AngularWordpressApiService {
   userProfile(id) {
     return this.http
       .get<UserResponseInterface>(
-        restApiUrl + usersEndpoint + id,
+        restApiUrl + usersEndpoint + '/' + id,
         this.loginAuth
       )
       .pipe(

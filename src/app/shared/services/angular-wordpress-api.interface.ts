@@ -9,7 +9,7 @@
  */
 
 export interface UserInterface {
-  security_code: string; // L, P, U, R - Required in L, P, U, R
+  password: string; // L, P, U, R - Required in L, P, U, R
   username: string; // L, P, U, R - Required in R
   email: string; // L, P, U, R - Required in R
 
@@ -90,7 +90,7 @@ export const customApiUrl = wordpressUrl + '/custom/api';
 /**
  * common endpoints for both customApiUrl and restApiUrl
  */
-export const usersEndpoint = '/users/';
+export const usersEndpoint = '/users';
 
 /**
  * declare here an endpoint dedicated only for restApiUrl use

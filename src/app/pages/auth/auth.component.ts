@@ -25,7 +25,7 @@ export class AuthComponent implements OnInit {
     if (this.isLogin) {
       const rawUser = {
         user_login: this.userForm.username,
-        user_pass: this.userForm.security_code
+        user_pass: this.userForm.password
       };
       this.awService.login(rawUser).subscribe(data => {
         this.router.navigateByUrl('forum');

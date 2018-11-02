@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-5 mt-5">
+  <div class="col-md-5 mt-2">
     <mat-card>
       <mat-card-content>
 
@@ -7,7 +7,7 @@
           <input matInput type="username" placeholder="Username" [(ngModel)]="userForm.username">
         </mat-form-field>
         <mat-form-field>
-          <input matInput type="password" placeholder="Password" [(ngModel)]="userForm.security_code">
+          <input matInput type="password" placeholder="Password" [(ngModel)]="userForm.password">
         </mat-form-field>
 
         <div *ngIf=" !isLogin ">

@@ -12,7 +12,7 @@
       <div [innerHTML]="post.content.rendered"></div>
     </mat-card-content>
   </mat-card>
-  <mat-paginator *ngIf=" awService.currentTotalPages " [length]=" awService.currentTotalPages " [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 25, 100]" (page)=" page($event) " [pageIndex]=" awService.currentPageIndex-1 ">
+  <mat-paginator [length]=" awService.currentTotalPages " [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" (page)=" page($event) "
+    [pageIndex]=" awService.currentPageIndex-1 ">
   </mat-paginator>
 </div>

@@ -13,23 +13,21 @@ export class PostsComponent implements OnInit {
   ngOnInit() {}
 
   page(event) {
-    if (this.previousPageSize && this.previousPageSize === event.pageSize) {
+    // if previous page size is equal to the current pageSize, the event is page navigation
+    if (this.previousPageSize === event.pageSize) {
+      // if the previousPageIndex is lower than the current pageIndex, the event is next page navigation
       event.previousPageIndex < event.pageIndex
         ? (event.previousPageIndex++, this.awService.currentPageIndex++)
-        : (event.previousPageIndex--, this.awService.currentPageIndex--);
+        : // else the event is previous page navigation
+          (event.previousPageIndex--, this.awService.currentPageIndex--);
     } else {
-      /**
-       * this is optional I guess?, if this is added to the process, everytime a user change the 'item per page' value in
-       * the paginator, it will show the very first page of the query and the very last post from that first page of posts.
-       *
-       * it it is not added, like right now, only if the user navigate to any page rather than the first one, the view will retain
-       * the last post then will add the rest.
-       */
-      // this.awService.currentPageIndex = 1;
+      // else if the event is pageSize change, revert currentPageIndex to 1
+      this.awService.currentPageIndex = 1;
+      event.previousPageIndex = 0;
     }
 
-    event.pageIndex = this.awService.currentPageIndex;
     this.previousPageSize = event.pageSize;
+    event.pageIndex++;
 
     this.awService.postList(
       'per_page=' + event.pageSize + '&page=' + event.pageIndex
