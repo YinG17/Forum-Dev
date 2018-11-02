@@ -65,19 +65,19 @@ export interface PostInterface {
   status?: string;
   excerpt?: Array<any>;
   featured_media?: string;
-  comment_status?: string;
+  comment_status?: boolean;
   ping_status?: string;
   format?: string;
   meta?: Array<any>;
   sticky?: string;
   template?: string;
-  tags?: Array<any>;
+  tags?: string[];
   _embedded?: {
     author: {
       name: string;
     };
   };
-  _links?: Array<any>;
+  _links?: string[];
 }
 
 /**

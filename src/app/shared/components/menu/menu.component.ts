@@ -13,13 +13,14 @@ export class MenuComponent implements OnInit {
 
   getData(id?) {
     this.awService.currentCategory = id;
+    this.awService.currentPageIndex = 1;
 
-    let url = '';
+    // let url = '';
 
-    if (id) {
-      url = 'categories=' + id;
-    }
+    // if (id) {
+    //   url = 'categories=' + id;
+    // }
 
-    this.awService.postList(url);
+    this.awService.postList();
   }
 }

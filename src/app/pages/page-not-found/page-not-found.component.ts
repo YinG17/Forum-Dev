@@ -36,9 +36,7 @@ export class PageNotFoundComponent implements OnInit {
 
   // test search user
 
-  function2() {
-    // this.awService.userProfile();
-  }
+  function2() {}
 
   function3() {
     // const data = this.awService.myInfo;

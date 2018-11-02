@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularWordpressApiService } from '../../services/angular-wordpress-api.service';
 
 @Component({
@@ -7,13 +7,9 @@ import { AngularWordpressApiService } from '../../services/angular-wordpress-api
   styleUrls: ['./empty.component.scss']
 })
 export class EmptyComponent implements OnInit {
-  @Input()
-  emptyPost: string;
-
-  @Input()
-  fetchingPost: string;
-
   constructor(public awService: AngularWordpressApiService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.awService.posts);
+  }
 }

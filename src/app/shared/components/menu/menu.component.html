@@ -10,7 +10,8 @@
     <button mat-button (click)=" getData() " [class.active]=" !awService.currentCategory ">
       ALL POSTS
     </button>
-    <button mat-button *ngFor="let category of awService.categories" (click)=" getData(category.id) " [class.active]=" awService.currentCategory === category.id ">
+    <button mat-button *ngFor="let category of awService.categories" matBadgePosition="before" matBadgeOverlap="false"
+      [matBadge]=" !awService.isProfileRoute ? category.count : ''" (click)=" getData(category.id) " [class.active]=" awService.currentCategory === category.id ">
       {{ category.name | uppercase }}
     </button>
   </div>

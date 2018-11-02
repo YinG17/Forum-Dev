@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./post-create.component.scss']
 })
 export class PostCreateComponent implements OnInit {
-  status = ['draft', 'publish'];
+  // status = ['draft', 'publish'];
   postForm: PostInterface = <any>{};
 
   constructor(

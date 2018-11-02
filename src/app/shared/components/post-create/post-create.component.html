@@ -1,4 +1,6 @@
-<div>
+<!-- <div>
+
+
 
   <input type="text" placeholder="title" class="mx-3" [(ngModel)]=" postForm.title ">
   <input type="text" placeholder="content" class="mx-3" [(ngModel)]=" postForm.content ">
@@ -8,18 +10,63 @@
 
   <div class="form-check" *ngIf=" awService.isProfileRoute ">
     <label class="form-check-label" *ngFor="let category of awService.categories ">
-      <input type="checkbox" class="form-check-input" [value]=" category.id " (change)=" postCategory( category.id ) ">
+      <input type="checkbox" class="form-check-input" [value]=" category.id " (change)=" postCategory( category.id ) "
+        [checked]=" postForm.categories.includes(category.id) ">
       {{ category.name }}
     </label>
   </div>
-  <button (click)=" post() "> Submit </button>
 
-</div>
+
+</div> -->
 
 <!--
   * add
     featured media - later
     tags
-    comment status
-    categories
+    / comment status
+    / categories
   -->
+
+<mat-card class="mb-2 w-100" *ngIf=" awService.compose ">
+
+  <mat-card-header>
+    <mat-card-title>
+      New Post
+    </mat-card-title>
+
+    <div *ngIf=" awService.isProfileRoute " class="mx-auto">
+      <mat-checkbox *ngFor="let category of awService.categories " [value]=" category.id " (change)=" postCategory( category.id ) "
+        [checked]=" postForm.categories.includes( category.id ) " class=" m-3 ">{{ category.name }}</mat-checkbox>
+    </div>
+
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <mat-form-field>
+      <input matInput placeholder="Post Title" [(ngModel)]=" postForm.title ">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <textarea matInput placeholder="Post Content" [rows]=" 10 " [(ngModel)]=" postForm.content "></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Post Status" [(ngModel)]=" postForm.status ">
+        <mat-option value=" draft ">Draft</mat-option>
+        <mat-option value=" publish ">Publish</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-card-actions>
+      <mat-slide-toggle (change)=" postForm.comment_status = !postForm.comment_status ">
+        Allow comment: {{ postForm.comment_status ? 'Yes' : 'No' }} </mat-slide-toggle>
+
+      <span class=" spacer "></span>
+
+      <button mat-button (click)=" post() "> Submit </button>
+    </mat-card-actions>
+
+  </mat-card-content>
+
+</mat-card>

@@ -1,0 +1,11 @@
+mat-form-field {
+  display: block;
+}
+
+mat-card-actions {
+  display: flex;
+
+  .spacer {
+    flex-grow: 1;
+  }
+}

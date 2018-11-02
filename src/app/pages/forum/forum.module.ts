@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { PostCreateModule } from '../../shared/components/post-create/post-create.module';
 import { UsersComponent } from './users/users.component';
 import { PostsModule } from '../../shared/components/posts/posts.module';
-import { EmptyModule } from 'src/app/shared/components/empty/empty.module';
 import { MaterialFormModule } from 'src/app/shared/modules/material/material-form.module';
 import { MaterialButtonModule } from 'src/app/shared/modules/material/material-button.module';
 import { MaterialLayoutModule } from 'src/app/shared/modules/material/material-layout.module';
@@ -33,7 +32,6 @@ const routes: Routes = [
     MaterialPopupModule,
     PostCreateModule,
     PostsModule,
-    EmptyModule,
     MenuModule
   ],
   declarations: [ForumComponent, UsersComponent]

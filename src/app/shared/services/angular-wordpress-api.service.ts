@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpErrorResponse
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
   PostInterface,
   CategoryInterface,
@@ -16,19 +12,20 @@ import {
   customApiUrl,
   profileEndpoint
 } from './angular-wordpress-api.interface';
-import { tap, catchError } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AngularWordpressApiService {
   users: UserResponseInterface = <any>[];
-  posts: PostInterface = <any>[];
-  categories: CategoryInterface = <any>[];
+  posts: PostInterface;
+  categories: CategoryInterface;
 
   currentCategory: number;
+  currentPageIndex = 1;
+  currentTotalPages = 0;
   compose = false;
 
   post: PostInterface = <any>[];
@@ -118,9 +115,18 @@ export class AngularWordpressApiService {
       url += filter + '&';
     }
 
+    if (this.currentCategory) {
+      url += 'categories=' + this.currentCategory + '&';
+    }
+
+    if (this.isProfileRoute) {
+      url += 'author=' + this.user.id + '&';
+    }
+
     return this.http
       .get<PostInterface>(url + '_embed', { observe: 'response' })
       .subscribe(data => {
+        this.currentTotalPages = +data.headers.get('X-WP-TOTAL');
         this.posts = data.body;
       });
   }
@@ -182,7 +188,6 @@ export class AngularWordpressApiService {
       )
       .pipe(
         tap(data => {
-          console.log(this.myInfo.id, data.id);
           this.user = data;
           this.postList('author=' + id);
         })
@@ -199,10 +204,7 @@ export class AngularWordpressApiService {
   updateProfile(user: UserInterface) {
     return this.http
       .post(restApiUrl + usersEndpoint + '/me', user, this.loginAuth)
-      .pipe(
-        tap(data => this.saveUserData(<UserInterface>data)),
-        catchError(this.error)
-      );
+      .pipe(tap(data => this.saveUserData(<UserInterface>data)));
   }
 
   /**
@@ -260,21 +262,21 @@ export class AngularWordpressApiService {
    * ===============
    */
 
-  error(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error);
-    } else {
-      // backend returned an unsuccessful response code.
-      console.error('An error occurred:', error.error.code);
-      console.error(
-        `Backend returned code ${error.status}, ` +
-          `body was: ${error.error.message}`
-      );
-    }
-    // return an observable with a user-facing error message
-    return throwError('Something bad happened; please try again later.');
-  }
+  // error(error: HttpErrorResponse) {
+  //   if (error.error instanceof ErrorEvent) {
+  //     // A client-side or network error occurred. Handle it accordingly.
+  //     console.error('An error occurred:', error);
+  //   } else {
+  //     // backend returned an unsuccessful response code.
+  //     console.error('An error occurred:', error.error.code);
+  //     console.error(
+  //       `Backend returned code ${error.status}, ` +
+  //         `body was: ${error.error.message}`
+  //     );
+  //   }
+  //   // return an observable with a user-facing error message
+  //   return throwError('Something bad happened; please try again later.');
+  // }
 
   // showme() {
   //   console.log(this.router.url);
@@ -282,5 +284,9 @@ export class AngularWordpressApiService {
 
   get isProfileRoute() {
     return this.router.url === '/profile' ? true : false;
+  }
+
+  try(e) {
+    console.log(e);
   }
 }

@@ -5,17 +5,15 @@
   </div>
 
   <div class="col-md-8">
-    <div class="col-md-12" *ngIf=" awService.compose ">
-      <app-post-create></app-post-create>
-    </div>
 
-    <div>
-      <app-posts></app-posts>
-      <app-empty emptyPost=" No post found ..."></app-empty>
-    </div>
+    <app-post-create></app-post-create>
+
+    <app-posts></app-posts>
+
   </div>
 
   <div class="col-md-2" *ngIf=" awService.users ">
     <app-users></app-users>
   </div>
+
 </div>
