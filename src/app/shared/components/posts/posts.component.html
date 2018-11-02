@@ -12,7 +12,12 @@
       <div [innerHTML]="post.content.rendered"></div>
     </mat-card-content>
   </mat-card>
-  <mat-paginator [length]=" awService.currentTotalPages " [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" (page)=" page($event) "
-    [pageIndex]=" awService.currentPageIndex-1 ">
-  </mat-paginator>
+  <div *ngIf=" awService.currentTotalPages ">
+    <mat-paginator [length]=" awService.currentTotalPages " [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" (page)=" page($event) "
+      [pageIndex]=" awService.currentPageIndex-1 ">
+    </mat-paginator>
+  </div>
+  <div *ngIf=" !awService.currentTotalPages ">
+    <h2 class="text-center"> No Posts .. </h2>
+  </div>
 </div>

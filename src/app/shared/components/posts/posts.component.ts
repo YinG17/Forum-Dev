@@ -22,8 +22,8 @@ export class PostsComponent implements OnInit {
           (event.previousPageIndex--, this.awService.currentPageIndex--);
     } else {
       // else if the event is pageSize change, revert currentPageIndex to 1
-      this.awService.currentPageIndex = 1;
       event.previousPageIndex = 0;
+      this.awService.currentPageIndex = 1;
     }
 
     this.previousPageSize = event.pageSize;
