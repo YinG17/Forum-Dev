@@ -11,10 +11,19 @@ import { PostsModule } from '../../shared/components/posts/posts.module';
 import { EmptyModule } from 'src/app/shared/components/empty/empty.module';
 import { MaterialLayoutModule } from 'src/app/shared/modules/material/material-layout.module';
 import { MenuModule } from 'src/app/shared/components/menu/menu.module';
+import { InfoEditComponent } from './info-edit/info-edit.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':name/:category',
+    component: ProfileComponent
+  },
+  {
+    path: ':name/:category#action',
+    component: ProfileComponent
+  },
+  {
+    path: ':name#:action',
     component: ProfileComponent
   }
 ];
@@ -32,6 +41,6 @@ const routes: Routes = [
     EmptyModule,
     MenuModule
   ],
-  declarations: [ProfileComponent, InfoComponent]
+  declarations: [ProfileComponent, InfoComponent, InfoEditComponent]
 })
 export class ProfileModule {}

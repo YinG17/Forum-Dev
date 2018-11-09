@@ -5,19 +5,33 @@
         <img mat-card-avatar [src]=" post._embedded.author[0].avatar_urls['48'] ">
       </div>
       <mat-card-title>{{ post._embedded.author[0].name }}</mat-card-title>
-      <mat-card-subtitle>{{ post.date }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ post.date | date:'medium' }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <div [innerHTML]="post.title.rendered"></div>
       <div [innerHTML]="post.content.rendered"></div>
     </mat-card-content>
+    <mat-card-actions>
+      <hr>
+      <div *ngIf=" post._embedded.replies " class=" w-100 px-2 ">
+        <span class="float-right" (click)=" commentSection.show = !commentSection.show ">
+          <sup>
+            {{ post._embedded.replies[0].length !== 1 ? post._embedded.replies[0].length + ' comments' :
+            post._embedded.replies[0].length + '
+            comment' }}
+          </sup>
+        </span>
+        <app-replies #commentSection [comments]=" post._embedded.replies[0] "></app-replies>
+      </div>
+      <mat-form-field class="comment-box" appearance="outline" *ngIf=" post.comment_status === 'open' ">
+        <input matInput placeholder="Leave a comment" [(ngModel)]=" comment " class="p-0">
+      </mat-form-field>
+    </mat-card-actions>
   </mat-card>
-  <div *ngIf=" awService.currentTotalPages ">
-    <mat-paginator [length]=" awService.currentTotalPages " [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" (page)=" page($event) "
-      [pageIndex]=" awService.currentPageIndex-1 ">
+  <div *ngIf="
+          awService.currentTotalPages ">
+    <mat-paginator [length]=" awService.currentTotalPages " [pageSize]=" 10" [pageSizeOptions]="[5, 10, 25, 100]"
+      (page)=" page($event) " [pageIndex]=" awService.currentPageIndex-1 ">
     </mat-paginator>
-  </div>
-  <div *ngIf=" !awService.currentTotalPages ">
-    <h2 class="text-center"> No Posts .. </h2>
   </div>
 </div>

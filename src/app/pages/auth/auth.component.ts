@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { UserInterface } from '../../shared/services/angular-wordpress-api.interface';
-import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
+import { AppService } from 'src/app/shared/services/app.service';
 
 @Component({
   selector: 'app-auth',
@@ -12,27 +11,25 @@ export class AuthComponent implements OnInit {
   isLogin: boolean;
   userForm: UserInterface = <any>{};
 
-  constructor(
-    public awService: AngularWordpressApiService,
-    public router: Router
-  ) {}
+  constructor(public appService: AppService) {}
 
   ngOnInit() {
     this.isLogin = true;
   }
 
   onSubmit() {
+    let user;
     if (this.isLogin) {
-      const rawUser = {
+      user = {
         user_login: this.userForm.username,
         user_pass: this.userForm.password
       };
-      this.awService.login(rawUser).subscribe(data => {
-        this.router.navigateByUrl('forum');
+      this.appService.aws.login(user).subscribe(data => {
+        this.appService.navigateToForum();
       });
     } else {
-      this.awService.register(this.userForm).subscribe(data => {
-        this.router.navigateByUrl('forum');
+      this.appService.aws.register(this.userForm).subscribe(data => {
+        this.appService.navigateToForum();
       });
     }
   }

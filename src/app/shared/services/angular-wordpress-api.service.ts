@@ -19,9 +19,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AngularWordpressApiService {
-  users: UserResponseInterface = <any>[];
   posts: PostInterface;
-  categories: CategoryInterface;
 
   currentCategory: number;
   currentPageIndex = 1;
@@ -50,6 +48,77 @@ export class AngularWordpressApiService {
       })
     };
     return httpOptions;
+  }
+
+  /**
+   * ===================
+   * User Related Codes
+   * ===================
+   */
+
+  /**
+   * @method register - createUser
+   * @param user user data object (username, password)
+   *
+   */
+  register(user: UserInterface) {
+    return this.http
+      .post<UserResponseInterface>(restApiUrl + usersEndpoint, user)
+      .pipe(tap(data => this.setLocalData('current_user_info', data)));
+  }
+
+  /**
+   * @method login - Get user data from wordpress via rest api using raw username and password
+   * @param rawUser - user data object (username, password)
+   */
+  login(rawUser) {
+    const option = this.getHttpOptions(rawUser);
+    return this.http
+      .get<UserResponseInterface>(customApiUrl + profileEndpoint, option)
+      .pipe(
+        tap(data => {
+          this.setLocalData('current_user_info', data);
+        })
+      );
+  }
+
+  /**
+   * @param id - user id
+   */
+  userProfile(id) {
+    return this.http
+      .get<UserResponseInterface>(
+        restApiUrl + usersEndpoint + '/' + id,
+        this.loginAuth
+      )
+      .pipe(
+        tap(data => {
+          this.postList('author=' + id);
+        })
+      );
+  }
+
+  /**
+   * @method updateProfile - updateUser
+   * Login user can update only his user data.
+   * @param user User update data
+   *
+   * @note user cannot change 'username'. But everything else is changable.
+   */
+  updateProfile(user: UserInterface) {
+    return this.http
+      .post(restApiUrl + usersEndpoint + '/me', user, this.loginAuth)
+      .pipe(tap(data => this.setLocalData('current_user_info', user)));
+  }
+
+  /**
+   * @method getUsers - get user list
+   * @param filter - filter user by (name, id, ascending or descending)
+   */
+  userList(filter) {
+    return this.http
+      .get<UserInterface>(restApiUrl + usersEndpoint + filter)
+      .pipe(tap(data => this.setLocalData('forum_users', data)));
   }
 
   /**
@@ -85,7 +154,7 @@ export class AngularWordpressApiService {
    *
    * @param id - post id
    */
-  postGet(id) {
+  postGet(id, context?) {
     return this.http
       .get<PostInterface>(restApiUrl + postsEndpoint + id, this.loginAuth)
       .subscribe(data => {
@@ -96,7 +165,7 @@ export class AngularWordpressApiService {
   /**
    * @method postUdate - update a post
    */
-  postUpdate(post: PostInterface, id) {
+  postUpdate(post, id) {
     return this.http.post(
       restApiUrl + postsEndpoint + id,
       post,
@@ -110,25 +179,16 @@ export class AngularWordpressApiService {
    */
   postList(filter?) {
     let url = restApiUrl + postsEndpoint + '?';
-
     if (filter) {
-      url += filter + '&';
+      url += filter;
     }
-
-    if (this.currentCategory) {
-      url += 'categories=' + this.currentCategory + '&';
-    }
-
-    if (this.isProfileRoute) {
-      url += 'author=' + this.user.id + '&';
-    }
-
-    return this.http
-      .get<PostInterface>(url + '_embed', { observe: 'response' })
-      .subscribe(data => {
+    url += '&_embed';
+    console.log(url);
+    return this.http.get<PostInterface>(url, { observe: 'response' }).pipe(
+      tap(data => {
         this.currentTotalPages = +data.headers.get('X-WP-TOTAL');
-        this.posts = data.body;
-      });
+      })
+    );
   }
 
   /**
@@ -138,110 +198,48 @@ export class AngularWordpressApiService {
     return this.http
       .get<CategoryInterface>(restApiUrl + categoriesEndpoint, this.loginAuth)
       .pipe(
-        tap(data => {
-          this.categories = data;
+        tap(() => {
           this.postList();
         })
       );
   }
 
   /**
-   * ===================
-   * User Related Codes
-   * ===================
-   */
-
-  /**
-   * @method register - createUser
-   * @param user user data object (username, password)
+   * ==============
+   * local storage
+   * ==============
    *
+   * @param collectionName - string name for the collection
+   * @param collection - the data to save
    */
-  register(user: UserInterface) {
-    return this.http
-      .post<UserResponseInterface>(restApiUrl + usersEndpoint, user)
-      .pipe(tap(data => this.saveUserData(<UserInterface>data)));
+
+  setLocalData(collectionName: string, collection) {
+    if (localStorage.getItem(collectionName)) {
+      this.removeLocalData(collectionName);
+    }
+    localStorage.setItem(collectionName, JSON.stringify(collection));
   }
 
-  /**
-   * @method login - Get user data from wordpress via rest api using raw username and password
-   * @param rawUser - user data object (username, password)
-   */
-  login(rawUser) {
-    const option = this.getHttpOptions(rawUser);
-    return this.http
-      .get<UserResponseInterface>(customApiUrl + profileEndpoint, option)
-      .pipe(
-        tap(data => {
-          this.saveUserData(data);
-        })
-      );
+  getLocalData(collectionName) {
+    return JSON.parse(localStorage.getItem(collectionName));
   }
 
-  /**
-   * @param id - user id
-   */
-  userProfile(id) {
-    return this.http
-      .get<UserResponseInterface>(
-        restApiUrl + usersEndpoint + '/' + id,
-        this.loginAuth
-      )
-      .pipe(
-        tap(data => {
-          this.user = data;
-          this.postList('author=' + id);
-        })
-      );
+  removeLocalData(collectionName) {
+    return localStorage.removeItem(collectionName);
   }
 
-  /**
-   * @method updateProfile - updateUser
-   * Login user can update only his user data.
-   * @param user User update data
-   *
-   * @note user cannot change 'username'. But everything else is changable.
-   */
-  updateProfile(user: UserInterface) {
-    return this.http
-      .post(restApiUrl + usersEndpoint + '/me', user, this.loginAuth)
-      .pipe(tap(data => this.saveUserData(<UserInterface>data)));
+  logout(): Promise<boolean> {
+    this.removeLocalData('current_user_info');
+    return;
   }
 
-  /**
-   * @method getUsers - get user list
-   * @param filter - filter user by (name, id, ascending or descending)
-   */
-  userList(filter) {
-    return this.http.get<UserInterface>(restApiUrl + usersEndpoint + filter);
+  get categories() {
+    const cats: CategoryInterface = this.getLocalData('forum_categories');
+    return cats;
   }
 
-  logout() {
-    return (
-      localStorage.removeItem('current_user_info'),
-      this.router.navigateByUrl('')
-    );
-  }
-
-  /**
-   * @method saveUserData - save user data to local storage after registration
-   * @param user - user data object
-   */
-  private saveUserData(user: UserInterface) {
-    localStorage.setItem('current_user_info', JSON.stringify(user));
-  }
-
-  /**
-   * Returns user data saved in localStorage.
-   */
-  get myInfo() {
-    return JSON.parse(localStorage.getItem('current_user_info'));
-  }
-
-  /**
-   * returns if a user is logged in or not
-   */
-  get isLogged() {
-    return !!this.myInfo;
+  get users() {
+    return this.getLocalData('forum_users');
   }
 
   /**
@@ -252,41 +250,20 @@ export class AngularWordpressApiService {
       user_login: this.myInfo['id'],
       user_pass: this.myInfo['security_code']
     };
-
     return this.getHttpOptions(user);
   }
 
   /**
-   * ===============
-   * Error handling
-   * ===============
+   * Returns user data saved in localStorage.
    */
-
-  // error(error: HttpErrorResponse) {
-  //   if (error.error instanceof ErrorEvent) {
-  //     // A client-side or network error occurred. Handle it accordingly.
-  //     console.error('An error occurred:', error);
-  //   } else {
-  //     // backend returned an unsuccessful response code.
-  //     console.error('An error occurred:', error.error.code);
-  //     console.error(
-  //       `Backend returned code ${error.status}, ` +
-  //         `body was: ${error.error.message}`
-  //     );
-  //   }
-  //   // return an observable with a user-facing error message
-  //   return throwError('Something bad happened; please try again later.');
-  // }
-
-  // showme() {
-  //   console.log(this.router.url);
-  // }
-
-  get isProfileRoute() {
-    return this.router.url === '/profile' ? true : false;
+  get myInfo() {
+    return this.getLocalData('current_user_info');
   }
 
-  try(e) {
-    console.log(e);
+  /**
+   * returns if a user is logged in or not
+   */
+  get isLogged() {
+    return !!this.myInfo;
   }
 }

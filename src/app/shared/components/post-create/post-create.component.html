@@ -53,14 +53,14 @@
 
     <mat-form-field>
       <mat-select placeholder="Post Status" [(ngModel)]=" postForm.status ">
-        <mat-option value=" draft ">Draft</mat-option>
-        <mat-option value=" publish ">Publish</mat-option>
+        <mat-option value="draft">Draft</mat-option>
+        <mat-option value="publish">Publish</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-card-actions>
       <mat-slide-toggle (change)=" postForm.comment_status = !postForm.comment_status ">
-        Allow comment: {{ postForm.comment_status ? 'Yes' : 'No' }} </mat-slide-toggle>
+        Allow comment: {{ comment_status ? 'Yes' : 'No' }} </mat-slide-toggle>
 
       <span class=" spacer "></span>
 

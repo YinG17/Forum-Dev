@@ -15,11 +15,5 @@ export class AppComponent implements OnInit {
     public router: Router
   ) {}
 
-  ngOnInit() {
-    if (this.awService.isLogged) {
-      this.router.navigateByUrl('forum');
-    } else {
-      this.router.navigateByUrl('');
-    }
-  }
+  ngOnInit() {}
 }

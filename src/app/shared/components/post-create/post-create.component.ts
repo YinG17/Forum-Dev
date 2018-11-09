@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularWordpressApiService } from '../../services/angular-wordpress-api.service';
 import { PostInterface } from '../../services/angular-wordpress-api.interface';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-create',
@@ -9,13 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./post-create.component.scss']
 })
 export class PostCreateComponent implements OnInit {
-  // status = ['draft', 'publish'];
+  comment_status = false;
   postForm: PostInterface = <any>{};
 
-  constructor(
-    public awService: AngularWordpressApiService,
-    private router: Router
-  ) {}
+  constructor(public awService: AngularWordpressApiService) {}
 
   ngOnInit() {
     this.formInit();
@@ -52,6 +48,9 @@ export class PostCreateComponent implements OnInit {
   }
 
   post() {
+    this.comment_status
+      ? (this.postForm.comment_status = 'open')
+      : (this.postForm.comment_status = 'closed');
     const res = this.awService.postCreate(this.postForm);
     if (res) {
       this.formInit();

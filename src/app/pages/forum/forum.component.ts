@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
+import { AppService } from 'src/app/shared/services/app.service';
 
 @Component({
   selector: 'app-forum',
@@ -7,17 +7,18 @@ import { AngularWordpressApiService } from 'src/app/shared/services/angular-word
   styleUrls: ['./forum.component.scss']
 })
 export class ForumComponent implements OnInit {
-  constructor(public awService: AngularWordpressApiService) {}
+  constructor(public appService: AppService) {}
 
   ngOnInit() {
-    this.awService.user = <any>{};
+    this.appService.aws.user = <any>{};
 
-    this.awService.categoryList().subscribe(data => {
-      this.awService.categories = data;
+    this.appService.aws.categoryList().subscribe(categories => {
+      this.appService.aws.setLocalData('forum_categories', categories);
+      this.appService.navigateToForum();
     });
 
-    this.awService.userList('?orderby=name').subscribe(data => {
-      this.awService.users = data;
+    this.appService.aws.userList('?orderby=name').subscribe(users => {
+      this.appService.aws.setLocalData('forum_users', users);
     });
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,20 +7,38 @@ import { AngularWordpressApiService } from 'src/app/shared/services/angular-word
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  constructor(public awService: AngularWordpressApiService) {}
+  constructor(public appService: AppService) {}
 
   ngOnInit() {}
 
-  getData(id?) {
-    this.awService.currentCategory = id;
-    this.awService.currentPageIndex = 1;
+  getData(category, id?) {
+    console.log(this.appService.aws.categories);
 
-    // let url = '';
+    this.appService.aws.currentCategory = id;
+    this.appService.aws.currentPageIndex = 1;
 
-    // if (id) {
-    //   url = 'categories=' + id;
-    // }
+    let urlParam = '';
 
-    this.awService.postList();
+    if (this.appService.rootUrl === '/profile') {
+      urlParam += 'author=' + this.appService.aws.user.id;
+    }
+
+    if (id) {
+      urlParam += '&categories=' + id;
+    }
+
+    this.appService.aws.postList(urlParam).subscribe(posts => {
+      this.appService.aws.posts = posts.body;
+      this.appService.navigateToCategory(category);
+    });
+  }
+
+  create() {
+    this.appService.aws.compose = !this.appService.aws.compose;
+    if (this.appService.aws.compose === true) {
+      this.appService.navigateToPostCreate();
+    } else {
+      this.appService.navigate(this.appService.previousUrlAction);
+    }
   }
 }

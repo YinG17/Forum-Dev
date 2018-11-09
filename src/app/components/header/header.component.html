@@ -1,24 +1,31 @@
 <mat-toolbar class="px-5">
-  <button mat-button class="p-2" [routerLink]="[ '/forum' ]" routerLinkActive="active" *ngIf=" awService.isLogged ">
+  <button
+    mat-button
+    class="p-2"
+    (click)="appService.navigateToForum()"
+    [class.active]="appService.rootUrl === '/forum'"
+    *ngIf="appService.aws.isLogged"
+  >
     FORUM
   </button>
-  <button mat-button class="p-2" [routerLink]="[ '/test' ]" routerLinkActive="active" *ngIf=" awService.isLogged ">
-    TESTING AREA
-  </button>
-
+  <button mat-button (click)="appService.navigate('/test')">CREATE POST</button>
   <span class="spacer"></span>
-
-  <button mat-button class="p-2" *ngIf=" awService.isLogged ">
-    {{ awService.myInfo['name'] | uppercase }}
+  <button mat-button class="p-2" *ngIf="appService.aws.isLogged">
+    {{ appService.aws.myInfo['name'] | uppercase }}
   </button>
-  <button mat-icon-button class="my-auto menu" [matMenuTriggerFor]="menu" *ngIf=" awService.isLogged ">
+  <button
+    mat-icon-button
+    class="my-auto menu"
+    [matMenuTriggerFor]="menu"
+    *ngIf="appService.aws.isLogged"
+  >
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button class="menu w-100" mat-button (click)=" getProfile() ">
+    <button class="menu w-100" mat-button (click)="getProfile()">
       <span> PROFILE</span>
     </button>
-    <button class="menu w-100" mat-button (click)=" awService.logout() ">
+    <button class="menu w-100" mat-button (click)="appService.aws.logout()">
       <span>LOGOUT</span>
     </button>
   </mat-menu>

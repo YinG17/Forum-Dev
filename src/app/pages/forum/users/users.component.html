@@ -1,13 +1,15 @@
 <mat-card class="py-2 px-0">
   <mat-card-header>
-    <mat-card-subtitle>
-      FORUM USERS
-    </mat-card-subtitle>
+    <mat-card-subtitle> FORUM USERS </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <div *ngFor="let user of awService.users " class="text-center my-2">
-      <div mat-card-avatar class=" mx-auto " (click)=" profile( user.id ) ">
-        <img mat-card-avatar [src]=" user.avatar_urls['24'] " matTooltip=" {{ user.name }} ">
+    <div *ngFor="let user of appService.aws.users" class="text-center my-2">
+      <div mat-card-avatar class=" mx-auto " (click)="profile(user.id)">
+        <img
+          mat-card-avatar
+          [src]="user.avatar_urls['24']"
+          matTooltip=" {{ user.name }} "
+        />
       </div>
       <small> {{ user.name }} </small>
     </div>

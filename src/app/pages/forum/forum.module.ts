@@ -15,7 +15,11 @@ import { MenuModule } from 'src/app/shared/components/menu/menu.module';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':category',
+    component: ForumComponent
+  },
+  {
+    path: ':category#post_create',
     component: ForumComponent
   }
 ];

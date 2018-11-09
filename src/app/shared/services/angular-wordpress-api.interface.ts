@@ -65,7 +65,7 @@ export interface PostInterface {
   status?: string;
   excerpt?: Array<any>;
   featured_media?: string;
-  comment_status?: boolean;
+  comment_status?: string;
   ping_status?: string;
   format?: string;
   meta?: Array<any>;
@@ -76,6 +76,7 @@ export interface PostInterface {
     author: {
       name: string;
     };
+    replies: Array<any>;
   };
   _links?: string[];
 }
@@ -83,7 +84,7 @@ export interface PostInterface {
 /**
  * @const wordpressUrl - set your development root url here
  */
-export const wordpressUrl = 'http://localhost/gui/wordpress/wp-json';
+export const wordpressUrl = 'http://fordev.sonub.com/wp-json';
 export const restApiUrl = wordpressUrl + '/wp/v2';
 export const customApiUrl = wordpressUrl + '/custom/api';
 

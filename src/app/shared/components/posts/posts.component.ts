@@ -8,6 +8,7 @@ import { AngularWordpressApiService } from '../../services/angular-wordpress-api
 })
 export class PostsComponent implements OnInit {
   previousPageSize: number;
+  comment: string;
   constructor(public awService: AngularWordpressApiService) {}
 
   ngOnInit() {}

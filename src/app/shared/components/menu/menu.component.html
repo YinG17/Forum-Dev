@@ -1,19 +1,31 @@
-<div class="mb-3" *ngIf=" awService.categories ">
-
-  <div class="post-menu" *ngIf=" !awService.isProfileRoute || awService.user.id === awService.myInfo['id'] && awService.isProfileRoute ">
-    <button mat-button (click)=" awService.compose = !awService.compose ">
-      CREATE POST
-    </button>
+<div class="mb-3" *ngIf="appService.aws.categories">
+  <div
+    class="post-menu"
+    *ngIf="
+      appService.rootUrl === '/forum' ||
+      (appService.aws.user.id === appService.aws.myInfo['id'] &&
+        appService.rootUrl === '/profile')
+    "
+  >
+    <button mat-button (click)="create()">CREATE POST</button>
   </div>
-
   <div class="category-menu">
-    <button mat-button (click)=" getData() " [class.active]=" !awService.currentCategory ">
+    <button
+      [class.active]="!appService.aws.currentCategory"
+      (click)="getData('posts')"
+      mat-button
+    >
       ALL POSTS
     </button>
-    <button mat-button *ngFor="let category of awService.categories" matBadgePosition="before" matBadgeOverlap="false"
-      [matBadge]=" !awService.isProfileRoute ? category.count : ''" (click)=" getData(category.id) " [class.active]=" awService.currentCategory === category.id ">
-      {{ category.name | uppercase }}
+    <!-- fuck this it's not working with mat-button -->
+    <button
+      matBadgeOverlap="false"
+      matBadgePosition="before"
+      (click)="getData(category.name, category.id)"
+      *ngFor="let category of appService.aws.categories"
+      [class.active]="appService.aws.currentCategory === category.id"
+    >
+      {{ category.name }}
     </button>
   </div>
-
 </div>
