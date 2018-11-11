@@ -12,7 +12,7 @@ export class MenuComponent implements OnInit {
   ngOnInit() {}
 
   getData(category, id?) {
-    console.log(this.appService.aws.categories);
+    console.log(`category change, ${category}`);
 
     this.appService.aws.currentCategory = id;
     this.appService.aws.currentPageIndex = 1;
@@ -27,8 +27,7 @@ export class MenuComponent implements OnInit {
       urlParam += '&categories=' + id;
     }
 
-    this.appService.aws.postList(urlParam).subscribe(posts => {
-      this.appService.aws.posts = posts.body;
+    this.appService.aws.postList(urlParam).add(data => {
       this.appService.navigateToCategory(category);
     });
   }

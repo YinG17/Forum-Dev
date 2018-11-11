@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularWordpressApiService } from '../../services/angular-wordpress-api.service';
+import { AppService } from '../../services/app.service';
 
 @Component({
-  selector: 'app-posts',
-  templateUrl: './posts.component.html',
-  styleUrls: ['./posts.component.scss']
+  selector: 'app-paginator',
+  templateUrl: './paginator.component.html',
+  styleUrls: ['./paginator.component.scss']
 })
-export class PostsComponent implements OnInit {
+export class PaginatorComponent implements OnInit {
   previousPageSize: number;
   comment: string;
-  constructor(public awService: AngularWordpressApiService) {}
+
+  constructor(public app: AppService) {}
 
   ngOnInit() {}
 
@@ -18,19 +19,19 @@ export class PostsComponent implements OnInit {
     if (this.previousPageSize === event.pageSize) {
       // if the previousPageIndex is lower than the current pageIndex, the event is next page navigation
       event.previousPageIndex < event.pageIndex
-        ? (event.previousPageIndex++, this.awService.currentPageIndex++)
+        ? (event.previousPageIndex++, this.app.aws.currentPageIndex++)
         : // else the event is previous page navigation
-          (event.previousPageIndex--, this.awService.currentPageIndex--);
+          (event.previousPageIndex--, this.app.aws.currentPageIndex--);
     } else {
       // else if the event is pageSize change, revert currentPageIndex to 1
       event.previousPageIndex = 0;
-      this.awService.currentPageIndex = 1;
+      this.app.aws.currentPageIndex = 1;
     }
 
     this.previousPageSize = event.pageSize;
     event.pageIndex++;
 
-    this.awService.postList(
+    this.app.aws.postList(
       'per_page=' + event.pageSize + '&page=' + event.pageIndex
     );
   }

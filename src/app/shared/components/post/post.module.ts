@@ -1,15 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PostsComponent } from './posts.component';
+import { PostComponent } from './post.component';
 import { FormsModule } from '@angular/forms';
+
 import {
   MatCardModule,
   MatPaginatorModule,
   MatInputModule,
   MatButtonModule
 } from '@angular/material';
-import { EmptyModule } from '../empty/empty.module';
-import { RepliesComponent } from './replies/replies.component';
+import { Routes, RouterModule } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: PostComponent
+  }
+];
 
 @NgModule({
   imports: [
@@ -19,9 +26,9 @@ import { RepliesComponent } from './replies/replies.component';
     MatPaginatorModule,
     MatInputModule,
     MatButtonModule,
-    EmptyModule
+    RouterModule.forChild(routes)
   ],
-  declarations: [PostsComponent, RepliesComponent],
-  exports: [PostsComponent]
+  declarations: [PostComponent],
+  exports: [PostComponent]
 })
-export class PostsModule {}
+export class PostModule {}

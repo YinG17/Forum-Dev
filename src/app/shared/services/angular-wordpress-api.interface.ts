@@ -55,9 +55,13 @@ export interface CategoryInterface {
 export interface PostInterface {
   password?: string;
   author: number; // Required author ID
-  title: string; // Required
+  title: {
+    rendered: string;
+  }; // Required
   categories: number[]; // Required
-  content: string; // Required
+  content: {
+    rendered: string;
+  }; // Required
   id: number; // Required
   date?: string;
   date_gmt?: string;

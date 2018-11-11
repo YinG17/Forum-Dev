@@ -20,8 +20,8 @@ const routes: Routes = [
       './pages/page-not-found/page-not-found.module#PageNotFoundModule'
   },
   {
-    path: 'post',
-    loadChildren: './pages/post/post.module#PostModule'
+    path: 'posts/:id',
+    loadChildren: './shared/components/post/post.module#PostModule'
   },
   {
     path: '**',

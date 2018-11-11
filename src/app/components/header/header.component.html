@@ -8,7 +8,9 @@
   >
     FORUM
   </button>
-  <button mat-button (click)="appService.navigate('/test')">CREATE POST</button>
+  <!--
+    <button mat-button (click)="appService.navigate('/test')">CREATE POST</button>
+  -->
   <span class="spacer"></span>
   <button mat-button class="p-2" *ngIf="appService.aws.isLogged">
     {{ appService.aws.myInfo['name'] | uppercase }}

@@ -18,10 +18,6 @@ export class AppService {
     );
   }
 
-  get test() {
-    return location.pathname;
-  }
-
   get hostDomain() {
     return location.origin;
   }

@@ -8,10 +8,8 @@ import { MaterialFormModule } from 'src/app/shared/modules/material/material-for
 import { PostCreateModule } from '../../shared/components/post-create/post-create.module';
 import { InfoComponent } from './info/info.component';
 import { PostsModule } from '../../shared/components/posts/posts.module';
-import { EmptyModule } from 'src/app/shared/components/empty/empty.module';
 import { MaterialLayoutModule } from 'src/app/shared/modules/material/material-layout.module';
 import { MenuModule } from 'src/app/shared/components/menu/menu.module';
-import { InfoEditComponent } from './info-edit/info-edit.component';
 
 const routes: Routes = [
   {
@@ -38,9 +36,8 @@ const routes: Routes = [
     PostCreateModule,
     RouterModule.forChild(routes),
     PostsModule,
-    EmptyModule,
     MenuModule
   ],
-  declarations: [ProfileComponent, InfoComponent, InfoEditComponent]
+  declarations: [ProfileComponent, InfoComponent]
 })
 export class ProfileModule {}

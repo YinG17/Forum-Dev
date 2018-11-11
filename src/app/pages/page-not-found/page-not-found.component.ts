@@ -31,7 +31,7 @@ export class PageNotFoundComponent implements OnInit {
   //     });
   // }
 
-  try() {
-    console.log(localStorage);
-  }
+  // try() {
+  //   console.log(localStorage);
+  // }
 }

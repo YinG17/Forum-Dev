@@ -184,11 +184,12 @@ export class AngularWordpressApiService {
     }
     url += '&_embed';
     console.log(url);
-    return this.http.get<PostInterface>(url, { observe: 'response' }).pipe(
-      tap(data => {
+    return this.http
+      .get<PostInterface>(url, { observe: 'response' })
+      .subscribe(data => {
+        this.posts = data.body;
         this.currentTotalPages = +data.headers.get('X-WP-TOTAL');
-      })
-    );
+      });
   }
 
   /**
@@ -198,7 +199,7 @@ export class AngularWordpressApiService {
     return this.http
       .get<CategoryInterface>(restApiUrl + categoriesEndpoint, this.loginAuth)
       .pipe(
-        tap(() => {
+        tap(data => {
           this.postList();
         })
       );

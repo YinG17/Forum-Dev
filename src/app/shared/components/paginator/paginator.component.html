@@ -1,0 +1,10 @@
+<div *ngIf="app.aws.currentTotalPages">
+  <mat-paginator
+    [length]="app.aws.currentTotalPages"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="page($event)"
+    [pageIndex]="app.aws.currentPageIndex - 1"
+  >
+  </mat-paginator>
+</div>

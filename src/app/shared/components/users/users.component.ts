@@ -8,14 +8,14 @@ import { AppService } from 'src/app/shared/services/app.service';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  constructor(public appService: AppService, public router: Router) {}
+  constructor(public app: AppService, public router: Router) {}
 
   ngOnInit() {}
 
   profile(id) {
-    this.appService.aws.userProfile(id).subscribe(data => {
-      this.appService.aws.posts = null;
-      this.appService.navigateToProfile(data.name);
+    this.app.aws.userProfile(id).subscribe(data => {
+      this.app.aws.posts = null;
+      this.app.navigateToProfile(data.name);
     });
   }
 }

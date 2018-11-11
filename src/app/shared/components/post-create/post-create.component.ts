@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularWordpressApiService } from '../../services/angular-wordpress-api.service';
-import { PostInterface } from '../../services/angular-wordpress-api.interface';
+import { PostInterface } from 'src/app/shared/services/angular-wordpress-api.interface';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-post-create',
@@ -11,7 +11,7 @@ export class PostCreateComponent implements OnInit {
   comment_status = false;
   postForm: PostInterface = <any>{};
 
-  constructor(public awService: AngularWordpressApiService) {}
+  constructor(public app: AppService) {}
 
   ngOnInit() {
     this.formInit();
@@ -22,15 +22,15 @@ export class PostCreateComponent implements OnInit {
    *
    * it checks for the current path, if the current active path is '/profile', it will set isProfile as true
    * and enabling the use of the postCategory function. or if the current path is not '/profile', it will check
-   * if the currentCategory instance of the awService holds any value, if it is holding any value, it will be
+   * if the currentCategory instance of the app.aws holds any value, if it is holding any value, it will be
    * the initial value of the posts' category.
    */
   formInit() {
     this.postForm = <any>{};
     this.postForm.categories = [];
 
-    if (this.awService.currentCategory) {
-      this.postForm.categories.push(this.awService.currentCategory);
+    if (this.app.aws.currentCategory) {
+      this.postForm.categories.push(this.app.aws.currentCategory);
     }
   }
 
@@ -51,7 +51,7 @@ export class PostCreateComponent implements OnInit {
     this.comment_status
       ? (this.postForm.comment_status = 'open')
       : (this.postForm.comment_status = 'closed');
-    const res = this.awService.postCreate(this.postForm);
+    const res = this.app.aws.postCreate(this.postForm);
     if (res) {
       this.formInit();
     }
