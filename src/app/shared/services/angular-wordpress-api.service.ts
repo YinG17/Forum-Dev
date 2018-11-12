@@ -63,7 +63,7 @@ export class AngularWordpressApiService {
    */
   register(user: UserInterface) {
     return this.http
-      .post<UserInterface>(restApiUrl + usersEndpoint, user)
+      .post<UserResponseInterface>(restApiUrl + usersEndpoint, user)
       .pipe(tap(data => this.setLocalData('current_user_info', data)));
   }
 
@@ -77,7 +77,6 @@ export class AngularWordpressApiService {
       .get<UserResponseInterface>(customApiUrl + profileEndpoint, option)
       .pipe(
         tap(data => {
-          console.log(data);
           this.setLocalData('current_user_info', data);
         })
       );
@@ -94,6 +93,7 @@ export class AngularWordpressApiService {
       )
       .pipe(
         tap(data => {
+          this.user = data;
           this.postList('author=' + id);
         })
       );
@@ -170,7 +170,6 @@ export class AngularWordpressApiService {
       url += filter;
     }
     url += '&_embed';
-    console.log(url);
     return this.http
       .get<PostInterface>(url, { observe: 'response' })
       .subscribe(data => {
@@ -219,8 +218,7 @@ export class AngularWordpressApiService {
   }
 
   get categories() {
-    const cats: CategoryInterface = this.getLocalData('forum_categories');
-    return cats;
+    return this.getLocalData('forum_categories');
   }
 
   get users() {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../../services/app.service';
+import { CategoryInterface } from '../../services/angular-wordpress-api.interface';
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +8,13 @@ import { AppService } from '../../services/app.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
+  categories: CategoryInterface;
+
   constructor(public app: AppService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.categories = this.app.aws.categories;
+  }
 
   getData(category, id?) {
     this.app.aws.currentCategory = id;
@@ -32,8 +37,8 @@ export class MenuComponent implements OnInit {
   }
 
   create() {
-    this.app.aws.compose = !this.app.aws.compose;
-    if (this.app.aws.compose === true) {
+    this.app.compose = !this.app.compose;
+    if (this.app.compose === true) {
       this.app.navigateToPostCreate();
     } else {
       this.app.navigate(this.app.previousUrlAction);

@@ -1,4 +1,4 @@
-<div class="mb-3" *ngIf="app.aws.categories">
+<div class="mb-3" *ngIf="categories">
   <div
     class="post-menu"
     *ngIf="
@@ -18,10 +18,10 @@
     >
       ALL POSTS
     </button>
-    <!-- fuck this it's not working with mat-button -->
     <button
+      mat-button
       (click)="getData(category.name, category.id)"
-      *ngFor="let category of app.aws.categories"
+      *ngFor="let category of categories"
       [class.active]="app.aws.currentCategory === category.id"
     >
       {{ category.name }}

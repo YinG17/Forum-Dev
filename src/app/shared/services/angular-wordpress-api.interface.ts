@@ -118,7 +118,7 @@ export interface Reply {
 /**
  * @const wordpressUrl - set your development root url here
  */
-export const wordpressUrl = 'http://fordev.sonub.com/wp-json';
+export const wordpressUrl = 'https://fordev.sonub.com/wp-json';
 export const restApiUrl = wordpressUrl + '/wp/v2';
 export const customApiUrl = wordpressUrl + '/custom/api';
 

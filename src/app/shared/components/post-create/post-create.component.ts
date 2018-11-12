@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { PostInterface } from 'src/app/shared/services/angular-wordpress-api.interface';
+import { Component, OnInit, Input } from '@angular/core';
+import {
+  PostInterface,
+  CategoryInterface
+} from 'src/app/shared/services/angular-wordpress-api.interface';
 import { AppService } from '../../services/app.service';
 
 @Component({
@@ -8,6 +11,7 @@ import { AppService } from '../../services/app.service';
   styleUrls: ['./post-create.component.scss']
 })
 export class PostCreateComponent implements OnInit {
+  @Input() categories: CategoryInterface = <any>[];
   comment_status = false;
   postForm: PostInterface = <any>{};
 
@@ -27,11 +31,14 @@ export class PostCreateComponent implements OnInit {
    */
   formInit() {
     this.postForm = <any>{};
-    this.postForm.categories = [];
+    if (this.app.aws.currentCategory === 0) {
+      this.postForm.categories = [this.app.aws.currentCategory + 1];
+    }
   }
 
   // this function is only accessible if the current path is '/profile'
   postCategory(id) {
+    console.log(this.postForm);
     if (!this.postForm.categories.includes(id)) {
       this.postForm.categories.push(id);
     } else {
@@ -42,10 +49,6 @@ export class PostCreateComponent implements OnInit {
   }
 
   post() {
-    if (this.app.aws.currentCategory) {
-      this.postForm.categories.push(this.app.aws.currentCategory);
-    }
-
     let param = 'categories=' + this.app.aws.currentCategory;
 
     if (!this.app.aws.currentCategory) {

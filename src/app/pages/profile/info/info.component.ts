@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { UserResponseInterface } from 'src/app/shared/services/angular-wordpress-api.interface';
 
 @Component({
   selector: 'app-info',
@@ -7,7 +7,8 @@ import { AngularWordpressApiService } from 'src/app/shared/services/angular-word
   styleUrls: ['./info.component.scss']
 })
 export class InfoComponent implements OnInit {
-  constructor(public awService: AngularWordpressApiService) {}
+  @Input() user: UserResponseInterface = <any>[];
+  constructor() {}
 
   ngOnInit() {}
 }

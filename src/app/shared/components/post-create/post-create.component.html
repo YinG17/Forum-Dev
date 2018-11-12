@@ -1,10 +1,10 @@
-<mat-card class="mb-2 w-100" *ngIf="app.aws.compose">
+<mat-card class="mb-2 w-100">
   <mat-card-header>
     <mat-card-title> New Post </mat-card-title>
 
-    <div *ngIf="app.rootUrl === 'profile'" class="mx-auto">
+    <div *ngIf="app.rootUrl === '/profile'" class="mx-auto">
       <mat-checkbox
-        *ngFor="let category of app.aws.categories"
+        *ngFor="let category of categories"
         [value]="category.id"
         (change)="postCategory(category.id)"
         [checked]="postForm.categories.includes(category.id)"

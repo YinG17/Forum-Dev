@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AppService {
-  categories: {} = <any>{};
-  users: {} = <any>{};
+  compose = false;
 
   constructor(public aws: AngularWordpressApiService, private router: Router) {}
 

@@ -31,8 +31,12 @@ export class PaginatorComponent implements OnInit {
     this.previousPageSize = event.pageSize;
     event.pageIndex++;
 
-    this.app.aws.postList(
-      'per_page=' + event.pageSize + '&page=' + event.pageIndex
-    );
+    let url = 'per_page=' + event.pageSize + '&page=' + event.pageIndex;
+
+    if (this.app.rootUrl === '/profile') {
+      url += '&author=' + this.app.aws.user.id;
+    }
+
+    this.app.aws.postList(url);
   }
 }

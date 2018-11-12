@@ -13,7 +13,11 @@ export class ProfileComponent implements OnInit {
 
   constructor(public app: AppService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (!this.app.aws.user.id) {
+      this.app.navigateToForum();
+    }
+  }
 
   update() {
     this.app.aws.updateProfile(this.userForm).subscribe(data => {
