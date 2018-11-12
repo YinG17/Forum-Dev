@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PostComponent } from './post.component';
+
 import { FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+
+import { PostComponent } from './post.component';
+import { RepliesModule } from '../replies/replies.module';
 
 import {
   MatCardModule,
   MatPaginatorModule,
   MatInputModule,
-  MatButtonModule
+  MatButtonModule,
+  MatFormFieldModule
 } from '@angular/material';
-import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -26,6 +30,8 @@ const routes: Routes = [
     MatPaginatorModule,
     MatInputModule,
     MatButtonModule,
+    MatFormFieldModule,
+    RepliesModule,
     RouterModule.forChild(routes)
   ],
   declarations: [PostComponent],

@@ -1,0 +1,10 @@
+<mat-card class="my-1">
+  <mat-card-header>
+    <img mat-card-avatar [src]="reply.author_avatar_urls['24']" />
+    <mat-card-title>{{ reply.author_name }}</mat-card-title>
+    <mat-card-subtitle>{{ reply.date | date: 'medium' }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content></mat-card-content>
+</mat-card>
+
+<!-- {{ reply | json }} -->

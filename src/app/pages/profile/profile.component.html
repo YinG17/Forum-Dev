@@ -1,27 +1,20 @@
-<!--
-  <div class="m-2" *ngIf=" awService.user ">
-    <app-info></app-info>
-  </div>
+<div class="m-2" *ngIf="app.aws.user"><app-info></app-info></div>
 
-  <div class="row">
+<div class="row">
+  <div class="col-md-2"><app-menu></app-menu></div>
 
-    <div class="col-md-2">
-      <app-menu></app-menu>
+  <div class="col-md-8">
+    <div *ngIf="app.aws.myInfo['id'] === app.aws.user.id">
+      <div *ngIf="app.aws.compose"><app-post-create></app-post-create></div>
+      <app-paginator
+        *ngIf="
+          app.aws.currentTotalPages !== 0 || app.aws.currentTotalPages !== 1
+        "
+      ></app-paginator>
     </div>
 
-    <div class="col-md-8">
-
-      <div *ngIf=" awService.myInfo['id'] === awService.user.id ">
-        <div *ngIf=" awService.compose ">
-          <app-post-create></app-post-create>
-        </div>
-      </div>
-
-      <div class="mb-5">
-        <app-posts></app-posts>
-      </div>
-
+    <div class="mb-5">
+      <app-post *ngFor="let post of app.aws.posts" [post]="post"></app-post>
     </div>
-
   </div>
--->
+</div>

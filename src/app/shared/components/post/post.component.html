@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="mb-3">
   <mat-card-header>
     <img mat-card-avatar [src]="post._embedded.author[0].avatar_urls['24']" />
     <mat-card-title (click)="app.navigateToPost(post.id)">{{
@@ -7,20 +7,31 @@
     <mat-card-subtitle>{{ post.date | date: 'medium' }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
+    <div *ngIf="!isEdit" [innerHTML]="post.title['rendered']"></div>
     <div *ngIf="!isEdit" [innerHTML]="post.content['rendered']"></div>
-    <textarea
-      matInput
-      *ngIf="isEdit"
-      [(ngModel)]="post.content['rendered']"
-    ></textarea>
+    <div *ngIf="isEdit">
+      <mat-form-field>
+        <input matInput type="text" [(ngModel)]="post.title['rendered']" />
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput [(ngModel)]="post.title['rendered']"></textarea>
+      </mat-form-field>
+    </div>
+    <hr />
+    <div *ngIf="post._embedded.replies">
+      <app-replies
+        *ngFor="let reply of post._embedded.replies[0]"
+        [reply]="reply"
+      ></app-replies>
+    </div>
   </mat-card-content>
   <mat-card-actions>
     <button
       mat-button
-      *ngIf="app.aws.myInfo['id'] == post.author"
+      *ngIf="app.aws.myInfo && app.aws.myInfo['id'] == post.author"
       (click)="isEdit = !isEdit"
     >
-      EDIT
+      {{ isEdit ? 'CANCEL' : 'EDIT' }}
     </button>
     <button mat-button *ngIf="isEdit" (click)="submit()">UPDATE</button>
   </mat-card-actions>

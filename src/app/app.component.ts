@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
+import { AppService } from './shared/services/app.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +10,7 @@ import { AngularWordpressApiService } from 'src/app/shared/services/angular-word
 export class AppComponent implements OnInit {
   title = 'forum-dev';
 
-  constructor(
-    public awService: AngularWordpressApiService,
-    public router: Router
-  ) {}
+  constructor(public app: AppService, public router: Router) {}
 
   ngOnInit() {}
 }

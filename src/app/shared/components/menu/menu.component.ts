@@ -7,37 +7,36 @@ import { AppService } from '../../services/app.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  constructor(public appService: AppService) {}
+  constructor(public app: AppService) {}
 
   ngOnInit() {}
 
   getData(category, id?) {
-    console.log(`category change, ${category}`);
-
-    this.appService.aws.currentCategory = id;
-    this.appService.aws.currentPageIndex = 1;
+    this.app.aws.currentCategory = id;
+    this.app.aws.currentPageIndex = 1;
 
     let urlParam = '';
 
-    if (this.appService.rootUrl === '/profile') {
-      urlParam += 'author=' + this.appService.aws.user.id;
+    if (this.app.rootUrl === '/profile') {
+      urlParam += 'author=' + this.app.aws.user.id;
     }
 
     if (id) {
       urlParam += '&categories=' + id;
     }
 
-    this.appService.aws.postList(urlParam).add(data => {
-      this.appService.navigateToCategory(category);
+    this.app.aws.postList(urlParam).add(data => {
+      this.app.navigateToCategory(category);
+      console.log(this.app.aws.currentCategory);
     });
   }
 
   create() {
-    this.appService.aws.compose = !this.appService.aws.compose;
-    if (this.appService.aws.compose === true) {
-      this.appService.navigateToPostCreate();
+    this.app.aws.compose = !this.app.aws.compose;
+    if (this.app.aws.compose === true) {
+      this.app.navigateToPostCreate();
     } else {
-      this.appService.navigate(this.appService.previousUrlAction);
+      this.app.navigate(this.app.previousUrlAction);
     }
   }
 }

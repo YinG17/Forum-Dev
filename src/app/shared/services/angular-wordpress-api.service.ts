@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
 export class AngularWordpressApiService {
   posts: PostInterface;
 
-  currentCategory: number;
+  currentCategory = 0;
   currentPageIndex = 1;
   currentTotalPages = 0;
   compose = false;
@@ -58,12 +58,12 @@ export class AngularWordpressApiService {
 
   /**
    * @method register - createUser
-   * @param user user data object (username, password)
+   * @param user user data object
    *
    */
   register(user: UserInterface) {
     return this.http
-      .post<UserResponseInterface>(restApiUrl + usersEndpoint, user)
+      .post<UserInterface>(restApiUrl + usersEndpoint, user)
       .pipe(tap(data => this.setLocalData('current_user_info', data)));
   }
 
@@ -77,6 +77,7 @@ export class AngularWordpressApiService {
       .get<UserResponseInterface>(customApiUrl + profileEndpoint, option)
       .pipe(
         tap(data => {
+          console.log(data);
           this.setLocalData('current_user_info', data);
         })
       );
@@ -131,22 +132,8 @@ export class AngularWordpressApiService {
    * @method postCreate - creates a post
    * @param post - post data object
    */
-  postCreate(post: PostInterface) {
-    let param = 'categories=' + this.currentCategory;
-
-    if (!this.currentCategory) {
-      param = '';
-    }
-
-    if (this.router.url === '/profile') {
-      param += '&author=' + this.myInfo['id'];
-    }
-
-    return this.http
-      .post(restApiUrl + postsEndpoint, post, this.loginAuth)
-      .subscribe(data => {
-        this.postList(param);
-      });
+  postCreate(post) {
+    return this.http.post(restApiUrl + postsEndpoint, post, this.loginAuth);
   }
 
   /**
@@ -197,7 +184,7 @@ export class AngularWordpressApiService {
    */
   categoryList() {
     return this.http
-      .get<CategoryInterface>(restApiUrl + categoriesEndpoint, this.loginAuth)
+      .get<CategoryInterface>(restApiUrl + categoriesEndpoint)
       .pipe(
         tap(data => {
           this.postList();
@@ -215,9 +202,6 @@ export class AngularWordpressApiService {
    */
 
   setLocalData(collectionName: string, collection) {
-    if (localStorage.getItem(collectionName)) {
-      this.removeLocalData(collectionName);
-    }
     localStorage.setItem(collectionName, JSON.stringify(collection));
   }
 

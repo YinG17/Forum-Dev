@@ -1,17 +1,18 @@
-<div class="mb-3" *ngIf="appService.aws.categories">
+<div class="mb-3" *ngIf="app.aws.categories">
   <div
     class="post-menu"
     *ngIf="
-      appService.rootUrl === '/forum' ||
-      (appService.aws.user.id === appService.aws.myInfo['id'] &&
-        appService.rootUrl === '/profile')
+      app.rootUrl === '/forum' ||
+      (app.aws.user.id === app.aws.myInfo['id'] && app.rootUrl === '/profile')
     "
   >
-    <button mat-button (click)="create()">CREATE POST</button>
+    <button mat-button *ngIf="app.aws.myInfo" (click)="create()">
+      CREATE POST
+    </button>
   </div>
   <div class="category-menu">
     <button
-      [class.active]="!appService.aws.currentCategory"
+      [class.active]="!app.aws.currentCategory"
       (click)="getData('posts')"
       mat-button
     >
@@ -19,11 +20,9 @@
     </button>
     <!-- fuck this it's not working with mat-button -->
     <button
-      matBadgeOverlap="false"
-      matBadgePosition="before"
       (click)="getData(category.name, category.id)"
-      *ngFor="let category of appService.aws.categories"
-      [class.active]="appService.aws.currentCategory === category.id"
+      *ngFor="let category of app.aws.categories"
+      [class.active]="app.aws.currentCategory === category.id"
     >
       {{ category.name }}
     </button>

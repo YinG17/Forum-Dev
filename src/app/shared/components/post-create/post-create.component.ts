@@ -28,32 +28,42 @@ export class PostCreateComponent implements OnInit {
   formInit() {
     this.postForm = <any>{};
     this.postForm.categories = [];
-
-    if (this.app.aws.currentCategory) {
-      this.postForm.categories.push(this.app.aws.currentCategory);
-    }
   }
 
   // this function is only accessible if the current path is '/profile'
   postCategory(id) {
     if (!this.postForm.categories.includes(id)) {
       this.postForm.categories.push(id);
-      console.log(`category added`, this.postForm.categories);
     } else {
       this.postForm.categories = this.postForm.categories.filter(arr => {
         return arr !== id;
       });
-      console.log(`category removed`, this.postForm.categories);
     }
   }
 
   post() {
+    if (this.app.aws.currentCategory) {
+      this.postForm.categories.push(this.app.aws.currentCategory);
+    }
+
+    let param = 'categories=' + this.app.aws.currentCategory;
+
+    if (!this.app.aws.currentCategory) {
+      param = '';
+    }
+
+    if (this.app.rootUrl === '/profile') {
+      param += '&author=' + this.app.aws.myInfo['id'];
+    }
+
+    console.log(this.postForm);
     this.comment_status
       ? (this.postForm.comment_status = 'open')
       : (this.postForm.comment_status = 'closed');
-    const res = this.app.aws.postCreate(this.postForm);
-    if (res) {
+    this.app.aws.postCreate(this.postForm).subscribe(data => {
+      console.log(data);
+      this.app.aws.postList(param);
       this.formInit();
-    }
+    });
   }
 }

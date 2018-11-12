@@ -7,18 +7,16 @@ import { AppService } from 'src/app/shared/services/app.service';
   styleUrls: ['./forum.component.scss']
 })
 export class ForumComponent implements OnInit {
-  constructor(public appService: AppService) {}
+  constructor(public app: AppService) {}
 
   ngOnInit() {
-    this.appService.aws.user = <any>{};
-
-    this.appService.aws.categoryList().subscribe(categories => {
-      this.appService.aws.setLocalData('forum_categories', categories);
-      this.appService.navigateToForum();
+    this.app.aws.categoryList().subscribe(categories => {
+      this.app.aws.setLocalData('forum_categories', categories);
+      this.app.navigateToForum();
     });
 
-    this.appService.aws.userList('?orderby=name').subscribe(users => {
-      this.appService.aws.setLocalData('forum_users', users);
+    this.app.aws.userList('?orderby=name').subscribe(users => {
+      this.app.aws.setLocalData('forum_users', users);
     });
   }
 }

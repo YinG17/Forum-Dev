@@ -8,6 +8,7 @@ import { MenuModule } from 'src/app/shared/components/menu/menu.module';
 import { PostModule } from 'src/app/shared/components/post/post.module';
 import { UsersModule } from 'src/app/shared/components/users/users.module';
 import { PostCreateModule } from 'src/app/shared/components/post-create/post-create.module';
+import { PaginatorModule } from 'src/app/shared/components/paginator/paginator.module';
 
 import {
   MatFormFieldModule,
@@ -37,7 +38,8 @@ const routes: Routes = [
     PostModule,
     UsersModule,
     MenuModule,
-    PostCreateModule
+    PostCreateModule,
+    PaginatorModule
   ],
   declarations: [ForumComponent]
 })

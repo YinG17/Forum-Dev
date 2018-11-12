@@ -1,4 +1,4 @@
-<div *ngIf="app.aws.currentTotalPages">
+<div *ngIf="app.aws.currentTotalPages && app.aws.currentTotalPages > 10">
   <mat-paginator
     [length]="app.aws.currentTotalPages"
     [pageSize]="10"

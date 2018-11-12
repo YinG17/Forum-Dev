@@ -2,24 +2,29 @@
   <button
     mat-button
     class="p-2"
-    (click)="appService.navigateToForum()"
-    [class.active]="appService.rootUrl === '/forum'"
-    *ngIf="appService.aws.isLogged"
+    (click)="app.navigateToForum()"
+    [class.active]="app.rootUrl === '/forum'"
   >
     FORUM
   </button>
-  <!--
-    <button mat-button (click)="appService.navigate('/test')">CREATE POST</button>
-  -->
+
   <span class="spacer"></span>
-  <button mat-button class="p-2" *ngIf="appService.aws.isLogged">
-    {{ appService.aws.myInfo['name'] | uppercase }}
+  <button
+    mat-button
+    class="p-2"
+    *ngIf="!app.aws.isLogged"
+    (click)="app.navigateToAuthPage()"
+  >
+    LOGIN
+  </button>
+  <button mat-button class="p-2" *ngIf="app.aws.isLogged">
+    {{ app.aws.myInfo['name'] | uppercase }}
   </button>
   <button
     mat-icon-button
     class="my-auto menu"
     [matMenuTriggerFor]="menu"
-    *ngIf="appService.aws.isLogged"
+    *ngIf="app.aws.isLogged"
   >
     <mat-icon>more_vert</mat-icon>
   </button>
@@ -27,7 +32,7 @@
     <button class="menu w-100" mat-button (click)="getProfile()">
       <span> PROFILE</span>
     </button>
-    <button class="menu w-100" mat-button (click)="appService.aws.logout()">
+    <button class="menu w-100" mat-button (click)="app.aws.logout()">
       <span>LOGOUT</span>
     </button>
   </mat-menu>

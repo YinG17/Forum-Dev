@@ -30,7 +30,11 @@ export interface UserResponseInterface extends UserInterface {
     drafts: Array<any>;
   }; // P
   locale?: string; // U
-  avatar_urls?: {}; // P
+  avatar_urls: {
+    24: string;
+    48: string;
+    96: string;
+  };
   extra_capabilities?: {};
   register_date?: string;
   capabilities?: {};
@@ -83,6 +87,32 @@ export interface PostInterface {
     replies: Array<any>;
   };
   _links?: string[];
+}
+
+export interface Reply {
+  id: number;
+  author: number;
+  author_email: string;
+  author_ip: string;
+  author_name: string;
+  author_url: string;
+  author_user_agent: string;
+  content: {
+    rendered: string;
+  };
+  date: string;
+  date_gmt: string;
+  link: string;
+  parent: number;
+  post: number;
+  status: string;
+  type: string;
+  author_avatar_urls: {
+    24: string;
+    48: string;
+    96: string;
+  };
+  meta: Array<any>;
 }
 
 /**

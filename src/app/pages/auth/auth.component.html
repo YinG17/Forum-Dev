@@ -2,49 +2,77 @@
   <div class="col-md-5 mt-2">
     <mat-card>
       <mat-card-content>
-
         <mat-form-field>
-          <input matInput type="username" placeholder="Username" [(ngModel)]="userForm.username">
+          <input
+            matInput
+            type="username"
+            placeholder="Username"
+            [(ngModel)]="userForm.username"
+          />
         </mat-form-field>
         <mat-form-field>
-          <input matInput type="password" placeholder="Password" [(ngModel)]="userForm.password">
+          <input
+            matInput
+            type="password"
+            placeholder="Password"
+            [(ngModel)]="userForm.password"
+          />
         </mat-form-field>
 
-        <div *ngIf=" !isLogin ">
+        <div *ngIf="!isLogin">
           <mat-form-field>
-            <input matInput type="email" placeholder="Email" [(ngModel)]="userForm.email">
+            <input
+              matInput
+              type="email"
+              placeholder="Email"
+              [(ngModel)]="userForm.email"
+            />
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Name" [(ngModel)]="userForm.name">
+            <input matInput placeholder="Name" [(ngModel)]="userForm.name" />
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="First Name" [(ngModel)]="userForm.first_name">
+            <input
+              matInput
+              placeholder="First Name"
+              [(ngModel)]="userForm.first_name"
+            />
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Last Name" [(ngModel)]="userForm.last_name">
+            <input
+              matInput
+              placeholder="Last Name"
+              [(ngModel)]="userForm.last_name"
+            />
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Nickname" [(ngModel)]="userForm.nickname">
+            <input
+              matInput
+              placeholder="Nickname"
+              [(ngModel)]="userForm.nickname"
+            />
           </mat-form-field>
         </div>
-
       </mat-card-content>
 
       <mat-card-actions class="text-center">
         <button mat-button color="primary" class="mx-2" (click)="onSubmit()">
-          {{ isLogin ? 'LOGIN' :'SUBMIT' }}
+          {{ isLogin ? 'LOGIN' : 'SUBMIT' }}
         </button>
         <button mat-button color="warn" (click)="isLogin = !isLogin">
           {{ isLogin ? 'NEW ACCOUNT' : 'LOG IN' }}
         </button>
       </mat-card-actions>
-
     </mat-card>
   </div>
   <div class="col-md-6 my-5">
     <h1>
       <p class="text-justify">
-        {{ isLogin ? 'LOG IN TO YOUR ACCOUNT' : 'REGISTER A NEW ACCOUNT AND JOIN OUR DISCUSSIONS' }}
+        {{
+          isLogin
+            ? 'LOG IN TO YOUR ACCOUNT'
+            : 'REGISTER A NEW ACCOUNT AND JOIN OUR DISCUSSIONS'
+        }}
       </p>
     </h1>
     <h4 class="mt-3">
@@ -52,9 +80,9 @@
         Maybe we can put some fancy sentence or paragraph here?
       </p>
       <p *ngIf="!isLogin">
-        Hi! do you have time to talk about our lord and savior cthulhu? register now!
+        Hi! do you have time to talk about our lord and savior cthulhu? register
+        now!
       </p>
     </h4>
-
   </div>
 </div>

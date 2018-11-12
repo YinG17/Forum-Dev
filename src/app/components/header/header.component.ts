@@ -8,17 +8,26 @@ import { AppService } from 'src/app/shared/services/app.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  constructor(public appService: AppService, public router: Router) {}
+  constructor(public app: AppService, public router: Router) {}
 
   getProfile() {
-    this.appService.aws
-      .userProfile(this.appService.aws.myInfo['id'])
+    this.app.aws
+      .userProfile(this.app.aws.myInfo['id'])
       .subscribe(data => {
-        this.appService.aws.user = data;
-        this.appService.aws.posts = null;
-        this.appService.navigateToProfile(data.name);
+        this.app.aws.user = data;
+        this.app.aws.posts = null;
+      })
+      .add(() => {
+        this.app.aws.postList('author=' + this.app.aws.user.id);
+        this.app.navigateToProfile(this.app.aws.user.name);
       });
   }
 
   ngOnInit() {}
+
+  logout() {
+    this.app.aws.logout().then(() => {
+      this.app.navigateToAuthPage();
+    });
+  }
 }
