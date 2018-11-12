@@ -8,8 +8,6 @@ import { AppService } from './shared/services/app.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'forum-dev';
-
   constructor(public app: AppService, public router: Router) {}
 
   ngOnInit() {}

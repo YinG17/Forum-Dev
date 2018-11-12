@@ -11,7 +11,7 @@ export class AuthComponent implements OnInit {
   isLogin: boolean;
   userForm: UserInterface = <any>{};
 
-  constructor(public appService: AppService) {}
+  constructor(public app: AppService) {}
 
   ngOnInit() {
     this.isLogin = true;
@@ -24,12 +24,12 @@ export class AuthComponent implements OnInit {
         user_login: this.userForm.username,
         user_pass: this.userForm.password
       };
-      this.appService.aws.login(user).subscribe(data => {
-        this.appService.navigateToForum();
+      this.app.aws.login(user).subscribe(data => {
+        this.app.navigateToForum();
       });
     } else {
-      this.appService.aws.register(this.userForm).subscribe(data => {
-        this.appService.navigateToForum();
+      this.app.aws.register(this.userForm).subscribe(data => {
+        this.app.navigateToForum();
       });
     }
   }

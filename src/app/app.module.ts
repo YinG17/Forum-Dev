@@ -1,16 +1,20 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './components/header/header.component';
-import { AppRoutingModule } from './app-routing.module';
-import { FooterComponent } from './components/footer/footer.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
-import { MaterialButtonModule } from 'src/app/shared/modules/material/material-button.module';
 import { FormsModule } from '@angular/forms';
-import { MaterialNavigationModule } from './shared/modules/material/material-navigation.module';
-import { MaterialIndicatorModule } from './shared/modules/material/material-indicator.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import {
+  MatProgressSpinnerModule,
+  MatMenuModule,
+  MatButtonModule,
+  MatToolbarModule,
+  MatIconModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],
@@ -20,13 +24,12 @@ import { MaterialIndicatorModule } from './shared/modules/material/material-indi
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    MaterialButtonModule,
-    MaterialIndicatorModule,
-    MaterialNavigationModule
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatIconModule
   ],
-  exports: [],
-  providers: [AngularWordpressApiService],
-  bootstrap: [AppComponent],
-  entryComponents: []
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

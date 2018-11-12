@@ -1,19 +1,19 @@
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
+  UserInterface,
   PostInterface,
   CategoryInterface,
-  categoriesEndpoint,
-  postsEndpoint,
-  restApiUrl,
   UserResponseInterface,
-  UserInterface,
+  categoriesEndpoint,
+  profileEndpoint,
+  postsEndpoint,
   usersEndpoint,
   customApiUrl,
-  profileEndpoint
+  restApiUrl
 } from './angular-wordpress-api.interface';
-import { tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,6 @@ export class AngularWordpressApiService {
   currentCategory = 0;
   currentPageIndex = 1;
   currentTotalPages = 0;
-  compose = false;
 
   post: PostInterface = <any>[];
   user: UserResponseInterface = <any>[];
@@ -141,12 +140,11 @@ export class AngularWordpressApiService {
    *
    * @param id - post id
    */
-  postGet(id, context?) {
-    return this.http
-      .get<PostInterface>(restApiUrl + postsEndpoint + id, this.loginAuth)
-      .subscribe(data => {
-        this.post = data;
-      });
+  postGet(id) {
+    return this.http.get<PostInterface>(
+      restApiUrl + postsEndpoint + id,
+      this.loginAuth
+    );
   }
 
   /**
