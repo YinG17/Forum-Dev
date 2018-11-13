@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserInterface } from '../../shared/services/angular-wordpress-api.interface';
+import { User } from '../../shared/services/angular-wordpress-api.interface';
 import { AppService } from 'src/app/shared/services/app.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { AppService } from 'src/app/shared/services/app.service';
 })
 export class AuthComponent implements OnInit {
   isLogin: boolean;
-  userForm: UserInterface = <any>{};
+  userForm: User = <any>{};
 
   constructor(public app: AppService) {}
 

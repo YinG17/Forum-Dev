@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserInterface } from 'src/app/shared/services/angular-wordpress-api.interface';
+import { User } from 'src/app/shared/services/angular-wordpress-api.interface';
 import { AppService } from 'src/app/shared/services/app.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { AppService } from 'src/app/shared/services/app.service';
 })
 export class ProfileComponent implements OnInit {
   isEdit = false;
-  userForm: UserInterface;
+  userForm: User;
 
   constructor(public app: AppService) {}
 

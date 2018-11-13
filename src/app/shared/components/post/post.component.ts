@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AppService } from '../../services/app.service';
-import { PostInterface } from '../../services/angular-wordpress-api.interface';
+import { Post } from '../../services/angular-wordpress-api.interface';
 
 @Component({
   selector: 'app-post',
@@ -8,7 +8,7 @@ import { PostInterface } from '../../services/angular-wordpress-api.interface';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
-  @Input() post = <PostInterface>{};
+  @Input() post = <Post>{};
 
   isEdit = false;
 
