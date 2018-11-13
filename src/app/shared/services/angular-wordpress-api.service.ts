@@ -110,7 +110,7 @@ export class AngularWordpressApiService {
   updateProfile(user: UserInterface) {
     return this.http
       .post(restApiUrl + usersEndpoint + '/me', user, this.loginAuth)
-      .pipe(tap(data => this.setLocalData('current_user_info', user)));
+      .pipe(tap(data => this.setLocalData('current_user_info', data)));
   }
 
   /**

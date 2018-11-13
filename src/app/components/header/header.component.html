@@ -12,7 +12,9 @@
     class="p-2"
     *ngIf="app.aws.isLogged"
     (click)="getProfile()"
-    [class.active]="app.aws.user.id === app.aws.myInfo['id']"
+    [class.active]="
+      app.aws.user.id === app.aws.myInfo['id'] && app.rootUrl === '/profile'
+    "
   >
     {{ app.aws.myInfo['name'] | uppercase }}
   </button>

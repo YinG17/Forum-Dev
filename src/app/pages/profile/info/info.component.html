@@ -1,13 +1,13 @@
 <mat-card class="mb-2" *ngIf="user.id">
-  <img mat-card-image [src]="user.avatar_urls['96']" />
+  <img mat-card-image [src]="user.avatar_urls['96']" class="mb-0" />
   <mat-card-content>
     <div *ngIf="!isEdit">
       <h3 class="text-center">@{{ user.name }}</h3>
       <hr class="mb-0" />
       <span><sup> Description </sup></span>
-      <p>{{ user.description }}</p>
+      <p>{{ user.description ? user.description : 'no description' }}</p>
     </div>
-    <div *ngIf="isEdit">
+    <div *ngIf="isEdit" class="mt-2">
       <mat-form-field>
         <input
           matInput
@@ -16,7 +16,6 @@
           [(ngModel)]="user.name"
         />
       </mat-form-field>
-      <hr class="mb-0" />
       <span><sup> Description </sup></span>
       <mat-form-field appearance="outline">
         <textarea

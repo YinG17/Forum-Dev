@@ -1,20 +1,24 @@
 <div class="mb-3" *ngIf="categories">
   <div
-    class="post-menu"
     *ngIf="
       app.rootUrl === '/forum' ||
       (app.aws.user.id === app.aws.myInfo['id'] && app.rootUrl === '/profile')
     "
   >
-    <button mat-button *ngIf="app.aws.myInfo" (click)="create()">
+    <button
+      mat-button
+      *ngIf="app.aws.myInfo"
+      (click)="create()"
+      [class.active]="app.compose"
+    >
       CREATE POST
     </button>
   </div>
   <div class="category-menu">
     <button
-      [class.active]="!app.aws.currentCategory"
-      (click)="getData('posts')"
       mat-button
+      (click)="getData('posts')"
+      [class.active]="!app.aws.currentCategory"
     >
       ALL POSTS
     </button>

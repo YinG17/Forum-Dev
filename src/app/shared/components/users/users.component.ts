@@ -14,7 +14,6 @@ export class UsersComponent implements OnInit {
   ngOnInit() {}
 
   profile(id) {
-    console.log(id);
     this.app.aws.userProfile(id).subscribe(data => {
       this.app.aws.posts = null;
       this.app.navigateToProfile(data.name);

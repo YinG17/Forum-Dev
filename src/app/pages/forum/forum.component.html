@@ -3,7 +3,7 @@
     <app-spinner *ngIf="!app.aws.posts"></app-spinner>
     <app-post-create *ngIf="app.compose"></app-post-create>
     <app-post *ngFor="let post of app.aws.posts" [post]="post"> </app-post>
-    <app-paginator></app-paginator>
+    <app-paginator *ngIf="app.aws.posts"></app-paginator>
   </div>
 
   <div class="col-md-4">

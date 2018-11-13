@@ -10,7 +10,10 @@
     ></app-post-create>
     <app-post *ngFor="let post of app.aws.posts" [post]="post"></app-post>
     <app-paginator
-      *ngIf="app.aws.currentTotalPages !== 0 || app.aws.currentTotalPages !== 1"
+      *ngIf="
+        app.aws.posts &&
+        (app.aws.currentTotalPages !== 0 || app.aws.currentTotalPages !== 1)
+      "
     ></app-paginator>
   </div>
 </div>
