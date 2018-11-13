@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RepliesComponent } from './replies.component';
 import {
@@ -6,13 +7,12 @@ import {
   MatInputModule,
   MatFormFieldModule
 } from '@angular/material';
-import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
+    FormsModule,
     CommonModule,
     MatCardModule,
-    FormsModule,
     MatInputModule,
     MatFormFieldModule
   ],

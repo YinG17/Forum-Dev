@@ -8,7 +8,7 @@
  * indicated Legends
  */
 
-export interface UserInterface {
+export interface User {
   password: string; // L, P, U, R - Required in L, P, U, R
   username: string; // L, P, U, R - Required in R
   email: string; // L, P, U, R - Required in R
@@ -21,7 +21,7 @@ export interface UserInterface {
   last_name?: string; // P, U, R
 }
 
-export interface UserResponseInterface extends UserInterface {
+export interface UserResponse extends User {
   id?: number; // L, P, U - Required in L, P, U, R
   meta?: Array<any>; // P, U
   slug?: string; // U
@@ -43,7 +43,7 @@ export interface UserResponseInterface extends UserInterface {
   url?: string;
 }
 
-export interface CategoryInterface {
+export interface Category {
   count: number;
   description: string;
   id: number;
@@ -56,7 +56,7 @@ export interface CategoryInterface {
   _links: Object;
 }
 
-export interface PostInterface {
+export interface Post {
   password?: string;
   author: number; // Required author ID
   title: {
@@ -91,7 +91,7 @@ export interface PostInterface {
   _links?: string[];
 }
 
-export interface Reply {
+export interface Comment {
   id: number;
   author: number;
   author_email: string;

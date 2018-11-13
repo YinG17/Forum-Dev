@@ -13,9 +13,9 @@ import { PostCreateModule } from '../../shared/components/post-create/post-creat
 
 import {
   MatCardModule,
-  MatFormFieldModule,
   MatInputModule,
-  MatButtonModule
+  MatButtonModule,
+  MatFormFieldModule
 } from '@angular/material';
 
 const routes: Routes = [
@@ -35,17 +35,17 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    MatCardModule,
+    RouterModule.forChild(routes),
     MatFormFieldModule,
-    MatInputModule,
     PostCreateModule,
     MatButtonModule,
-    RouterModule.forChild(routes),
+    PaginatorModule,
+    MatInputModule,
+    MatCardModule,
+    CommonModule,
+    FormsModule,
     PostModule,
-    MenuModule,
-    PaginatorModule
+    MenuModule
   ],
   declarations: [ProfileComponent, InfoComponent]
 })

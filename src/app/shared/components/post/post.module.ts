@@ -9,11 +9,11 @@ import { RepliesModule } from '../replies/replies.module';
 import { CommentBoxModule } from '../comment-box/comment-box.module';
 
 import {
-  MatCardModule,
   MatPaginatorModule,
-  MatInputModule,
-  MatButtonModule,
   MatFormFieldModule,
+  MatButtonModule,
+  MatInputModule,
+  MatCardModule,
   MatMenuModule,
   MatIconModule
 } from '@angular/material';
@@ -27,18 +27,18 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    MatCardModule,
+    RouterModule.forChild(routes),
     MatPaginatorModule,
+    MatFormFieldModule,
+    CommentBoxModule,
+    MatButtonModule,
     MatInputModule,
     MatMenuModule,
-    MatButtonModule,
-    MatFormFieldModule,
+    MatCardModule,
     RepliesModule,
     MatIconModule,
-    CommentBoxModule,
-    RouterModule.forChild(routes)
+    CommonModule,
+    FormsModule
   ],
   declarations: [PostComponent],
   exports: [PostComponent]

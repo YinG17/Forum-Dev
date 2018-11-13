@@ -4,18 +4,18 @@ import { CommonModule } from '@angular/common';
 import { CommentBoxComponent } from './comment-box.component';
 import {
   MatFormFieldModule,
-  MatInputModule,
   MatButtonModule,
+  MatInputModule,
   MatIconModule
 } from '@angular/material';
 
 @NgModule({
   imports: [
-    CommonModule,
     MatFormFieldModule,
-    MatInputModule,
     MatButtonModule,
+    MatInputModule,
     MatIconModule,
+    CommonModule,
     FormsModule
   ],
   declarations: [CommentBoxComponent],

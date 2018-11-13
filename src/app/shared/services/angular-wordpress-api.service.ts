@@ -3,32 +3,32 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
-  UserInterface,
-  PostInterface,
-  CategoryInterface,
-  UserResponseInterface,
+  User,
+  Post,
+  Comment,
+  Category,
+  UserResponse,
   categoriesEndpoint,
+  commentsEndpoint,
   profileEndpoint,
   postsEndpoint,
   usersEndpoint,
   customApiUrl,
-  restApiUrl,
-  commentsEndpoint,
-  Reply
+  restApiUrl
 } from './angular-wordpress-api.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AngularWordpressApiService {
-  posts: PostInterface;
+  posts: Post;
 
   currentCategory = 0;
   currentPageIndex = 1;
   currentTotalPages = 0;
 
-  post: PostInterface = <any>[];
-  user: UserResponseInterface = <any>[];
+  post: Post = <any>[];
+  user: UserResponse = <any>[];
 
   constructor(public router: Router, public http: HttpClient) {}
 
@@ -62,9 +62,9 @@ export class AngularWordpressApiService {
    * @param user user data object
    *
    */
-  register(user: UserInterface) {
+  register(user: User) {
     return this.http
-      .post<UserResponseInterface>(restApiUrl + usersEndpoint, user)
+      .post<UserResponse>(restApiUrl + usersEndpoint, user)
       .pipe(tap(data => this.setLocalData('current_user_info', data)));
   }
 
@@ -75,7 +75,7 @@ export class AngularWordpressApiService {
   login(rawUser) {
     const option = this.getHttpOptions(rawUser);
     return this.http
-      .get<UserResponseInterface>(customApiUrl + profileEndpoint, option)
+      .get<UserResponse>(customApiUrl + profileEndpoint, option)
       .pipe(
         tap(data => {
           this.setLocalData('current_user_info', data);
@@ -88,10 +88,7 @@ export class AngularWordpressApiService {
    */
   userProfile(id) {
     return this.http
-      .get<UserResponseInterface>(
-        restApiUrl + usersEndpoint + '/' + id,
-        this.loginAuth
-      )
+      .get<UserResponse>(restApiUrl + usersEndpoint + '/' + id, this.loginAuth)
       .pipe(
         tap(data => {
           this.user = data;
@@ -107,7 +104,7 @@ export class AngularWordpressApiService {
    *
    * @note user cannot change 'username'. But everything else is changable.
    */
-  updateProfile(user: UserInterface) {
+  updateProfile(user: User) {
     return this.http
       .post(restApiUrl + usersEndpoint + '/me', user, this.loginAuth)
       .pipe(tap(data => this.setLocalData('current_user_info', data)));
@@ -119,7 +116,7 @@ export class AngularWordpressApiService {
    */
   userList(filter) {
     return this.http
-      .get<UserInterface>(restApiUrl + usersEndpoint + filter)
+      .get<User>(restApiUrl + usersEndpoint + filter)
       .pipe(tap(data => this.setLocalData('forum_users', data)));
   }
 
@@ -143,10 +140,7 @@ export class AngularWordpressApiService {
    * @param id - post id
    */
   postGet(id) {
-    return this.http.get<PostInterface>(
-      restApiUrl + postsEndpoint + id,
-      this.loginAuth
-    );
+    return this.http.get<Post>(restApiUrl + postsEndpoint + id, this.loginAuth);
   }
 
   /**
@@ -170,15 +164,13 @@ export class AngularWordpressApiService {
       url += filter;
     }
     url += '&_embed';
-    return this.http
-      .get<PostInterface>(url, { observe: 'response' })
-      .subscribe(data => {
-        this.posts = data.body;
-        this.currentTotalPages = +data.headers.get('X-WP-TOTAL');
-      });
+    return this.http.get<Post>(url, { observe: 'response' }).subscribe(data => {
+      this.posts = data.body;
+      this.currentTotalPages = +data.headers.get('X-WP-TOTAL');
+    });
   }
 
-  commentCreate(comment) {
+  commentCreate(comment: Comment) {
     return this.http
       .post(restApiUrl + commentsEndpoint, comment, this.loginAuth)
       .pipe(
@@ -202,13 +194,11 @@ export class AngularWordpressApiService {
    * @method categoryList - retrieves the list of categories
    */
   categoryList() {
-    return this.http
-      .get<CategoryInterface>(restApiUrl + categoriesEndpoint)
-      .pipe(
-        tap(() => {
-          this.postList();
-        })
-      );
+    return this.http.get<Category>(restApiUrl + categoriesEndpoint).pipe(
+      tap(() => {
+        this.postList();
+      })
+    );
   }
 
   /**

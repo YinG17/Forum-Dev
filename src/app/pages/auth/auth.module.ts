@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthComponent } from './auth.component';
 import { Routes, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 
 import {
+  MatCardModule,
   MatInputModule,
   MatButtonModule,
-  MatFormFieldModule,
-  MatCardModule
+  MatFormFieldModule
 } from '@angular/material';
 
 const routes: Routes = [
@@ -20,12 +20,12 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule,
     FormsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
+    CommonModule,
     MatCardModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
     RouterModule.forChild(routes)
   ],
   declarations: [AuthComponent]

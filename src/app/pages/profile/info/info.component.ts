@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserResponseInterface } from 'src/app/shared/services/angular-wordpress-api.interface';
+import { UserResponse } from 'src/app/shared/services/angular-wordpress-api.interface';
 import { AppService } from 'src/app/shared/services/app.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { AppService } from 'src/app/shared/services/app.service';
   styleUrls: ['./info.component.scss']
 })
 export class InfoComponent implements OnInit {
-  @Input() user: UserResponseInterface = <any>[];
+  @Input() user: UserResponse = <any>[];
   isEdit = false;
   constructor(public app: AppService) {}
 

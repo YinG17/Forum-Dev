@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Reply } from '../../services/angular-wordpress-api.interface';
+import { Comment } from '../../services/angular-wordpress-api.interface';
 import { AppService } from '../../services/app.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { AppService } from '../../services/app.service';
   styleUrls: ['./replies.component.scss']
 })
 export class RepliesComponent implements OnInit {
-  @Input() reply: Reply = <any>[];
+  @Input() reply: Comment = <any>[];
 
   isEdit = false;
 
