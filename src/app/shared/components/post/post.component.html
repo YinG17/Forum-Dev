@@ -3,36 +3,75 @@
     <img mat-card-avatar [src]="post._embedded.author[0].avatar_urls['24']" />
     <mat-card-title>{{ post._embedded.author[0].name }}</mat-card-title>
     <mat-card-subtitle>{{ post.date | date: 'medium' }}</mat-card-subtitle>
+
+    <button
+      mat-icon-button
+      class="my-auto menu"
+      [matMenuTriggerFor]="menu"
+      *ngIf="app.aws.myInfo && app.aws.myInfo['id'] == post.author"
+    >
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button class="w-100" mat-button (click)="isEdit = !isEdit">
+        <span> EDIT</span>
+      </button>
+    </mat-menu>
   </mat-card-header>
   <mat-card-content>
-    <div *ngIf="!isEdit" [innerHTML]="post.title['rendered']"></div>
-    <div *ngIf="!isEdit" [innerHTML]="post.content['rendered']"></div>
+    <!-- not edit -->
+    <div *ngIf="!isEdit">
+      <div class="content">
+        <div [innerHTML]="post.title['rendered']"></div>
+        <div [innerHTML]="post.content['rendered']"></div>
+      </div>
+      <div
+        *ngIf="
+          post.comment_status === 'open' && post._embedded.replies !== undefined
+        "
+      >
+        <hr class="mb-0" />
+        <p class="m-1 text-right">
+          {{
+            post._embedded.replies[0].length === 1
+              ? '1 comment'
+              : post._embedded.replies[0].length + ' comments'
+          }}
+        </p>
+        <app-replies
+          *ngFor="let reply of post._embedded.replies[0]"
+          [reply]="reply"
+        ></app-replies>
+      </div>
+    </div>
+
+    <!-- edit -->
     <div *ngIf="isEdit">
       <mat-form-field>
-        <input matInput type="text" [(ngModel)]="post.title['rendered']" />
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="post.title.raw"
+          [placeholder]="post.title.rendered"
+        />
       </mat-form-field>
-      <mat-form-field>
-        <textarea matInput [(ngModel)]="post.title['rendered']"></textarea>
+      <mat-form-field appearance="outline">
+        <textarea
+          matInput
+          [(ngModel)]="post.content.raw"
+          [placeholder]="post.content.rendered"
+        ></textarea>
       </mat-form-field>
-    </div>
-    <hr />
-    <div *ngIf="post._embedded.replies">
-      <app-replies
-        *ngFor="let reply of post._embedded.replies[0]"
-        [reply]="reply"
-      ></app-replies>
+      <button mat-button (click)="isEdit = !isEdit">CANCEL</button>
+      <button mat-button (click)="submit()" class="btn-submit">SUBMIT</button>
     </div>
   </mat-card-content>
-  <mat-card-actions>
-    <button
-      mat-button
-      *ngIf="app.aws.myInfo && app.aws.myInfo['id'] == post.author"
-      (click)="isEdit = !isEdit"
-    >
-      {{ isEdit ? 'CANCEL' : 'EDIT' }}
-    </button>
-    <button mat-button *ngIf="isEdit" (click)="submit()">UPDATE</button>
-  </mat-card-actions>
+  <mat-card-footer class="p-0 px-3">
+    <app-comment-box
+      [post_id]="post.id"
+      *ngIf="!isEdit && post.comment_status === 'open' && app.aws.isLogged"
+    ></app-comment-box>
+  </mat-card-footer>
 </mat-card>
 
 <!-- {{ post | json }} -->

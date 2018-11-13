@@ -12,8 +12,7 @@ import {
   MatProgressSpinnerModule,
   MatMenuModule,
   MatButtonModule,
-  MatToolbarModule,
-  MatIconModule
+  MatToolbarModule
 } from '@angular/material';
 
 @NgModule({
@@ -27,8 +26,7 @@ import {
     MatProgressSpinnerModule,
     MatButtonModule,
     MatToolbarModule,
-    MatMenuModule,
-    MatIconModule
+    MatMenuModule
   ],
   bootstrap: [AppComponent]
 })

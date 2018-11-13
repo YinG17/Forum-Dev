@@ -1,3 +1,9 @@
-<p>
-  comment-box works!
-</p>
+<mat-form-field class="p-0" appearance="outline">
+  <input
+    (keydown)="submit($event)"
+    matInput
+    type="text"
+    [(ngModel)]="comment.content"
+    placeholder="Write a comment ..."
+  />
+</mat-form-field>

@@ -30,9 +30,8 @@ export class MenuComponent implements OnInit {
       urlParam += '&categories=' + id;
     }
 
-    this.app.aws.postList(urlParam).add(data => {
+    this.app.aws.postList(urlParam).add(() => {
       this.app.navigateToCategory(category);
-      console.log(this.app.aws.currentCategory);
     });
   }
 

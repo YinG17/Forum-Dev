@@ -6,13 +6,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PostComponent } from './post.component';
 import { RepliesModule } from '../replies/replies.module';
+import { CommentBoxModule } from '../comment-box/comment-box.module';
 
 import {
   MatCardModule,
   MatPaginatorModule,
   MatInputModule,
   MatButtonModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatMenuModule,
+  MatIconModule
 } from '@angular/material';
 
 const routes: Routes = [
@@ -29,9 +32,12 @@ const routes: Routes = [
     MatCardModule,
     MatPaginatorModule,
     MatInputModule,
+    MatMenuModule,
     MatButtonModule,
     MatFormFieldModule,
     RepliesModule,
+    MatIconModule,
+    CommentBoxModule,
     RouterModule.forChild(routes)
   ],
   declarations: [PostComponent],

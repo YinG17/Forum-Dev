@@ -66,11 +66,11 @@ export class AppService {
 
   // post navigate
   navigateToPost(id) {
-    return this.navigate(`/posts/${id}`);
+    return this.navigate(`/post/${id}`);
   }
   // post navigate, action = edit|update|delete
   navigateToPostWithAction(id, action) {
-    return this.navigate(`/posts/${id}#${action}`);
+    return this.navigate(`/post/${id}#${action}`);
   }
   // change url when creating a post, append '#post_create'
   navigateToPostCreate() {

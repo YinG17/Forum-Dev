@@ -12,7 +12,9 @@ import {
   postsEndpoint,
   usersEndpoint,
   customApiUrl,
-  restApiUrl
+  restApiUrl,
+  commentsEndpoint,
+  Reply
 } from './angular-wordpress-api.interface';
 
 @Injectable({
@@ -176,6 +178,26 @@ export class AngularWordpressApiService {
       });
   }
 
+  commentCreate(comment) {
+    return this.http
+      .post(restApiUrl + commentsEndpoint, comment, this.loginAuth)
+      .pipe(
+        tap(() => {
+          this.postList();
+        })
+      );
+  }
+
+  commentUpdate(id, comment) {
+    return this.http
+      .post(restApiUrl + commentsEndpoint + id, comment, this.loginAuth)
+      .pipe(
+        tap(() => {
+          this.postList();
+        })
+      );
+  }
+
   /**
    * @method categoryList - retrieves the list of categories
    */
@@ -183,7 +205,7 @@ export class AngularWordpressApiService {
     return this.http
       .get<CategoryInterface>(restApiUrl + categoriesEndpoint)
       .pipe(
-        tap(data => {
+        tap(() => {
           this.postList();
         })
       );

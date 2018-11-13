@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Reply } from '../../services/angular-wordpress-api.interface';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-replies',
@@ -9,7 +10,19 @@ import { Reply } from '../../services/angular-wordpress-api.interface';
 export class RepliesComponent implements OnInit {
   @Input() reply: Reply = <any>[];
 
-  constructor() {}
+  isEdit = false;
+
+  constructor(public app: AppService) {}
 
   ngOnInit() {}
+
+  updateComment() {
+    console.log(this.reply);
+    this.app.aws
+      .commentUpdate('/' + this.reply.id, this.reply)
+      .subscribe(data => {
+        console.log(data);
+        this.isEdit = false;
+      });
+  }
 }

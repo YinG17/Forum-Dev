@@ -61,10 +61,12 @@ export interface PostInterface {
   author: number; // Required author ID
   title: {
     rendered: string;
+    raw: string;
   }; // Required
   categories: number[]; // Required
   content: {
     rendered: string;
+    raw: string;
   }; // Required
   id: number; // Required
   date?: string;
@@ -99,6 +101,7 @@ export interface Reply {
   author_user_agent: string;
   content: {
     rendered: string;
+    raw: string;
   };
   date: string;
   date_gmt: string;
@@ -132,6 +135,7 @@ export const usersEndpoint = '/users';
  */
 export const categoriesEndpoint = '/categories';
 export const postsEndpoint = '/posts';
+export const commentsEndpoint = '/comments';
 
 /**
  * declare here an endpoint dedicated only for customApiUrl use

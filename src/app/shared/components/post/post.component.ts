@@ -11,7 +11,6 @@ export class PostComponent implements OnInit {
   @Input() post = <PostInterface>{};
 
   isEdit = false;
-  editForm = <PostInterface>{};
 
   constructor(public app: AppService) {}
 

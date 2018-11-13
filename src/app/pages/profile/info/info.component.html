@@ -1,14 +1,38 @@
 <mat-card class="mb-2" *ngIf="user.id">
-  <mat-card-header>
-    <mat-card-title>@{{ user.name }}</mat-card-title>
-  </mat-card-header>
   <img mat-card-image [src]="user.avatar_urls['96']" />
   <mat-card-content>
-    <p>{{ user.description }}</p>
+    <div *ngIf="!isEdit">
+      <h3 class="text-center">@{{ user.name }}</h3>
+      <hr class="mb-0" />
+      <span><sup> Description </sup></span>
+      <p>{{ user.description }}</p>
+    </div>
+    <div *ngIf="isEdit">
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          placeholder="name"
+          [(ngModel)]="user.name"
+        />
+      </mat-form-field>
+      <hr class="mb-0" />
+      <span><sup> Description </sup></span>
+      <mat-form-field appearance="outline">
+        <textarea
+          matInput
+          placeholder="Description"
+          [(ngModel)]="user.description"
+          rows="2"
+        ></textarea>
+      </mat-form-field>
+    </div>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>LIKE</button> <button mat-button>SHARE</button>
+  <mat-card-actions *ngIf="user.id === app.aws.myInfo['id']">
+    <button mat-button (click)="isEdit = !isEdit">
+      {{ isEdit ? 'Cancel' : 'Edit' }}
+    </button>
+
+    <button mat-button *ngIf="isEdit" (click)="submit()">Submit</button>
   </mat-card-actions>
 </mat-card>
-
-<!-- {{ user | json }} -->

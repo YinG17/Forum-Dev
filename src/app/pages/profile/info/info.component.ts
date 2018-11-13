@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserResponseInterface } from 'src/app/shared/services/angular-wordpress-api.interface';
+import { AppService } from 'src/app/shared/services/app.service';
 
 @Component({
   selector: 'app-info',
@@ -8,7 +9,15 @@ import { UserResponseInterface } from 'src/app/shared/services/angular-wordpress
 })
 export class InfoComponent implements OnInit {
   @Input() user: UserResponseInterface = <any>[];
-  constructor() {}
+  isEdit = false;
+  constructor(public app: AppService) {}
 
   ngOnInit() {}
+
+  submit() {
+    this.app.aws.updateProfile(this.user).subscribe(data => {
+      console.log(data);
+      this.isEdit = false;
+    });
+  }
 }

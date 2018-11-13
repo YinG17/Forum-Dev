@@ -6,6 +6,7 @@ import {
   MatCardModule,
   MatInputModule,
   MatSelectModule,
+  MatButtonModule,
   MatCheckboxModule,
   MatFormFieldModule,
   MatSlideToggleModule
@@ -17,6 +18,7 @@ import {
     FormsModule,
     MatCardModule,
     MatInputModule,
+    MatButtonModule,
     MatSelectModule,
     MatCheckboxModule,
     MatFormFieldModule,

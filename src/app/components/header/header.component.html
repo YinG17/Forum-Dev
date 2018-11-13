@@ -7,33 +7,26 @@
   >
     FORUM
   </button>
-
+  <button
+    mat-button
+    class="p-2"
+    *ngIf="app.aws.isLogged"
+    (click)="getProfile()"
+    [class.active]="app.aws.user.id === app.aws.myInfo['id']"
+  >
+    {{ app.aws.myInfo['name'] | uppercase }}
+  </button>
   <span class="spacer"></span>
   <button
     mat-button
     class="p-2"
     *ngIf="!app.aws.isLogged"
     (click)="app.navigateToAuthPage()"
+    [class.active]="app.rootUrl === '/'"
   >
     LOGIN
   </button>
-  <button mat-button class="p-2" *ngIf="app.aws.isLogged">
-    {{ app.aws.myInfo['name'] | uppercase }}
+  <button mat-button *ngIf="app.aws.isLogged" (click)="logout()">
+    <span>LOGOUT</span>
   </button>
-  <button
-    mat-icon-button
-    class="my-auto menu"
-    [matMenuTriggerFor]="menu"
-    *ngIf="app.aws.isLogged"
-  >
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button class="menu w-100" mat-button (click)="getProfile()">
-      <span> PROFILE</span>
-    </button>
-    <button class="menu w-100" mat-button (click)="app.aws.logout()">
-      <span>LOGOUT</span>
-    </button>
-  </mat-menu>
 </mat-toolbar>

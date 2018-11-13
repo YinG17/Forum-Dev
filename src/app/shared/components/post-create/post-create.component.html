@@ -36,15 +36,13 @@
     </mat-form-field>
 
     <mat-card-actions>
-      <mat-slide-toggle
-        (change)="postForm.comment_status = !postForm.comment_status"
-      >
+      <mat-slide-toggle (change)="comment_status = !comment_status">
         Allow comment: {{ comment_status ? 'Yes' : 'No' }}
       </mat-slide-toggle>
 
       <span class=" spacer "></span>
 
-      <button mat-button (click)="post()">Submit</button>
+      <button mat-button (click)="post()" class="btn-submit">Submit</button>
     </mat-card-actions>
   </mat-card-content>
 </mat-card>

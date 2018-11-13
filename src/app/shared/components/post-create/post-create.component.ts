@@ -38,7 +38,6 @@ export class PostCreateComponent implements OnInit {
 
   // this function is only accessible if the current path is '/profile'
   postCategory(id) {
-    console.log(this.postForm);
     if (!this.postForm.categories.includes(id)) {
       this.postForm.categories.push(id);
     } else {

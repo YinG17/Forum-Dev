@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { AppService } from '../../services/app.service';
+import { Reply } from '../../services/angular-wordpress-api.interface';
 
 @Component({
   selector: 'app-comment-box',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./comment-box.component.scss']
 })
 export class CommentBoxComponent implements OnInit {
+  @Input() post_id: number;
+  comment: Reply = <any>{};
 
-  constructor() { }
+  constructor(public app: AppService) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  submit(event) {
+    this.comment.post = this.post_id;
+    if (event.key === 'Enter') {
+      this.app.aws.commentCreate(this.comment).subscribe(data => {
+        console.log(data);
+      });
+    }
   }
-
 }
