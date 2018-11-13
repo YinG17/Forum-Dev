@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {
-  PostInterface,
-  CategoryInterface
+  Post,
+  Category
 } from 'src/app/shared/services/angular-wordpress-api.interface';
 import { AppService } from '../../services/app.service';
 
@@ -11,9 +11,9 @@ import { AppService } from '../../services/app.service';
   styleUrls: ['./post-create.component.scss']
 })
 export class PostCreateComponent implements OnInit {
-  @Input() categories: CategoryInterface = <any>[];
+  @Input() categories: Category = <any>[];
   comment_status = false;
-  postForm: PostInterface = <any>{};
+  postForm: Post = <any>{};
 
   constructor(public app: AppService) {}
 

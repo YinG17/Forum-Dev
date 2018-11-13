@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../../services/app.service';
-import { CategoryInterface } from '../../services/angular-wordpress-api.interface';
+import { Category } from '../../services/angular-wordpress-api.interface';
 
 @Component({
   selector: 'app-menu',
@@ -8,7 +8,7 @@ import { CategoryInterface } from '../../services/angular-wordpress-api.interfac
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  categories: CategoryInterface;
+  categories: Category;
 
   constructor(public app: AppService) {}
 
