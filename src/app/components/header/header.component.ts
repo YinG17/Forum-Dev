@@ -26,8 +26,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {}
 
   logout() {
-    this.app.aws.logout().then(() => {
-      this.app.navigateToAuthPage();
-    });
+    this.app.aws.logout();
+    this.app.navigateToAuthPage();
   }
 }

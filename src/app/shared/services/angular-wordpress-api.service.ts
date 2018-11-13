@@ -222,7 +222,7 @@ export class AngularWordpressApiService {
     return localStorage.removeItem(collectionName);
   }
 
-  logout(): Promise<boolean> {
+  logout() {
     this.removeLocalData('current_user_info');
     return;
   }
