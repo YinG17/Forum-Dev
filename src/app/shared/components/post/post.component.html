@@ -13,7 +13,7 @@
       <mat-icon>more_horiz</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button class="w-100" mat-button (click)="isEdit = !isEdit">
+      <button class="w-100" mat-button (click)="edit()">
         <span> EDIT</span>
       </button>
     </mat-menu>
@@ -32,7 +32,7 @@
       <mat-form-field appearance="outline">
         <textarea matInput [(ngModel)]="post.content.raw"></textarea>
       </mat-form-field>
-      <button mat-button (click)="edit()">CANCEL</button>
+      <button mat-button (click)="isEdit = !isEdit">CANCEL</button>
       <button mat-button (click)="update()" class="btn-submit">SUBMIT</button>
     </div>
     <!-- comments / replies -->
@@ -49,10 +49,10 @@
             : post._embedded.replies[0].length + ' comments'
         }}
       </p>
-      <app-replies
+      <app-comment
         *ngFor="let reply of post._embedded.replies[0]"
-        [reply]="reply"
-      ></app-replies>
+        [comment]="reply"
+      ></app-comment>
     </div>
   </mat-card-content>
   <mat-card-footer class="p-0 px-3">
@@ -62,5 +62,3 @@
     ></app-comment-create>
   </mat-card-footer>
 </mat-card>
-
-{{ post | json }}

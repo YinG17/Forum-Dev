@@ -17,7 +17,6 @@ import {
   MatButtonModule,
   MatFormFieldModule
 } from '@angular/material';
-import { InfoEditComponent } from './info-edit/info-edit.component';
 
 const routes: Routes = [
   {
@@ -48,6 +47,6 @@ const routes: Routes = [
     PostModule,
     MenuModule
   ],
-  declarations: [ProfileComponent, InfoComponent, InfoEditComponent]
+  declarations: [ProfileComponent, InfoComponent]
 })
 export class ProfileModule {}

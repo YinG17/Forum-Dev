@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
 
   getProfile() {
     this.app.aws
-      .userProfile(this.app.aws.myInfo['id'])
+      .userRetrieve(this.app.aws.myInfo['id'])
       .subscribe(data => {
         this.app.aws.user = data;
         this.app.aws.posts = null;

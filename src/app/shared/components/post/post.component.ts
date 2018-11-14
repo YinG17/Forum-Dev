@@ -33,18 +33,13 @@ export class PostComponent implements OnInit {
   update() {
     this.app.aws.postUpdate(this.post).subscribe(
       res => {
+        console.log(res);
         this.post = res;
       },
       err => this.app.log.handleError(err),
       () => {
-        this.app.aws.postList(this.app.filter).subscribe(() => {
-          this.reset();
-        });
+        this.isEdit = false;
       }
     );
-  }
-
-  reset() {
-    this.isEdit = false;
   }
 }

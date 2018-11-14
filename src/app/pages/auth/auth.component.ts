@@ -37,7 +37,7 @@ export class AuthComponent implements OnInit {
         }
       );
     } else {
-      this.app.aws.register(this.userForm).subscribe(
+      this.app.aws.userCreate(this.userForm).subscribe(
         () => {
           this.app.navigateToForum();
         },

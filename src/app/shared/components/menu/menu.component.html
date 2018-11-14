@@ -28,7 +28,7 @@
     </button>
     <button
       mat-button
-      (click)="getData(category.name, category.id)"
+      (click)="getData(category)"
       *ngFor="let category of categories"
       [class.active]="app.aws.currentCategory === category.id"
     >

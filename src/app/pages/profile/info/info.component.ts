@@ -15,7 +15,7 @@ export class InfoComponent implements OnInit {
   ngOnInit() {}
 
   submit() {
-    this.app.aws.updateProfile(this.user).subscribe(data => {
+    this.app.aws.userUpdate(this.user).subscribe(data => {
       console.log(data);
       this.isEdit = false;
     });

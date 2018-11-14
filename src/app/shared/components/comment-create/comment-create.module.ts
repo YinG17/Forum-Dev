@@ -14,8 +14,7 @@ import {
     CommonModule,
     MatInputModule,
     MatButtonModule,
-    MatFormFieldModule,
-    CommentCreateComponent
+    MatFormFieldModule
   ],
   declarations: [CommentCreateComponent],
   exports: [CommentCreateComponent]

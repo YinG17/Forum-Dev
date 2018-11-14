@@ -13,11 +13,11 @@ export class MenuComponent implements OnInit {
   constructor(public app: AppService) {}
 
   ngOnInit() {
-    this.categories = this.app.aws.categories;
+    this.categories = this.app.aws.forumCategories;
   }
 
-  getData(filter, id?) {
-    this.app.aws.currentCategory = id;
+  getData(filter) {
+    this.app.aws.currentCategory = filter.id;
     this.app.aws.currentPageIndex = 1;
 
     let urlParam = '';
@@ -29,8 +29,8 @@ export class MenuComponent implements OnInit {
       }
     }
 
-    if (id) {
-      urlParam += '&categories=' + id;
+    if (filter.id) {
+      urlParam += '&categories=' + filter.id;
     }
 
     this.app.aws.postList(urlParam).subscribe(

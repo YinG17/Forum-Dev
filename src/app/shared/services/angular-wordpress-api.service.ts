@@ -89,7 +89,10 @@ export class AngularWordpressApiService {
    * @param context - view or edit
    */
   userRetrieve(id: number, context?: string) {
-    const url = restApiUrl + usersEndpoint + '/' + id + '?context=' + context;
+    let url = restApiUrl + usersEndpoint + '/' + id;
+    if (context) {
+      url += '?context=' + context;
+    }
     return this.http.get<UserResponse>(url, this.loginAuth).pipe(
       tap(data => {
         this.user = data;
@@ -141,7 +144,11 @@ export class AngularWordpressApiService {
    * @param context - view or edit
    */
   postRetrieve(id: number, context?: string) {
-    return this.http.get<Post>(restApiUrl + postsEndpoint + id, this.loginAuth);
+    let url = restApiUrl + postsEndpoint + '/' + id + '?_embed';
+    if (context) {
+      url += '&context=' + context;
+    }
+    return this.http.get<Post>(url, this.loginAuth);
   }
 
   /**
@@ -150,7 +157,7 @@ export class AngularWordpressApiService {
    */
   postUpdate(post) {
     return this.http.post<Post>(
-      restApiUrl + postsEndpoint + '/' + post.id,
+      restApiUrl + postsEndpoint + '/' + post.id + '?_embed',
       post,
       this.loginAuth
     );
@@ -166,7 +173,6 @@ export class AngularWordpressApiService {
       url += filter;
     }
     url += '&_embed';
-    console.log(url);
     return this.http
       .get<Post>(url, { headers: this.loginAuth.headers, observe: 'response' })
       .pipe(
@@ -194,11 +200,12 @@ export class AngularWordpressApiService {
    * @param id - comment id to be retrieve
    * @param context - view or edit
    */
-  commentRetrieve(id: number, context: string) {
-    return this.http.get<Comment>(
-      restApiUrl + commentsEndpoint + '/' + id + '?context=' + context,
-      this.loginAuth
-    );
+  commentRetrieve(id: number, context?: string) {
+    let url = restApiUrl + commentsEndpoint + '/' + id + '?_embed';
+    if (context) {
+      url += '&context=' + context;
+    }
+    return this.http.get<Comment>(url, this.loginAuth);
   }
 
   /**
@@ -207,7 +214,7 @@ export class AngularWordpressApiService {
    */
   commentUpdate(comment) {
     return this.http.post<Comment>(
-      restApiUrl + commentsEndpoint + '/' + comment.id,
+      restApiUrl + commentsEndpoint + '/' + comment.id + '?_embed',
       comment,
       this.loginAuth
     );
