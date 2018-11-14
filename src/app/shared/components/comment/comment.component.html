@@ -1,0 +1,28 @@
+<div class="my-1 ml-2">
+  <mat-card-header>
+    <img mat-card-avatar [src]="comment.author_avatar_urls['24']" />
+    <mat-card-title class="author-name">
+      {{ comment.author_name }}
+    </mat-card-title>
+
+    <!-- not edit -->
+    <mat-card-title *ngIf="!isEdit" [innerHtml]="comment.content.rendered">
+    </mat-card-title>
+
+    <!-- edit -->
+    <mat-card-subtitle *ngIf="isEdit">
+      <mat-form-field class="mx-2" appearance="outline">
+        <input matInput type="text" [(ngModel)]="comment.content.raw" />
+      </mat-form-field>
+    </mat-card-subtitle>
+
+    <mat-card-subtitle>
+      <span class="btn-action" (click)="edit()">{{
+        isEdit ? 'Cancel' : 'Edit'
+      }}</span>
+      <span class="btn-action" *ngIf="!isEdit">Delete</span>
+      <span *ngIf="isEdit" (click)="update()" class="btn-edit"> Submit </span>
+      <span *ngIf="!isEdit">{{ comment.date | date: 'medium' }}</span>
+    </mat-card-subtitle>
+  </mat-card-header>
+</div>

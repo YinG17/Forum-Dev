@@ -15,12 +15,12 @@ const routes: Routes = [
     loadChildren: './pages/profile/profile.module#ProfileModule'
   },
   {
-    path: 'test',
+    path: 'page-not-found',
     loadChildren:
       './pages/page-not-found/page-not-found.module#PageNotFoundModule'
   },
   {
-    path: 'posts/:id',
+    path: 'post/:id',
     loadChildren: './shared/components/post/post.module#PostModule'
   },
   {

@@ -19,6 +19,10 @@ import {
 
 const routes: Routes = [
   {
+    path: '',
+    component: ForumComponent
+  },
+  {
     path: ':category',
     component: ForumComponent
   },

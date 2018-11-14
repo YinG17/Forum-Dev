@@ -1,6 +1,6 @@
 /**
  * legends
- * L - parameters used by Login
+ * L - parameters used by LOG
  * P - parameters used by Profile
  * U - parameters used by Update
  * R - parameters used by Register
@@ -142,14 +142,19 @@ export const commentsEndpoint = '/comments';
  */
 export const profileEndpoint = '/profile';
 
-const ERROR_LOGIN_EMPTY_PASSWORD = 'empty_password';
-const ERROR_LOGIN_INCORRECT_PASSWORD = 'incorrect_password';
-const ERROR_LOGIN_INVALID_USERNAME = 'invalid_username';
-const ERROR_LOGIN_INVALID_EMAIL = 'invalid_email';
+export const ERROR = {
+  // auth
+  EMPTY_USER: 'empty_username',
+  EMPTY_PASS: 'empty_password',
+  INVALID_USER: 'invalid_username',
 
-const ERROR_REG_INVALID_PARAM = 'rest_invalid_param';
-const ERROR_REG_INVALID_PARAM_EMAIL = 'Invalid parameter(s): email';
-const ERROR_REG_INVALID_PARAM_PASSWORD = 'Invalid parameter(s): password';
-const ERROR_REG_MISSING_PARAM_USERNAME = 'Missing parameter(s): username';
+  // register
+  MISSING_PARAM: 'rest_missing_callback_param',
 
-const ERROR_SEARCH_INVALID_ID = 'rest_user_invalid_id';
+  // post
+  EMPTY_CONTENT: 'empty_content',
+
+  // comment
+  COMMENT_CONTENT_INVALID: 'rest_comment_content_invalid',
+  COMMENT_DUPLICATE: 'comment_duplicate'
+};

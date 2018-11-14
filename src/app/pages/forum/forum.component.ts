@@ -10,10 +10,14 @@ export class ForumComponent implements OnInit {
   constructor(public app: AppService) {}
 
   ngOnInit() {
-    this.app.aws.categoryList().subscribe(categories => {
-      this.app.aws.setLocalData('forum_categories', categories);
-      this.app.navigateToForum();
-    });
+    this.app.aws
+      .categoryList()
+      .subscribe(categories => {
+        this.app.navigateToForum();
+      })
+      .add(() => {
+        this.app.aws.postList().subscribe(data => data);
+      });
 
     this.app.aws.userList('?orderby=name').subscribe(users => {
       this.app.aws.setLocalData('forum_users', users);

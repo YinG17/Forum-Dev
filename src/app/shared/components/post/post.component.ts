@@ -16,10 +16,35 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {}
 
-  submit() {
-    this.app.aws.postUpdate(this.post, '/' + this.post.id).subscribe(data => {
-      console.log(data);
-      this.app.navigateToForum();
-    });
+  edit() {
+    this.app.aws.postRetrieve(this.post.id, 'edit').subscribe(
+      res => {
+        this.post = res;
+      },
+      err => {
+        this.app.log.handleError(err);
+      },
+      () => {
+        this.isEdit = true;
+      }
+    );
+  }
+
+  update() {
+    this.app.aws.postUpdate(this.post).subscribe(
+      res => {
+        this.post = res;
+      },
+      err => this.app.log.handleError(err),
+      () => {
+        this.app.aws.postList(this.app.filter).subscribe(() => {
+          this.reset();
+        });
+      }
+    );
+  }
+
+  reset() {
+    this.isEdit = false;
   }
 }

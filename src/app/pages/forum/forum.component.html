@@ -2,12 +2,12 @@
   <div class="col-md-8">
     <app-spinner *ngIf="!app.aws.posts"></app-spinner>
     <app-post-create *ngIf="app.compose"></app-post-create>
-    <app-post *ngFor="let post of app.aws.posts" [post]="post"> </app-post>
+    <app-post *ngFor="let post of app.aws.posts" [post]="post"></app-post>
     <app-paginator *ngIf="app.aws.posts"></app-paginator>
   </div>
 
   <div class="col-md-4">
     <app-menu></app-menu>
-    <app-users [users]="app.aws.users"></app-users>
+    <app-users [users]="app.aws.forumUsers"></app-users>
   </div>
 </div>

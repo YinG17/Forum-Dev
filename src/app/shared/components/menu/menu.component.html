@@ -5,15 +5,19 @@
       (app.aws.user.id === app.aws.myInfo['id'] && app.rootUrl === '/profile')
     "
   >
-    <button
-      mat-button
-      *ngIf="app.aws.myInfo"
-      (click)="create()"
-      [class.active]="app.compose"
-    >
+    <button mat-button (click)="create()" [class.active]="app.compose">
       CREATE POST
     </button>
   </div>
+  <button
+    mat-button
+    *ngIf="
+      app.aws.user.id === app.aws.myInfo['id'] && app.rootUrl === '/profile'
+    "
+    (click)="getData('draft')"
+  >
+    DRAFTS
+  </button>
   <div class="category-menu">
     <button
       mat-button

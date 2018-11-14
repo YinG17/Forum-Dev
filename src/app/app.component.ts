@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AppService } from './shared/services/app.service';
 
 @Component({
@@ -8,7 +7,7 @@ import { AppService } from './shared/services/app.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(public app: AppService, public router: Router) {}
+  constructor(public app: AppService) {}
 
   ngOnInit() {}
 }

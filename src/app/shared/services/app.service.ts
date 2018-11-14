@@ -1,4 +1,5 @@
 import { AngularWordpressApiService } from './angular-wordpress-api.service';
+import { LoggerService } from './logger.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,7 +9,11 @@ import { Router } from '@angular/router';
 export class AppService {
   compose = false;
 
-  constructor(public aws: AngularWordpressApiService, private router: Router) {}
+  constructor(
+    public log: LoggerService,
+    public aws: AngularWordpressApiService,
+    private router: Router
+  ) {}
 
   getPrevious(param: string) {
     return this.currentUrlLocation.substring(
@@ -75,5 +80,17 @@ export class AppService {
   // change url when creating a post, append '#post_create'
   navigateToPostCreate() {
     return this.navigate(`/${this.currentUrlLocation}#post_create`);
+  }
+
+  /**
+   * common global filter
+   */
+  get filter() {
+    let filter = 'categories=' + this.aws.currentCategory;
+    if (this.rootUrl === '/profile') {
+      filter += '&author=' + this.aws.user.id;
+    }
+
+    return filter;
   }
 }

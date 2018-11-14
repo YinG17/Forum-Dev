@@ -20,58 +20,47 @@
   </mat-card-header>
   <mat-card-content>
     <!-- not edit -->
-    <div *ngIf="!isEdit">
-      <div class="content">
-        <div [innerHTML]="post.title['rendered']"></div>
-        <div [innerHTML]="post.content['rendered']"></div>
-      </div>
-      <div
-        *ngIf="
-          post.comment_status === 'open' && post._embedded.replies !== undefined
-        "
-      >
-        <hr class="mb-0" />
-        <p class="m-1 text-right">
-          {{
-            post._embedded.replies[0].length === 1
-              ? '1 comment'
-              : post._embedded.replies[0].length + ' comments'
-          }}
-        </p>
-        <app-replies
-          *ngFor="let reply of post._embedded.replies[0]"
-          [reply]="reply"
-        ></app-replies>
-      </div>
+    <div class="content" *ngIf="!isEdit">
+      <div [innerHTML]="post.title['rendered']"></div>
+      <div [innerHTML]="post.content['rendered']"></div>
     </div>
-
     <!-- edit -->
     <div *ngIf="isEdit">
       <mat-form-field>
-        <input
-          matInput
-          type="text"
-          [(ngModel)]="post.title.raw"
-          [placeholder]="post.title.rendered"
-        />
+        <input matInput type="text" [(ngModel)]="post.title.raw" />
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <textarea
-          matInput
-          [(ngModel)]="post.content.raw"
-          [placeholder]="post.content.rendered"
-        ></textarea>
+        <textarea matInput [(ngModel)]="post.content.raw"></textarea>
       </mat-form-field>
-      <button mat-button (click)="isEdit = !isEdit">CANCEL</button>
-      <button mat-button (click)="submit()" class="btn-submit">SUBMIT</button>
+      <button mat-button (click)="edit()">CANCEL</button>
+      <button mat-button (click)="update()" class="btn-submit">SUBMIT</button>
+    </div>
+    <!-- comments / replies -->
+    <div
+      *ngIf="
+        post.comment_status === 'open' && post._embedded.replies !== undefined
+      "
+    >
+      <hr class="mb-0" />
+      <p class="m-1 text-right">
+        {{
+          post._embedded.replies[0].length === 1
+            ? '1 comment'
+            : post._embedded.replies[0].length + ' comments'
+        }}
+      </p>
+      <app-replies
+        *ngFor="let reply of post._embedded.replies[0]"
+        [reply]="reply"
+      ></app-replies>
     </div>
   </mat-card-content>
   <mat-card-footer class="p-0 px-3">
-    <app-comment-box
+    <app-comment-create
       [post_id]="post.id"
       *ngIf="!isEdit && post.comment_status === 'open' && app.aws.isLogged"
-    ></app-comment-box>
+    ></app-comment-create>
   </mat-card-footer>
 </mat-card>
 
-<!-- {{ post | json }} -->
+{{ post | json }}

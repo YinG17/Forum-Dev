@@ -9,12 +9,16 @@ import { AppService } from 'src/app/shared/services/app.service';
 })
 export class AuthComponent implements OnInit {
   isLogin: boolean;
-  userForm: User = <any>{};
+  userForm = <User>{};
 
   constructor(public app: AppService) {}
 
   ngOnInit() {
     this.isLogin = true;
+
+    if (this.app.aws.isLogged) {
+      this.app.navigateToForum();
+    }
   }
 
   onSubmit() {
@@ -24,13 +28,23 @@ export class AuthComponent implements OnInit {
         user_login: this.userForm.username,
         user_pass: this.userForm.password
       };
-      this.app.aws.login(user).subscribe(data => {
-        this.app.navigateToForum();
-      });
+      this.app.aws.login(user).subscribe(
+        () => {
+          this.app.navigateToForum();
+        },
+        err => {
+          this.app.log.handleError(err);
+        }
+      );
     } else {
-      this.app.aws.register(this.userForm).subscribe(data => {
-        this.app.navigateToForum();
-      });
+      this.app.aws.register(this.userForm).subscribe(
+        () => {
+          this.app.navigateToForum();
+        },
+        err => {
+          this.app.log.handleError(err);
+        }
+      );
     }
   }
 }

@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PostComponent } from './post.component';
-import { RepliesModule } from '../replies/replies.module';
-import { CommentBoxModule } from '../comment-box/comment-box.module';
+import { CommentModule } from '../comment/comment.module';
+import { CommentCreateModule } from '../comment-create/comment-create.module';
 
 import {
   MatPaginatorModule,
@@ -30,12 +30,12 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MatPaginatorModule,
     MatFormFieldModule,
-    CommentBoxModule,
+    CommentCreateModule,
     MatButtonModule,
     MatInputModule,
     MatMenuModule,
     MatCardModule,
-    RepliesModule,
+    CommentModule,
     MatIconModule,
     CommonModule,
     FormsModule

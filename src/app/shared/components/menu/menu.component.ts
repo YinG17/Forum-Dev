@@ -16,7 +16,7 @@ export class MenuComponent implements OnInit {
     this.categories = this.app.aws.categories;
   }
 
-  getData(category, id?) {
+  getData(filter, id?) {
     this.app.aws.currentCategory = id;
     this.app.aws.currentPageIndex = 1;
 
@@ -24,15 +24,22 @@ export class MenuComponent implements OnInit {
 
     if (this.app.rootUrl === '/profile') {
       urlParam += 'author=' + this.app.aws.user.id;
+      if (filter === 'draft') {
+        urlParam += '&status=' + filter;
+      }
     }
 
     if (id) {
       urlParam += '&categories=' + id;
     }
 
-    this.app.aws.postList(urlParam).add(() => {
-      this.app.navigateToCategory(category);
-    });
+    this.app.aws.postList(urlParam).subscribe(
+      data => data,
+      err => this.app.log.handleError(err),
+      () => {
+        this.app.navigateToCategory(filter);
+      }
+    );
   }
 
   create() {
