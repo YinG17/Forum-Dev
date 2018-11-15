@@ -1,8 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {
-  UserResponse,
-  usersEndpoint
-} from 'src/app/shared/services/angular-wordpress-api.interface';
+import { UserResponse } from 'src/app/shared/services/angular-wordpress-api.interface';
 import { AppService } from 'src/app/shared/services/app.service';
 
 @Component({
@@ -18,7 +15,7 @@ export class InfoComponent implements OnInit {
   ngOnInit() {}
 
   submit() {
-    this.app.aws.restUpdate(usersEndpoint, this.user).subscribe(data => {
+    this.app.aws.userUpdate(this.user).subscribe(data => {
       console.log(data);
       this.isEdit = false;
     });

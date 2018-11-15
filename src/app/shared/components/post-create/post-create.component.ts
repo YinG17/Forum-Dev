@@ -50,7 +50,7 @@ export class PostCreateComponent implements OnInit {
     this.comment_status
       ? (this.postForm.comment_status = 'open')
       : (this.postForm.comment_status = 'closed');
-    this.app.aws.restCreate(postsEndpoint, this.postForm).subscribe(
+    this.app.aws.postCreate(this.postForm).subscribe(
       res => res,
       err => this.app.log.handleError(err),
       () => {

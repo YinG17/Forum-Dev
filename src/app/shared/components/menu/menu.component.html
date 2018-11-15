@@ -1,7 +1,7 @@
 <div class="mb-3" *ngIf="categories">
   <div
     *ngIf="
-      app.rootUrl === '/forum' ||
+      (app.aws.isLogged && app.rootUrl === '/forum') ||
       (app.rootUrl === '/profile' && app.aws.user.id === app.aws.myInfo['id'])
     "
   >

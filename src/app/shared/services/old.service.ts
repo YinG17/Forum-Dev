@@ -8,7 +8,7 @@ export class OldService {
 
   /**
    * ==================
-   * POST RELATED CODES
+   * FORUM RELATED CODES
    * ==================
    */
   // POST ===========================================
@@ -124,5 +124,67 @@ export class OldService {
   //   return this.http
   //     .post(usersEndpoint + '/me', user, this.loginAuth)
   //     .pipe(tap(data => this.setLocalData('my_info', data)));
+  // }
+
+  // this might be flexible but it lacks on data typing upon HttpEvent process
+  //  /**
+  //  * =============
+  //  * Centralized
+  //  * =============
+  //  */
+
+  // /**
+  //  * @desc centralized rest http post / create funtion
+  //  *
+  //  * @param endpoint rest url
+  //  * @param data data object
+  //  */
+  // restCreate(endpoint: string, data: any) {
+  //   return this.http.post<any>(endpoint, data, this.loginAuth);
+  // }
+
+  // /**
+  //  * @desc centralized rest http get / retrieve function
+  //  *
+  //  * @param endpoint rest url
+  //  * @param id data id
+  //  * @param context view | edit
+  //  */
+  // restRetrieve(endpoint: string, id: number, context?: string) {
+  //   let url = endpoint + '/' + id + '?_embed';
+  //   if (context) {
+  //     url += '&context=' + context;
+  //   }
+
+  //   return this.http.get(url, this.loginAuth);
+  // }
+
+  // /**
+  //  * @desc centralized rest http post / update function
+  //  *
+  //  * @param endpoint - rest url
+  //  * @param data - data object
+  //  */
+  // restUpdate(endpoint: string, data: any) {
+  //   return this.http.post(
+  //     `${endpoint}/${data.id}?_embed`,
+  //     data,
+  //     this.loginAuth
+  //   );
+  // }
+
+  // /**
+  //  * @desc centralized rest http delete function
+  //  *
+  //  * @param endpoint rest url
+  //  * @param id data id
+  //  * @param force true | false ; when set to true the data will be deleted permanently
+  //  */
+  // restDelete(endpoint: string, id: number, force?: boolean) {
+  //   let url = endpoint + '/' + id;
+  //   if (force) {
+  //     url += '?force=' + force;
+  //   }
+  //   return this.http.delete<any>(url, this.loginAuth);
   // }
 }

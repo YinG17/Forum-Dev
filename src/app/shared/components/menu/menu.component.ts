@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../../services/app.service';
-import {
-  Category,
-  postsEndpoint
-} from '../../services/angular-wordpress-api.interface';
+import { Category } from '../../services/angular-wordpress-api.interface';
 
 @Component({
   selector: 'app-menu',
@@ -37,7 +34,7 @@ export class MenuComponent implements OnInit {
       data => data,
       err => this.app.log.handleError(err),
       () => {
-        this.app.navigateToCategory(filter);
+        this.app.navigateToCategory(filter.slug);
       }
     );
   }

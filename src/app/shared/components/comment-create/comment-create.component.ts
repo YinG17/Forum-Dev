@@ -22,7 +22,7 @@ export class CommentCreateComponent implements OnInit {
   submit(event) {
     this.comment.post = this.post_id;
     if (event.key === 'Enter') {
-      this.app.aws.restCreate(commentsEndpoint, this.comment).subscribe(
+      this.app.aws.commentCreate(this.comment).subscribe(
         res => res,
         err => this.app.log.handleError(err),
         () => {

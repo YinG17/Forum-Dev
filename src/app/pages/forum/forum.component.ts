@@ -12,7 +12,7 @@ export class ForumComponent implements OnInit {
   ngOnInit() {
     this.app.aws
       .categoryList()
-      .subscribe(categories => {
+      .subscribe(res => {
         this.app.navigateToForum();
       })
       .add(() => {

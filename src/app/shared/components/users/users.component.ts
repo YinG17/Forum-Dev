@@ -1,10 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/shared/services/app.service';
-import {
-  User,
-  usersEndpoint
-} from '../../services/angular-wordpress-api.interface';
+import { User } from '../../services/angular-wordpress-api.interface';
 
 @Component({
   selector: 'app-users',
@@ -19,7 +16,7 @@ export class UsersComponent implements OnInit {
 
   profile(id) {
     this.app.aws
-      .restRetrieve(usersEndpoint, id)
+      .userRetrieve(id)
       .subscribe(data => {
         this.app.aws.user = data;
         this.app.aws.posts = null;

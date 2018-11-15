@@ -12,5 +12,14 @@ mat-card {
     &::-webkit-scrollbar {
       display: none;
     }
+
+    div > p > b {
+      color: #364652;
+
+      &:hover {
+        cursor: pointer;
+        color: black;
+      }
+    }
   }
 }

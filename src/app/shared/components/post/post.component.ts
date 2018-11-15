@@ -20,7 +20,7 @@ export class PostComponent implements OnInit {
   ngOnInit() {}
 
   edit() {
-    this.app.aws.restRetrieve(postsEndpoint, this.post.id, 'edit').subscribe(
+    this.app.aws.postRetrieve(this.post.id, 'edit').subscribe(
       res => {
         this.post = res;
       },
@@ -34,7 +34,7 @@ export class PostComponent implements OnInit {
   }
 
   update() {
-    this.app.aws.restUpdate(postsEndpoint, this.post).subscribe(
+    this.app.aws.postUpdate(this.post).subscribe(
       res => {
         this.post = res;
       },

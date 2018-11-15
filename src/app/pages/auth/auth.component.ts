@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  User,
-  usersEndpoint
-} from '../../shared/services/angular-wordpress-api.interface';
+import { User } from '../../shared/services/angular-wordpress-api.interface';
 import { AppService } from 'src/app/shared/services/app.service';
 
 @Component({
@@ -32,7 +29,7 @@ export class AuthComponent implements OnInit {
         user_pass: this.userForm.password
       };
       this.app.aws.login(user).subscribe(
-        res => this.app.aws.setLocalData('my_info', res),
+        res => res,
         err => {
           this.app.log.handleError(err);
         },
@@ -41,8 +38,8 @@ export class AuthComponent implements OnInit {
         }
       );
     } else {
-      this.app.aws.restCreate(usersEndpoint, this.userForm).subscribe(
-        res => this.app.aws.setLocalData('my_info', res),
+      this.app.aws.userCreate(this.userForm).subscribe(
+        res => res,
 
         err => {
           this.app.log.handleError(err);
