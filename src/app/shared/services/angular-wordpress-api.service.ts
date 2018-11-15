@@ -5,16 +5,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
   User,
   Post,
-  Comment,
   Category,
   UserResponse,
   categoriesEndpoint,
-  commentsEndpoint,
   profileEndpoint,
   postsEndpoint,
-  usersEndpoint,
-  customApiUrl,
-  restApiUrl
+  usersEndpoint
 } from './angular-wordpress-api.interface';
 
 @Injectable({
@@ -52,65 +48,16 @@ export class AngularWordpressApiService {
   }
 
   /**
-   * ===================
-   * User Related Codes
-   * ===================
-   */
-
-  /**
    * @method login - Get user data from wordpress via rest api using raw username and password
    * @param rawUser - user data object (username, password)
    */
   login(rawUser: { user_login: string; user_pass: string }) {
     const option = this.getHttpOptions(rawUser);
-    return this.http
-      .get<UserResponse>(customApiUrl + profileEndpoint, option)
-      .pipe(
-        tap(data => {
-          this.setLocalData('my_info', data);
-        })
-      );
-  }
-
-  /**
-   * @method userCreate - Register a new user
-   * @param user user data object
-   *
-   */
-  userCreate(user: User) {
-    return this.http
-      .post<UserResponse>(restApiUrl + usersEndpoint, user)
-      .pipe(tap(data => this.setLocalData('my_info', data)));
-  }
-
-  /**
-   * @method userRetrieve - Retrieves a user data according to the given id
-   * @param id - user id
-   * @param context - view or edit
-   */
-  userRetrieve(id: number, context?: string) {
-    let url = restApiUrl + usersEndpoint + '/' + id;
-    if (context) {
-      url += '?context=' + context;
-    }
-    return this.http.get<UserResponse>(url, this.loginAuth).pipe(
+    return this.http.get<UserResponse>(profileEndpoint, option).pipe(
       tap(data => {
-        this.user = data;
+        this.setLocalData('my_info', data);
       })
     );
-  }
-
-  /**
-   * @method userUpdate - Edit and
-   * Login user can update only his user data.
-   * @param user User update data
-   *
-   * @note user cannot change 'username'. But everything else is changable.
-   */
-  userUpdate(user: User) {
-    return this.http
-      .post(restApiUrl + usersEndpoint + '/me', user, this.loginAuth)
-      .pipe(tap(data => this.setLocalData('my_info', data)));
   }
 
   /**
@@ -119,48 +66,8 @@ export class AngularWordpressApiService {
    */
   userList(filter: string) {
     return this.http
-      .get<User>(restApiUrl + usersEndpoint + filter)
+      .get<User>(usersEndpoint + filter)
       .pipe(tap(data => this.setLocalData('forum_users', data)));
-  }
-
-  /**
-   * ==================
-   * POST RELATED CODES
-   * ==================
-   */
-
-  /**
-   * @method postCreate - creates a post
-   * @param post - post data object
-   */
-  postCreate(post: Post) {
-    return this.http.post(restApiUrl + postsEndpoint, post, this.loginAuth);
-  }
-
-  /**
-   * @method getPost - get single post
-   *
-   * @param id - post id
-   * @param context - view or edit
-   */
-  postRetrieve(id: number, context?: string) {
-    let url = restApiUrl + postsEndpoint + '/' + id + '?_embed';
-    if (context) {
-      url += '&context=' + context;
-    }
-    return this.http.get<Post>(url, this.loginAuth);
-  }
-
-  /**
-   * @method postUdate - update a post
-   * @param post - Post data object
-   */
-  postUpdate(post) {
-    return this.http.post<Post>(
-      restApiUrl + postsEndpoint + '/' + post.id + '?_embed',
-      post,
-      this.loginAuth
-    );
   }
 
   /**
@@ -168,55 +75,16 @@ export class AngularWordpressApiService {
    * @param filter - list filter argument (author, id, category, and so on..)
    */
   postList(filter?: string) {
-    let url = restApiUrl + postsEndpoint + '?';
+    let url = postsEndpoint + '?';
     if (filter) {
       url += filter;
     }
     url += '&_embed';
-    return this.http
-      .get<Post>(url, { headers: this.loginAuth.headers, observe: 'response' })
-      .pipe(
-        tap(data => {
-          this.posts = data.body;
-          this.currentTotalPages = +data.headers.get('X-WP-TOTAL');
-        })
-      );
-  }
-
-  /**
-   * @method commentCreate - creates a new comment
-   * @param comment - comment data object
-   */
-  commentCreate(comment: Comment) {
-    return this.http.post(
-      restApiUrl + commentsEndpoint,
-      comment,
-      this.loginAuth
-    );
-  }
-
-  /**
-   * @method commentRetrieve - retrieves a single comment data
-   * @param id - comment id to be retrieve
-   * @param context - view or edit
-   */
-  commentRetrieve(id: number, context?: string) {
-    let url = restApiUrl + commentsEndpoint + '/' + id + '?_embed';
-    if (context) {
-      url += '&context=' + context;
-    }
-    return this.http.get<Comment>(url, this.loginAuth);
-  }
-
-  /**
-   * @method commentUpdate - Updates an existing comment
-   * @param comment - comment data object
-   */
-  commentUpdate(comment) {
-    return this.http.post<Comment>(
-      restApiUrl + commentsEndpoint + '/' + comment.id + '?_embed',
-      comment,
-      this.loginAuth
+    return this.http.get<Post>(url, { observe: 'response' }).pipe(
+      tap(data => {
+        this.posts = data.body;
+        this.currentTotalPages = +data.headers.get('X-WP-TOTAL');
+      })
     );
   }
 
@@ -224,11 +92,72 @@ export class AngularWordpressApiService {
    * @method categoryList - retrieves the list of categories then saves the data to local storage
    */
   categoryList() {
-    return this.http.get<Category>(restApiUrl + categoriesEndpoint).pipe(
+    return this.http.get<Category>(categoriesEndpoint).pipe(
       tap(cats => {
         this.setLocalData('forum_categories', cats);
       })
     );
+  }
+
+  /**
+   * =============
+   * Centralized
+   * =============
+   */
+
+  /**
+   * @desc centralized rest http post / create funtion
+   *
+   * @param endpoint rest url
+   * @param data data object
+   */
+  restCreate(endpoint: string, data: any) {
+    return this.http.post<any>(endpoint, data, this.loginAuth);
+  }
+
+  /**
+   * @desc centralized rest http get / retrieve function
+   *
+   * @param endpoint rest url
+   * @param id data id
+   * @param context view | edit
+   */
+  restRetrieve(endpoint: string, id: number, context?: string) {
+    let url = endpoint + '/' + id + '?_embed';
+    if (context) {
+      url += '&context=' + context;
+    }
+
+    return this.http.get<any>(url, this.loginAuth);
+  }
+
+  /**
+   * @desc centralized rest http post / update function
+   *
+   * @param endpoint - rest url
+   * @param data - data object
+   */
+  restUpdate(endpoint: string, data: any) {
+    return this.http.post<any>(
+      endpoint + `/${data.id}?_embed`,
+      data,
+      this.loginAuth
+    );
+  }
+
+  /**
+   * @desc centralized rest http delete function
+   *
+   * @param endpoint rest url
+   * @param id data id
+   * @param force true | false ; when set to true the data will be deleted permanently
+   */
+  restDelete(endpoint: string, id: number, force?: boolean) {
+    let url = endpoint + '/' + id;
+    if (force) {
+      url += '?force=' + force;
+    }
+    return this.http.delete<any>(url, this.loginAuth);
   }
 
   /**

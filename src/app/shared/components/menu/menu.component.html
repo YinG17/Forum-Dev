@@ -2,7 +2,7 @@
   <div
     *ngIf="
       app.rootUrl === '/forum' ||
-      (app.aws.user.id === app.aws.myInfo['id'] && app.rootUrl === '/profile')
+      (app.rootUrl === '/profile' && app.aws.user.id === app.aws.myInfo['id'])
     "
   >
     <button mat-button (click)="create()" [class.active]="app.compose">
@@ -12,7 +12,7 @@
   <button
     mat-button
     *ngIf="
-      app.aws.user.id === app.aws.myInfo['id'] && app.rootUrl === '/profile'
+      app.rootUrl === '/profile' && app.aws.user.id === app.aws.myInfo['id']
     "
     (click)="getData('draft')"
   >

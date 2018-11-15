@@ -37,6 +37,6 @@ export class PaginatorComponent implements OnInit {
       url += '&author=' + this.app.aws.user.id;
     }
 
-    this.app.aws.postList(url);
+    this.app.aws.postList(url).subscribe(res => res);
   }
 }

@@ -86,9 +86,18 @@ export class AppService {
    * common global filter
    */
   get filter() {
-    let filter = 'categories=' + this.aws.currentCategory;
+    let filter;
+
+    if (this.aws.currentCategory !== 0) {
+      filter += 'categories=' + this.aws.currentCategory;
+    }
+
     if (this.rootUrl === '/profile') {
-      filter += '&author=' + this.aws.user.id;
+      if (filter) {
+        filter += '&author=' + this.aws.user.id;
+      } else {
+        filter = '?author=' + this.aws.user.id;
+      }
     }
 
     return filter;

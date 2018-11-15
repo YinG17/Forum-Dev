@@ -1,5 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Comment } from '../../services/angular-wordpress-api.interface';
+import {
+  Comment,
+  commentsEndpoint,
+  postsEndpoint
+} from '../../services/angular-wordpress-api.interface';
 import { AppService } from '../../services/app.service';
 
 @Component({
@@ -9,7 +13,7 @@ import { AppService } from '../../services/app.service';
 })
 export class CommentCreateComponent implements OnInit {
   @Input() post_id: number;
-  comment: Comment = <any>{};
+  comment = <Comment>{};
 
   constructor(public app: AppService) {}
 
@@ -18,7 +22,7 @@ export class CommentCreateComponent implements OnInit {
   submit(event) {
     this.comment.post = this.post_id;
     if (event.key === 'Enter') {
-      this.app.aws.commentCreate(this.comment).subscribe(
+      this.app.aws.restCreate(commentsEndpoint, this.comment).subscribe(
         res => res,
         err => this.app.log.handleError(err),
         () => {

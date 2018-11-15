@@ -5,24 +5,33 @@
       {{ comment.author_name }}
     </mat-card-title>
 
-    <!-- not edit -->
-    <mat-card-title *ngIf="!isEdit" [innerHtml]="comment.content.rendered">
+    <!-- view -->
+    <mat-card-title
+      class="comment"
+      *ngIf="!isEdit"
+      [innerHtml]="comment.content.rendered"
+    >
     </mat-card-title>
+    <!-- view -->
 
     <!-- edit -->
-    <mat-form-field *ngIf="isEdit" class="mx-2" appearance="outline">
-      <input matInput type="text" [(ngModel)]="comment.content.raw" />
-    </mat-form-field>
-
     <mat-card-subtitle *ngIf="isEdit">
-      <span class="btn-edit" (click)="isEdit = !isEdit"> Cancel </span>
-      <span class="btn-edit" (click)="update()"> Submit </span>
+      <mat-form-field class="mx-2" appearance="outline">
+        <input matInput type="text" [(ngModel)]="comment.content.raw" />
+      </mat-form-field>
+      <span class="btn-action" (click)="isEdit = !isEdit"> Cancel </span>
+      <span class="btn-action" (click)="update()"> Submit </span>
     </mat-card-subtitle>
+    <!-- edit -->
 
+    <!-- view buttons -->
     <mat-card-subtitle *ngIf="!isEdit">
-      <span class="btn-action" (click)="edit()">Edit</span>
-      <span class="btn-action">Delete</span>
-      <span>{{ comment.date | date: 'medium' }}</span>
+      <div *ngIf="app.aws.isLogged && comment.author === app.aws.myInfo['id']">
+        <span class="btn-action" (click)="edit()">Edit</span>
+        <span class="btn-action" (click)="delete()">Delete</span>
+        <span> {{ comment.date | date: 'medium' }} </span>
+      </div>
     </mat-card-subtitle>
+    <!-- view buttons -->
   </mat-card-header>
 </div>

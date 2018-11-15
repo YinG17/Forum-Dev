@@ -1,35 +1,25 @@
-/**
- * legends
- * L - parameters used by LOG
- * P - parameters used by Profile
- * U - parameters used by Update
- * R - parameters used by Register
- * Required parameters are and is used by the
- * indicated Legends
- */
-
 export interface User {
-  password: string; // L, P, U, R - Required in L, P, U, R
-  username: string; // L, P, U, R - Required in R
-  email: string; // L, P, U, R - Required in R
+  password: string;
+  username: string;
+  email: string;
 
-  roles?: Array<string>; // L, P, U, R
-  nickname?: string; // L, P, U, R
-  name?: string; // L, P, U, R
-  description?: string; // P, U, R
-  first_name?: string; // P, U, R
-  last_name?: string; // P, U, R
+  roles?: Array<string>;
+  nickname?: string;
+  name?: string;
+  description?: string;
+  first_name?: string;
+  last_name?: string;
 }
 
 export interface UserResponse extends User {
-  id?: number; // L, P, U - Required in L, P, U, R
-  meta?: Array<any>; // P, U
-  slug?: string; // U
+  id?: number;
+  meta?: Array<any>;
+  slug?: string;
   posts?: {
     published: Array<any>;
     drafts: Array<any>;
-  }; // P
-  locale?: string; // U
+  };
+  locale?: string;
   avatar_urls: {
     24: string;
     48: string;
@@ -86,7 +76,7 @@ export interface Post {
     author: {
       name: string;
     };
-    replies: Array<any>;
+    replies: Array<Comment>;
   };
   _links?: string[];
 }
@@ -125,22 +115,11 @@ export const wordpressUrl = 'https://fordev.sonub.com/wp-json';
 export const restApiUrl = wordpressUrl + '/wp/v2';
 export const customApiUrl = wordpressUrl + '/custom/api';
 
-/**
- * common endpoints for both customApiUrl and restApiUrl
- */
-export const usersEndpoint = '/users';
-
-/**
- * declare here an endpoint dedicated only for restApiUrl use
- */
-export const categoriesEndpoint = '/categories';
-export const postsEndpoint = '/posts';
-export const commentsEndpoint = '/comments';
-
-/**
- * declare here an endpoint dedicated only for customApiUrl use
- */
-export const profileEndpoint = '/profile';
+export const postsEndpoint = restApiUrl + '/posts';
+export const usersEndpoint = restApiUrl + '/users';
+export const profileEndpoint = customApiUrl + '/profile';
+export const commentsEndpoint = restApiUrl + '/comments';
+export const categoriesEndpoint = restApiUrl + '/categories';
 
 export const ERROR = {
   // auth

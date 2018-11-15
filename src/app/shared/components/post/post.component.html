@@ -4,6 +4,7 @@
     <mat-card-title>{{ post._embedded.author[0].name }}</mat-card-title>
     <mat-card-subtitle>{{ post.date | date: 'medium' }}</mat-card-subtitle>
 
+    <!-- option icon button -->
     <button
       mat-icon-button
       class="my-auto menu"
@@ -16,14 +17,20 @@
       <button class="w-100" mat-button (click)="edit()">
         <span> EDIT</span>
       </button>
+      <button class="w-100" mat-button (click)="delete()">
+        <span> DELETE</span>
+      </button>
     </mat-menu>
+    <!-- option icon button -->
   </mat-card-header>
   <mat-card-content>
-    <!-- not edit -->
+    <!-- view -->
     <div class="content" *ngIf="!isEdit">
       <div [innerHTML]="post.title['rendered']"></div>
       <div [innerHTML]="post.content['rendered']"></div>
     </div>
+    <!-- view -->
+
     <!-- edit -->
     <div *ngIf="isEdit">
       <mat-form-field>
@@ -35,6 +42,8 @@
       <button mat-button (click)="isEdit = !isEdit">CANCEL</button>
       <button mat-button (click)="update()" class="btn-submit">SUBMIT</button>
     </div>
+    <!-- edit -->
+
     <!-- comments / replies -->
     <div
       *ngIf="
@@ -54,6 +63,7 @@
         [comment]="reply"
       ></app-comment>
     </div>
+    <!-- comments / replies -->
   </mat-card-content>
   <mat-card-footer class="p-0 px-3">
     <app-comment-create

@@ -1,14 +1,23 @@
+::ng-deep .mat-card-header-text {
+  width: 100%;
+}
+
+mat-card-title {
+  &.comment {
+    font-size: 0.9rem;
+    color: #364652;
+  }
+}
+
 mat-card-subtitle {
   width: 100%;
-  &::ng-deep .mat-card-header-text {
-    width: 100%;
-  }
 
   mat-form-field {
     width: 100%;
   }
 
   .btn-action {
+    display: inline;
     margin-right: 3px;
 
     &:hover {

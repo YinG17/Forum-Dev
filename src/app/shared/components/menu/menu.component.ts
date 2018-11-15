@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../../services/app.service';
-import { Category } from '../../services/angular-wordpress-api.interface';
+import {
+  Category,
+  postsEndpoint
+} from '../../services/angular-wordpress-api.interface';
 
 @Component({
   selector: 'app-menu',
@@ -8,7 +11,7 @@ import { Category } from '../../services/angular-wordpress-api.interface';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  categories: Category;
+  categories = <Category>{};
 
   constructor(public app: AppService) {}
 
@@ -20,13 +23,10 @@ export class MenuComponent implements OnInit {
     this.app.aws.currentCategory = filter.id;
     this.app.aws.currentPageIndex = 1;
 
-    let urlParam = '';
+    let urlParam = this.app.filter;
 
-    if (this.app.rootUrl === '/profile') {
-      urlParam += 'author=' + this.app.aws.user.id;
-      if (filter === 'draft') {
-        urlParam += '&status=' + filter;
-      }
+    if (filter === 'draft') {
+      urlParam += '&status=' + filter;
     }
 
     if (filter.id) {

@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AppService } from '../../services/app.service';
-import { Post } from '../../services/angular-wordpress-api.interface';
+import {
+  Post,
+  postsEndpoint
+} from '../../services/angular-wordpress-api.interface';
 
 @Component({
   selector: 'app-post',
@@ -17,7 +20,7 @@ export class PostComponent implements OnInit {
   ngOnInit() {}
 
   edit() {
-    this.app.aws.postRetrieve(this.post.id, 'edit').subscribe(
+    this.app.aws.restRetrieve(postsEndpoint, this.post.id, 'edit').subscribe(
       res => {
         this.post = res;
       },
@@ -31,15 +34,24 @@ export class PostComponent implements OnInit {
   }
 
   update() {
-    this.app.aws.postUpdate(this.post).subscribe(
+    this.app.aws.restUpdate(postsEndpoint, this.post).subscribe(
       res => {
-        console.log(res);
         this.post = res;
       },
       err => this.app.log.handleError(err),
       () => {
         this.isEdit = false;
       }
+    );
+  }
+
+  delete() {
+    this.app.aws.restDelete(postsEndpoint, this.post.id, true).subscribe(
+      data => {
+        console.log(data);
+        this.app.aws.postList(this.app.filter).subscribe(res => res);
+      },
+      err => this.app.log.handleError(err)
     );
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/shared/services/app.service';
+import { usersEndpoint } from 'src/app/shared/services/angular-wordpress-api.interface';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ export class HeaderComponent implements OnInit {
 
   getProfile() {
     this.app.aws
-      .userRetrieve(this.app.aws.myInfo['id'])
+      .restRetrieve(usersEndpoint, this.app.aws.myInfo['id'])
       .subscribe(data => {
         this.app.aws.user = data;
         this.app.aws.posts = null;

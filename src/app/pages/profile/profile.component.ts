@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/shared/services/angular-wordpress-api.interface';
+import {
+  User,
+  usersEndpoint
+} from 'src/app/shared/services/angular-wordpress-api.interface';
 import { AppService } from 'src/app/shared/services/app.service';
 
 @Component({
@@ -28,7 +31,7 @@ export class ProfileComponent implements OnInit {
   }
 
   update() {
-    this.app.aws.userUpdate(this.userForm).subscribe(res => {
+    this.app.aws.restUpdate(usersEndpoint, this.userForm).subscribe(res => {
       this.isEdit = !this.isEdit;
     });
   }

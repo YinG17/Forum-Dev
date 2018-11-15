@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {
   Post,
-  Category
+  Category,
+  postsEndpoint
 } from 'src/app/shared/services/angular-wordpress-api.interface';
 import { AppService } from '../../services/app.service';
 
@@ -13,7 +14,7 @@ import { AppService } from '../../services/app.service';
 export class PostCreateComponent implements OnInit {
   @Input() categories: Category = <any>[];
   comment_status = false;
-  postForm: Post = <any>{};
+  postForm = <Post>{};
 
   constructor(public app: AppService) {}
 
@@ -30,7 +31,7 @@ export class PostCreateComponent implements OnInit {
    * the initial value of the posts' category.
    */
   formInit() {
-    this.postForm = <any>{};
+    this.postForm = <Post>{};
     this.postForm.categories = [this.app.aws.currentCategory + 1];
   }
 
@@ -49,14 +50,12 @@ export class PostCreateComponent implements OnInit {
     this.comment_status
       ? (this.postForm.comment_status = 'open')
       : (this.postForm.comment_status = 'closed');
-    this.app.aws
-      .postCreate(this.postForm)
-      .subscribe(
-        () => {
-          this.formInit();
-        },
-        err => this.app.log.handleError(err)
-      )
-      .add(() => this.app.aws.postList(this.app.filter));
+    this.app.aws.restCreate(postsEndpoint, this.postForm).subscribe(
+      res => res,
+      err => this.app.log.handleError(err),
+      () => {
+        this.app.aws.postList(this.app.filter);
+      }
+    );
   }
 }
