@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {
   Post,
-  Category,
-  postsEndpoint
+  Category
 } from 'src/app/shared/services/angular-wordpress-api.interface';
 import { AppService } from '../../services/app.service';
 
