@@ -106,7 +106,7 @@ export class AngularWordpressApiService {
    * FORUM RELATED CODES
    * ==================
    */
-  // POST ===========================================
+  // POST ==============================
   /**
    * @method postCreate - creates a post
    * @param post - post data object
@@ -141,7 +141,7 @@ export class AngularWordpressApiService {
     );
   }
 
-  // COMMENT ========================================
+  // COMMENT ====================================
   /**
    * @method commentCreate - creates a new comment
    * @param comment - comment data object
@@ -222,9 +222,9 @@ export class AngularWordpressApiService {
   }
 
   /**
-   * =======
-   * DELETE
-   * =======
+   * ============
+   * REST DELETE
+   * ============
    */
 
   /**
