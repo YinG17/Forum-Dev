@@ -22,11 +22,15 @@ export class AppComponent implements OnInit {
     const curScrollLoc = scrollY;
     const curPageHeight = documentBody.scrollHeight - documentBody.clientHeight;
 
-    if (this.app.aws.posts.length !== 0 && curScrollLoc === curPageHeight) {
-      if (this.app.aws.currentPage >= this.app.aws.currentTotalPages) {
-        console.log('no more posts to load');
-      } else {
+    if (
+      this.app.aws.posts.length !== 0 &&
+      curScrollLoc === curPageHeight &&
+      !this.app.loading
+    ) {
+      if (this.app.aws.currentPage < this.app.aws.currentTotalPages) {
         this.app.page(this.app.aws.currentPage + 1);
+      } else {
+        console.log('no more posts to load');
       }
     }
   }

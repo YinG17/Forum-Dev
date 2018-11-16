@@ -87,11 +87,15 @@ export class AngularWordpressApiService {
       url += '?_embed';
     }
 
-    console.log('ng-wp service: constructed url', url);
+    let head = {};
+
+    if (this.isLogged) {
+      head = this.loginAuth.headers;
+    }
 
     return this.http
       .get<Array<Post>>(url, {
-        headers: this.loginAuth.headers,
+        headers: head,
         observe: 'response'
       })
       .pipe(

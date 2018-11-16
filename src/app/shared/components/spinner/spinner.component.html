@@ -7,3 +7,10 @@
 <h2 class="text-center" *ngIf="!app.loading && app.aws.posts.length === 0">
   NO POSTS ...
 </h2>
+
+<p
+  class="text-center"
+  *ngIf="!app.loading && app.aws.currentPage === app.aws.currentTotalPages"
+>
+  <b><small> NO MORE POSTS ... </small></b>
+</p>

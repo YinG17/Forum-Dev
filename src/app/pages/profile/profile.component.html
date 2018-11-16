@@ -5,7 +5,11 @@
   </div>
   <div class="mb-5 col-md-9">
     <app-post-create
-      *ngIf="app.aws.myInfo['id'] === app.aws.user.id && app.compose"
+      *ngIf="
+        app.aws.isLogged &&
+        app.aws.myInfo['id'] === app.aws.user.id &&
+        app.compose
+      "
       [categories]="app.aws.forumCategories"
     ></app-post-create>
     <app-post *ngFor="let post of app.aws.posts" [post]="post"></app-post>

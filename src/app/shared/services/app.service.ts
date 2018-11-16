@@ -110,8 +110,6 @@ export class AppService {
       }
     }
 
-    console.log('App Service: Base Filter - ', urlFilter);
-
     return urlFilter;
   }
 
@@ -128,7 +126,6 @@ export class AppService {
       url = '?per_page=10&page=' + pageIndex;
     }
 
-    console.log('autoscroll index: ', pageIndex);
     this.aws.postList(url).subscribe(res => {
       console.log(res);
       this.aws.currentPage++;
