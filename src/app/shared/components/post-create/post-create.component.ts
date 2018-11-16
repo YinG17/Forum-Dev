@@ -53,7 +53,11 @@ export class PostCreateComponent implements OnInit {
       res => res,
       err => this.app.log.handleError(err),
       () => {
-        this.app.aws.postList(this.app.filter);
+        this.app.aws.postList(this.app.filter).subscribe(res => {
+          this.app.navigateToForum().then(() => {
+            this.app.compose = false;
+          });
+        });
       }
     );
   }

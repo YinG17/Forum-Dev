@@ -8,12 +8,18 @@ import { Router } from '@angular/router';
 })
 export class AppService {
   compose = false;
+  loading = false;
+  isDraft = false;
 
   constructor(
     public log: LoggerService,
     public aws: AngularWordpressApiService,
     private router: Router
   ) {}
+
+  get nop() {
+    return window;
+  }
 
   getPrevious(param: string) {
     return this.currentUrlLocation.substring(
@@ -83,23 +89,50 @@ export class AppService {
   }
 
   /**
-   * common global filter
+   * rest url filter
    */
-  get filter() {
-    let filter;
+  get filter(): string {
+    let urlFilter = '';
 
     if (this.aws.currentCategory !== 0) {
-      filter += 'categories=' + this.aws.currentCategory;
+      urlFilter += '?categories=' + this.aws.currentCategory;
     }
 
     if (this.rootUrl === '/profile') {
-      if (filter) {
-        filter += '&author=' + this.aws.user.id;
+      if (urlFilter !== '') {
+        urlFilter += '&author=' + this.aws.user.id;
       } else {
-        filter = '?author=' + this.aws.user.id;
+        urlFilter = '?author=' + this.aws.user.id;
+      }
+
+      if (this.isDraft) {
+        urlFilter += '&status=draft';
       }
     }
 
-    return filter;
+    console.log('App Service: Base Filter - ', urlFilter);
+
+    return urlFilter;
+  }
+
+  /**
+   * auto scroll
+   */
+
+  page(pageIndex) {
+    let url = '';
+    this.loading = true;
+    if (this.filter !== '') {
+      url = this.filter + '&per_page=10&page=' + pageIndex;
+    } else {
+      url = '?per_page=10&page=' + pageIndex;
+    }
+
+    console.log('autoscroll index: ', pageIndex);
+    this.aws.postList(url).subscribe(res => {
+      console.log(res);
+      this.aws.currentPage++;
+      this.loading = false;
+    });
   }
 }

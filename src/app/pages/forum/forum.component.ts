@@ -10,13 +10,18 @@ export class ForumComponent implements OnInit {
   constructor(public app: AppService) {}
 
   ngOnInit() {
+    this.app.aws.posts = [];
+    this.app.loading = true;
+
     this.app.aws
       .categoryList()
       .subscribe(res => {
         this.app.navigateToForum();
       })
       .add(() => {
-        this.app.aws.postList().subscribe(data => data);
+        this.app.aws.postList().subscribe(data => {
+          this.app.loading = false;
+        });
       });
 
     this.app.aws.userList('?orderby=name').subscribe(users => {

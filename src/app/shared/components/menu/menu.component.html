@@ -14,21 +14,22 @@
     *ngIf="
       app.rootUrl === '/profile' && app.aws.user.id === app.aws.myInfo['id']
     "
-    (click)="getData('draft')"
+    (click)="getData('draft', 0)"
+    [class.active]="app.isDraft"
   >
     DRAFTS
   </button>
   <div class="category-menu">
     <button
       mat-button
-      (click)="getData('posts')"
-      [class.active]="!app.aws.currentCategory"
+      (click)="getData('posts', 0)"
+      [class.active]="!app.aws.currentCategory && !app.isDraft"
     >
       ALL POSTS
     </button>
     <button
       mat-button
-      (click)="getData(category)"
+      (click)="getData(category.slug, category.id)"
       *ngFor="let category of categories"
       [class.active]="app.aws.currentCategory === category.id"
     >

@@ -8,7 +8,7 @@ import { ProfileComponent } from './profile.component';
 
 import { MenuModule } from 'src/app/shared/components/menu/menu.module';
 import { PostModule } from 'src/app/shared/components/post/post.module';
-import { PaginatorModule } from 'src/app/shared/components/paginator/paginator.module';
+import { SpinnerModule } from 'src/app/shared/components/spinner/spinner.module';
 import { PostCreateModule } from '../../shared/components/post-create/post-create.module';
 
 import {
@@ -39,9 +39,9 @@ const routes: Routes = [
     MatFormFieldModule,
     PostCreateModule,
     MatButtonModule,
-    PaginatorModule,
     MatInputModule,
     MatCardModule,
+    SpinnerModule,
     CommonModule,
     FormsModule,
     PostModule,

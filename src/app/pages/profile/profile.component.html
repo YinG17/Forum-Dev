@@ -9,11 +9,6 @@
       [categories]="app.aws.forumCategories"
     ></app-post-create>
     <app-post *ngFor="let post of app.aws.posts" [post]="post"></app-post>
-    <app-paginator
-      *ngIf="
-        app.aws.posts &&
-        (app.aws.currentTotalPages !== 0 || app.aws.currentTotalPages !== 1)
-      "
-    ></app-paginator>
+    <app-spinner></app-spinner>
   </div>
 </div>

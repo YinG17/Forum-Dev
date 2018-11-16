@@ -11,11 +11,14 @@ export class HeaderComponent implements OnInit {
   constructor(public app: AppService, public router: Router) {}
 
   getProfile() {
+    this.app.aws.currentPage = 1;
+    this.app.aws.currentCategory = 0;
+
     this.app.aws
       .userRetrieve(this.app.aws.myInfo['id'])
       .subscribe(data => {
         this.app.aws.user = data;
-        this.app.aws.posts = null;
+        this.app.aws.posts = [];
       })
       .add(() => {
         this.app.aws.postList('author=' + this.app.aws.user.id);
@@ -28,5 +31,9 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.app.aws.logout();
     // this.app.navigateToAuthPage();
+  }
+
+  try() {
+    console.log(this.app.nop);
   }
 }

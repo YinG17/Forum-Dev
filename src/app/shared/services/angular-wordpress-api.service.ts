@@ -19,13 +19,13 @@ import {
   providedIn: 'root'
 })
 export class AngularWordpressApiService {
-  posts: Post;
+  posts: Post[] = [];
 
   currentCategory = 0;
-  currentPageIndex = 1;
-  currentTotalPages = 0;
+  currentPage = 1;
+  currentTotalPages: number;
 
-  post: Post = <any>[];
+  post: Post;
   user: UserResponse = <any>[];
 
   constructor(public router: Router, public http: HttpClient) {}
@@ -77,24 +77,36 @@ export class AngularWordpressApiService {
    * @param filter - list filter argument (author, id, category, and so on..)
    */
   postList(filter?: string) {
-    let url = postsEndpoint + '?';
+    let url = postsEndpoint;
     if (filter) {
-      url += filter;
+      url += filter + '&_embed';
+
+      // test, to be removed.
+      console.log('ng-wp service: constructed request url filter', filter);
+    } else {
+      url += '?_embed';
     }
-    url += '&_embed';
-    return this.http.get<Post>(url, { observe: 'response' }).pipe(
-      tap(data => {
-        this.posts = data.body;
-        this.currentTotalPages = +data.headers.get('X-WP-TOTAL');
+
+    console.log('ng-wp service: constructed url', url);
+
+    return this.http
+      .get<Array<Post>>(url, {
+        headers: this.loginAuth.headers,
+        observe: 'response'
       })
-    );
+      .pipe(
+        tap(data => {
+          this.posts.push(...data.body);
+          this.currentTotalPages = +data.headers.get('X-WP-TOTALPAGES');
+        })
+      );
   }
 
   /**
    * @method categoryList - retrieves the list of categories then saves the data to local storage
    */
   categoryList() {
-    return this.http.get<Category>(categoriesEndpoint).pipe(
+    return this.http.get<Array<Category>>(categoriesEndpoint).pipe(
       tap(cats => {
         this.setLocalData('forum_categories', cats);
       })

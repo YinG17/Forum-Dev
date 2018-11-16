@@ -1,4 +1,9 @@
 <mat-progress-spinner
+  *ngIf="app.loading"
   mode="indeterminate"
   class="mx-auto my-auto"
 ></mat-progress-spinner>
+
+<h2 class="text-center" *ngIf="!app.loading && app.aws.posts.length === 0">
+  NO POSTS ...
+</h2>

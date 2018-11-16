@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularWordpressApiService } from 'src/app/shared/services/angular-wordpress-api.service';
+import { AppService } from 'src/app/shared/services/app.service';
 
 @Component({
   selector: 'app-spinner',
@@ -7,7 +7,7 @@ import { AngularWordpressApiService } from 'src/app/shared/services/angular-word
   styleUrls: ['./spinner.component.scss']
 })
 export class SpinnerComponent implements OnInit {
-  constructor(public awService: AngularWordpressApiService) {}
+  constructor(public app: AppService) {}
 
   ngOnInit() {}
 }

@@ -16,25 +16,28 @@ export class MenuComponent implements OnInit {
     this.categories = this.app.aws.forumCategories;
   }
 
-  getData(filter) {
-    this.app.aws.currentCategory = filter.id;
-    this.app.aws.currentPageIndex = 1;
+  getData(filter, id?) {
+    this.app.aws.currentCategory = id;
+    this.app.aws.currentPage = 1;
+    this.app.loading = true;
+    this.app.aws.posts = [];
 
-    let urlParam = this.app.filter;
+    const urlParam = this.app.filter;
 
     if (filter === 'draft') {
-      urlParam += '&status=' + filter;
+      this.app.isDraft = true;
+    } else {
+      this.app.isDraft = false;
     }
 
-    if (filter.id) {
-      urlParam += '&categories=' + filter.id;
-    }
+    console.log('Menu component: append filter - ', urlParam);
 
     this.app.aws.postList(urlParam).subscribe(
       data => data,
       err => this.app.log.handleError(err),
       () => {
-        this.app.navigateToCategory(filter.slug);
+        this.app.loading = false;
+        this.app.navigateToCategory(filter);
       }
     );
   }

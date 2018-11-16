@@ -18,12 +18,15 @@ export class ProfileComponent implements OnInit {
   }
 
   doInit() {
+    this.app.aws.posts = [];
+    this.app.loading = true;
+
     if (!this.app.aws.user.id) {
       this.app.navigateToForum();
     } else {
-      this.app.aws
-        .postList('author=' + this.app.aws.user.id)
-        .subscribe(data => data);
+      this.app.aws.postList(this.app.filter).subscribe(data => {
+        this.app.loading = false;
+      });
     }
   }
 
