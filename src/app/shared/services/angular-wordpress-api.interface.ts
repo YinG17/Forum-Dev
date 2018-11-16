@@ -9,16 +9,9 @@ export interface User {
   description?: string;
   first_name?: string;
   last_name?: string;
-}
-
-export interface UserResponse extends User {
   id?: number;
   meta?: Array<any>;
   slug?: string;
-  posts?: {
-    published: Array<any>;
-    drafts: Array<any>;
-  };
   locale?: string;
   avatar_urls: {
     24: string;

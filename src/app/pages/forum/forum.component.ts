@@ -15,7 +15,7 @@ export class ForumComponent implements OnInit {
 
     this.app.aws
       .categoryList()
-      .subscribe(res => {
+      .subscribe(cats => {
         this.app.navigateToForum();
       })
       .add(() => {

@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
     this.app.aws
       .userRetrieve(this.app.aws.myInfo['id'])
       .subscribe(data => {
-        this.app.aws.user = data;
+        this.app.aws.user = data.body;
         this.app.aws.posts = [];
       })
       .add(() => {
@@ -31,9 +31,5 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.app.aws.logout();
     // this.app.navigateToAuthPage();
-  }
-
-  try() {
-    console.log(this.app.nop);
   }
 }

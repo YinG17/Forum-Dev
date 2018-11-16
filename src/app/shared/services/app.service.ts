@@ -17,10 +17,6 @@ export class AppService {
     private router: Router
   ) {}
 
-  get nop() {
-    return window;
-  }
-
   getPrevious(param: string) {
     return this.currentUrlLocation.substring(
       0,
@@ -121,9 +117,9 @@ export class AppService {
     let url = '';
     this.loading = true;
     if (this.filter !== '') {
-      url = this.filter + '&per_page=10&page=' + pageIndex;
+      url = this.filter + '&per_page=30&page=' + pageIndex;
     } else {
-      url = '?per_page=10&page=' + pageIndex;
+      url = '?per_page=30&page=' + pageIndex;
     }
 
     this.aws.postList(url).subscribe(res => {

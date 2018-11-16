@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
 
     if (
       this.app.aws.posts.length !== 0 &&
-      curScrollLoc === curPageHeight &&
+      curScrollLoc >= curPageHeight - 700 &&
       !this.app.loading
     ) {
       if (this.app.aws.currentPage < this.app.aws.currentTotalPages) {

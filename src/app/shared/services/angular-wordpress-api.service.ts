@@ -6,7 +6,6 @@ import {
   User,
   Post,
   Category,
-  UserResponse,
   categoriesEndpoint,
   commentsEndpoint,
   profileEndpoint,
@@ -26,7 +25,7 @@ export class AngularWordpressApiService {
   currentTotalPages: number;
 
   post: Post;
-  user: UserResponse = <any>[];
+  user: User;
 
   constructor(public router: Router, public http: HttpClient) {}
 
@@ -55,21 +54,11 @@ export class AngularWordpressApiService {
    */
   login(rawUser: { user_login: string; user_pass: string }) {
     const option = this.getHttpOptions(rawUser);
-    return this.http.get<UserResponse>(profileEndpoint, option).pipe(
+    return this.http.get<User>(profileEndpoint, option).pipe(
       tap(data => {
         this.setLocalData('my_info', data);
       })
     );
-  }
-
-  /**
-   * @method getUsers - get user list
-   * @param filter - filter user by (name, id, ascending or descending)
-   */
-  userList(filter: string) {
-    return this.http
-      .get<User>(usersEndpoint + filter)
-      .pipe(tap(data => this.setLocalData('forum_users', data)));
   }
 
   /**
@@ -87,17 +76,8 @@ export class AngularWordpressApiService {
       url += '?_embed';
     }
 
-    let head = {};
-
-    if (this.isLogged) {
-      head = this.loginAuth.headers;
-    }
-
     return this.http
-      .get<Array<Post>>(url, {
-        headers: head,
-        observe: 'response'
-      })
+      .get<Array<Post>>(url, { headers: this.head, observe: 'response' })
       .pipe(
         tap(data => {
           this.posts.push(...data.body);
@@ -107,14 +87,34 @@ export class AngularWordpressApiService {
   }
 
   /**
+   * @method getUsers - get user list
+   * @param filter - filter user by (name, id, ascending or descending)
+   */
+  userList(filter: string) {
+    return this.http.get<User>(usersEndpoint + filter);
+  }
+
+  /**
+   * to prevent error when fetching comments, post, user or anything with an applicable context of 'edit',
+   * applied to avoid duplication of codes with similar method.
+   */
+  get head() {
+    let head = <HttpHeaders>{};
+
+    if (this.isLogged) {
+      head = this.loginAuth.headers;
+    }
+
+    return head;
+  }
+
+  /**
    * @method categoryList - retrieves the list of categories then saves the data to local storage
    */
   categoryList() {
-    return this.http.get<Array<Category>>(categoriesEndpoint).pipe(
-      tap(cats => {
-        this.setLocalData('forum_categories', cats);
-      })
-    );
+    return this.http
+      .get<Array<Category>>(categoriesEndpoint)
+      .pipe(tap(cats => this.setLocalData('forum_categories', cats)));
   }
 
   /**
@@ -142,7 +142,10 @@ export class AngularWordpressApiService {
     if (context) {
       url += '&context=' + context;
     }
-    return this.http.get<Post>(url, this.loginAuth);
+    return this.http.get<Post>(url, {
+      headers: this.head,
+      observe: 'response'
+    });
   }
 
   /**
@@ -176,7 +179,10 @@ export class AngularWordpressApiService {
     if (context) {
       url += '&context=' + context;
     }
-    return this.http.get<Comment>(url, this.loginAuth);
+    return this.http.get<Comment>(url, {
+      headers: this.head,
+      observe: 'response'
+    });
   }
 
   /**
@@ -203,7 +209,7 @@ export class AngularWordpressApiService {
    */
   userCreate(user: User) {
     return this.http
-      .post<UserResponse>(usersEndpoint, user)
+      .post<User>(usersEndpoint, user)
       .pipe(tap(data => this.setLocalData('my_info', data)));
   }
 
@@ -217,11 +223,14 @@ export class AngularWordpressApiService {
     if (context) {
       url += '?context=' + context;
     }
-    return this.http.get<UserResponse>(url, this.loginAuth).pipe(
-      tap(data => {
-        this.user = data;
-      })
-    );
+
+    return this.http
+      .get<User>(url, { headers: this.head, observe: 'response' })
+      .pipe(
+        tap(data => {
+          this.user = data.body;
+        })
+      );
   }
 
   /**

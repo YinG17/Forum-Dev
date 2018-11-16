@@ -22,7 +22,7 @@ export class PostComponent implements OnInit {
   edit() {
     this.app.aws.postRetrieve(this.post.id, 'edit').subscribe(
       res => {
-        this.post = res;
+        this.post = res.body;
       },
       err => {
         this.app.log.handleError(err);

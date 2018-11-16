@@ -45,6 +45,7 @@
     <!-- edit -->
 
     <!-- comments / replies -->
+
     <div
       *ngIf="
         post.comment_status === 'open' && post._embedded.replies !== undefined
@@ -63,6 +64,7 @@
         [comment]="reply"
       ></app-comment>
     </div>
+
     <!-- comments / replies -->
   </mat-card-content>
   <mat-card-footer class="p-0 px-3">

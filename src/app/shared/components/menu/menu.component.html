@@ -1,8 +1,11 @@
 <div class="mb-3" *ngIf="categories">
   <div
     *ngIf="
+      app.aws.isLogged ||
       (app.aws.isLogged && app.rootUrl === '/forum') ||
-      (app.rootUrl === '/profile' && app.aws.user.id === app.aws.myInfo['id'])
+      (app.aws.isLogged &&
+        app.rootUrl === '/profile' &&
+        app.aws.user.id === app.aws.myInfo['id'])
     "
   >
     <button mat-button (click)="create()" [class.active]="app.compose">
@@ -12,7 +15,10 @@
   <button
     mat-button
     *ngIf="
-      app.rootUrl === '/profile' && app.aws.user.id === app.aws.myInfo['id']
+      app.aws.isLogged ||
+      (app.aws.isLogged &&
+        app.rootUrl === '/profile' &&
+        app.aws.user.id === app.aws.myInfo['id'])
     "
     (click)="getData('draft', 0)"
     [class.active]="app.isDraft"

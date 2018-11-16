@@ -21,7 +21,7 @@ export class CommentComponent implements OnInit {
   edit() {
     this.app.aws.commentRetrieve(this.comment.id, 'edit').subscribe(
       res => {
-        this.comment = res;
+        this.comment = res.body;
       },
       err => this.app.log.handleError(err),
       () => {

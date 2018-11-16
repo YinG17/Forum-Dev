@@ -8,7 +8,7 @@ import { Category } from '../../services/angular-wordpress-api.interface';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  categories = <Category>{};
+  categories: Category[];
 
   constructor(public app: AppService) {}
 

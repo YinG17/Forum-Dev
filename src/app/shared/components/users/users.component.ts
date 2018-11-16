@@ -17,8 +17,8 @@ export class UsersComponent implements OnInit {
   profile(id) {
     this.app.aws.currentCategory = 0;
     this.app.aws.userRetrieve(id).subscribe(data => {
-      this.app.aws.user = data;
-      this.app.navigateToProfile(data.name);
+      this.app.aws.user = data.body;
+      this.app.navigateToProfile(data.body.name);
     });
   }
 }
