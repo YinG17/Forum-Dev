@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-3">
     <app-info *ngIf="app.aws.user.id" [user]="app.aws.user"></app-info>
-    <app-menu></app-menu>
+    <app-menu [categories]="app.aws.categories"></app-menu>
   </div>
   <div class="mb-5 col-md-9">
     <app-post-create
@@ -10,7 +10,7 @@
         app.aws.myInfo['id'] === app.aws.user.id &&
         app.compose
       "
-      [categories]="app.aws.forumCategories"
+      [categories]="app.aws.categories"
     ></app-post-create>
     <app-post *ngFor="let post of app.aws.posts" [post]="post"></app-post>
     <app-spinner></app-spinner>

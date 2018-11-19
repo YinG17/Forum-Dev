@@ -1,13 +1,17 @@
-<mat-card class="py-2 px-0">
+<mat-card class="py-2 px-0" *ngIf="app.aws.users">
   <mat-card-header>
     <mat-card-title class="text-center"> FORUM USERS </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <div *ngFor="let user of users" class="text-center mb-2">
+    <div
+      *ngFor="let user of users"
+      class="text-center mb-2"
+      (click)="profile(user.id)"
+    >
       <div mat-card-avatar class=" mx-auto ">
         <img mat-card-avatar [src]="user.avatar_urls['24']" />
       </div>
-      <p class="mt-0" (click)="profile(user.id)">
+      <p class="mt-0">
         <b>{{ user.name }}</b>
       </p>
     </div>

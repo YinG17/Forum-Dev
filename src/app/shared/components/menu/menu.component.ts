@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AppService } from '../../services/app.service';
 import { Category } from '../../services/angular-wordpress-api.interface';
 
@@ -8,13 +8,11 @@ import { Category } from '../../services/angular-wordpress-api.interface';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  categories: Category[];
+  @Input() categories: Category[];
 
   constructor(public app: AppService) {}
 
-  ngOnInit() {
-    this.categories = this.app.aws.forumCategories;
-  }
+  ngOnInit() {}
 
   getData(filter, id?) {
     this.app.aws.currentCategory = id;

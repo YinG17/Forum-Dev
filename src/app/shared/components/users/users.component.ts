@@ -9,7 +9,7 @@ import { User } from '../../services/angular-wordpress-api.interface';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  @Input() users: User[] = [];
+  @Input() users: User[];
   constructor(public app: AppService, public router: Router) {}
 
   ngOnInit() {}

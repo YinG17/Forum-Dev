@@ -18,7 +18,9 @@ import {
   providedIn: 'root'
 })
 export class AngularWordpressApiService {
+  categories: Category[] = [];
   posts: Post[] = [];
+  users: User[] = [];
 
   currentCategory = 0;
   currentPage = 1;
@@ -91,7 +93,11 @@ export class AngularWordpressApiService {
    * @param filter - filter user by (name, id, ascending or descending)
    */
   userList(filter: string) {
-    return this.http.get<User>(usersEndpoint + filter);
+    return this.http.get<Array<User>>(usersEndpoint + filter).pipe(
+      tap(users => {
+        this.setLocalData('forum_users', users);
+      })
+    );
   }
 
   /**
