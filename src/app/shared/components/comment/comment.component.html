@@ -29,8 +29,8 @@
       <div *ngIf="app.aws.isLogged && comment.author === app.aws.myInfo['id']">
         <span class="btn-action" (click)="edit()">Edit</span>
         <span class="btn-action" (click)="delete()">Delete</span>
-        <span> {{ comment.date | date: 'medium' }} </span>
       </div>
+      <span> {{ comment.date | date: 'medium' }} </span>
     </mat-card-subtitle>
     <!-- view buttons -->
   </mat-card-header>

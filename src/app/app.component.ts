@@ -30,8 +30,6 @@ export class AppComponent implements OnInit {
       if (this.app.aws.currentPage < this.app.aws.currentTotalPages) {
         this.app.aws.currentPage++;
         this.app.page();
-      } else {
-        console.log('no more posts to load');
       }
     }
   }

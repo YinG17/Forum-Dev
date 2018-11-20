@@ -11,7 +11,9 @@ import {
   profileEndpoint,
   postsEndpoint,
   usersEndpoint,
-  Comment
+  Comment,
+  Media,
+  mediaEndpoint
 } from './angular-wordpress-api.interface';
 
 @Injectable({
@@ -80,7 +82,6 @@ export class AngularWordpressApiService {
       .get<Array<Post>>(url, { headers: this.head, observe: 'response' })
       .pipe(
         tap(data => {
-          console.log(data);
           this.currentTotalPages = +data.headers.get('X-WP-TOTALPAGES');
         })
       );
@@ -269,6 +270,27 @@ export class AngularWordpressApiService {
       url += '?force=' + force;
     }
     return this.http.delete<any>(url, this.loginAuth);
+  }
+
+  /**
+   * ==========================
+   * File Upload / Media Posts
+   * ==========================
+   */
+
+  mediaUpload(media: Media) {
+    return this.http.post<Media>(mediaEndpoint, media, this.loginAuth);
+  }
+
+  mediaRetrieve(id: number) {
+    return this.http.get<Media>(mediaEndpoint, {
+      headers: this.head,
+      observe: 'response'
+    });
+  }
+
+  meediaUpdate(media: Media) {
+    return this.http.post(mediaEndpoint + '/' + media.id, this.loginAuth);
   }
 
   /**

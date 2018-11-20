@@ -67,4 +67,12 @@ export class PostCreateComponent implements OnInit {
       }
     );
   }
+
+  addEmote(e) {
+    if (this.postForm.content) {
+      this.postForm.content += e;
+    } else {
+      this.postForm.content = e;
+    }
+  }
 }

@@ -15,7 +15,8 @@ export class UsersComponent implements OnInit {
   ngOnInit() {}
 
   profile(id) {
-    this.app.aws.currentCategory = 0;
+    this.app.aws.currentCategory = null;
+    this.app.aws.currentPage = 1;
     this.app.aws.userRetrieve(id).subscribe(data => {
       this.app.aws.user = data.body;
       this.app.navigateToProfile(data.body.name);

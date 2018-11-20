@@ -1,0 +1,14 @@
+::ng-deep .mat-menu-panel {
+  width: 200px;
+  height: 300px;
+  overflow: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+img {
+  max-height: 2em;
+}

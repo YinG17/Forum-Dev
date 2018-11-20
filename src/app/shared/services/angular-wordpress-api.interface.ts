@@ -74,6 +74,21 @@ export interface Post {
   _links?: string[];
 }
 
+export interface Media extends Post {
+  guid: {};
+  link: string;
+  modified: string;
+  modified_gmt: string;
+  alt_text: string;
+  caption: {};
+  description: {};
+  media_type: string;
+  mime_type: string;
+  media_details: {};
+  post: number;
+  source_url: string;
+}
+
 export interface Comment {
   id: number;
   author: number;
@@ -101,6 +116,8 @@ export interface Comment {
   meta: Array<any>;
 }
 
+export const imgSrcUrl = '/assets/img/emotes/';
+
 /**
  * @const wordpressUrl - set your development root url here
  */
@@ -113,6 +130,7 @@ export const usersEndpoint = restApiUrl + '/users';
 export const profileEndpoint = customApiUrl + '/profile';
 export const commentsEndpoint = restApiUrl + '/comments';
 export const categoriesEndpoint = restApiUrl + '/categories';
+export const mediaEndpoint = restApiUrl + '/media';
 
 export const ERROR = {
   // auth

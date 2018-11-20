@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PostCreateComponent } from './post-create.component';
+import { EmoteMenuModule } from '../emote-menu/emote-menu.module';
 import {
   MatCardModule,
   MatInputModule,
@@ -20,6 +21,7 @@ import {
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
+    EmoteMenuModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatSlideToggleModule

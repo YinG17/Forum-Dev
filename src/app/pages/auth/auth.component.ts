@@ -29,7 +29,7 @@ export class AuthComponent implements OnInit {
         user_pass: this.userForm.password
       };
       this.app.aws.login(user).subscribe(
-        res => res,
+        res => console.log(res),
         err => {
           this.app.log.handleError(err);
         },
@@ -39,7 +39,7 @@ export class AuthComponent implements OnInit {
       );
     } else {
       this.app.aws.userCreate(this.userForm).subscribe(
-        res => res,
+        res => console.log(res),
 
         err => {
           this.app.log.handleError(err);

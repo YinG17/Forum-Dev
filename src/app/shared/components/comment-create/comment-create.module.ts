@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { EmoteMenuModule } from '../emote-menu/emote-menu.module';
 import { CommentCreateComponent } from './comment-create.component';
 import {
   MatFormFieldModule,
@@ -13,6 +14,7 @@ import {
     FormsModule,
     CommonModule,
     MatInputModule,
+    EmoteMenuModule,
     MatButtonModule,
     MatFormFieldModule
   ],

@@ -49,7 +49,6 @@ export class PostComponent implements OnInit {
   delete() {
     this.app.aws.restDelete(postsEndpoint, this.post.id, true).subscribe(
       data => {
-        console.log(data);
         this.app.aws.postList(this.app.filter).subscribe(res => {
           this.app.aws.posts = res.body;
         });

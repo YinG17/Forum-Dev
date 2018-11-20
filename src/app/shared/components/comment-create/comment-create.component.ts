@@ -30,4 +30,12 @@ export class CommentCreateComponent implements OnInit {
       );
     }
   }
+
+  addEmote(e) {
+    if (this.comment.content) {
+      this.comment.content += e;
+    } else {
+      this.comment.content = e;
+    }
+  }
 }

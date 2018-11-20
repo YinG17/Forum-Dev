@@ -113,7 +113,6 @@ export class AppService {
     this.loading = true;
     this.aws.postList(this.filter).subscribe(res => {
       this.aws.posts.push(...res.body);
-      console.log(res);
       this.loading = false;
     });
   }

@@ -6,4 +6,5 @@
     [(ngModel)]="comment.content"
     placeholder="Write a comment ..."
   />
+  <app-emote-menu matSuffix (addEmote)="addEmote($event)"></app-emote-menu>
 </mat-form-field>

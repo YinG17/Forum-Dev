@@ -1,3 +1,15 @@
-<p>
-  emote-menu works!
-</p>
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="emote"
+  #menuTrigger="matMenuTrigger"
+>
+  <mat-icon>insert_emoticon</mat-icon>
+</button>
+<mat-menu #emote="matMenu" class="p-2">
+  <img
+    class="m-2"
+    *ngFor="let emote of emotes"
+    [src]="emote.img"
+    (click)="$event.stopPropagation(); push(emote.code)"
+  />
+</mat-menu>
