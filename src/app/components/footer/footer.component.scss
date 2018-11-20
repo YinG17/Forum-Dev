@@ -1,14 +1,14 @@
 mat-toolbar {
   position: fixed;
   bottom: 0;
-  display: flex;
+  // display: flex;
   height: 40px;
   font-size: 0.9em;
   background-color: #364652;
 
-  .spacer {
-    flex-grow: 1;
-  }
+  // .spacer {
+  //   flex-grow: 1;
+  // }
 
   p {
     color: #aab7b5;

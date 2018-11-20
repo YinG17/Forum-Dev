@@ -6,10 +6,12 @@
   <mat-icon>insert_emoticon</mat-icon>
 </button>
 <mat-menu #emote="matMenu" class="p-2">
-  <img
-    class="m-2"
-    *ngFor="let emote of emotes"
-    [src]="emote.img"
-    (click)="$event.stopPropagation(); push(emote.code)"
-  />
+  <div class="emote-holder">
+    <img
+      class="m-2"
+      *ngFor="let emote of emotes"
+      [src]="emote.img"
+      (click)="$event.stopPropagation(); push(emote.code)"
+    />
+  </div>
 </mat-menu>
