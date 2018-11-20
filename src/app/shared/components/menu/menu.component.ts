@@ -14,24 +14,23 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {}
 
-  getData(filter, id?) {
-    this.app.aws.currentCategory = id;
+  getData(filter?, id?) {
+    if (id) {
+      this.app.aws.currentCategory = id;
+      this.app.status = null;
+    } else {
+      this.app.aws.currentCategory = null;
+      this.app.status = filter;
+    }
+
     this.app.aws.currentPage = 1;
     this.app.loading = true;
     this.app.aws.posts = [];
 
-    const urlParam = this.app.filter;
-
-    if (filter === 'draft') {
-      this.app.isDraft = true;
-    } else {
-      this.app.isDraft = false;
-    }
-
-    console.log('Menu component: append filter - ', urlParam);
-
-    this.app.aws.postList(urlParam).subscribe(
-      data => data,
+    this.app.aws.postList(this.app.filter).subscribe(
+      data => {
+        this.app.aws.posts = data.body;
+      },
       err => this.app.log.handleError(err),
       () => {
         this.app.loading = false;

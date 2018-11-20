@@ -7,6 +7,7 @@ import {
   MatInputModule,
   MatFormFieldModule
 } from '@angular/material';
+import { SanitizerModule } from '../../directives/sanitizer.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import {
     CommonModule,
     MatCardModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    SanitizerModule.forRoot()
   ],
   declarations: [CommentComponent],
   exports: [CommentComponent]

@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
       this.app.navigateToForum();
     } else {
       this.app.aws.postList(this.app.filter).subscribe(data => {
+        this.app.aws.posts = data.body;
         this.app.loading = false;
       });
     }

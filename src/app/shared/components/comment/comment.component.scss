@@ -4,8 +4,13 @@
 
 mat-card-title {
   &.comment {
-    font-size: 0.9rem;
+    font-size: 1.4em !important;
     color: #364652;
+
+    .wp-smiley {
+      max-height: 1.1em !important;
+      height: 1.1em !important;
+    }
   }
 }
 

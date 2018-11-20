@@ -8,3 +8,18 @@
   padding-left: 1rem;
   border-left: 2px solid gray;
 }
+
+#post-title {
+  font-size: 1.8em;
+}
+
+#post-content {
+  p {
+    font-size: 1.2em !important;
+
+    > .wp-smiley {
+      max-height: 1.3em !important;
+      height: 1.3em !important;
+    }
+  }
+}

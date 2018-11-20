@@ -24,11 +24,12 @@ export class AppComponent implements OnInit {
 
     if (
       this.app.aws.posts.length !== 0 &&
-      curScrollLoc >= curPageHeight - 700 &&
+      curScrollLoc >= curPageHeight - curPageHeight / 3 &&
       !this.app.loading
     ) {
       if (this.app.aws.currentPage < this.app.aws.currentTotalPages) {
-        this.app.page(this.app.aws.currentPage + 1);
+        this.app.aws.currentPage++;
+        this.app.page();
       } else {
         console.log('no more posts to load');
       }

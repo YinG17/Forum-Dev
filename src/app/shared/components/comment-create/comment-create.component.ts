@@ -1,9 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {
-  Comment,
-  commentsEndpoint,
-  postsEndpoint
-} from '../../services/angular-wordpress-api.interface';
+import { Comment } from '../../services/angular-wordpress-api.interface';
 import { AppService } from '../../services/app.service';
 
 @Component({
@@ -26,7 +22,8 @@ export class CommentCreateComponent implements OnInit {
         res => res,
         err => this.app.log.handleError(err),
         () => {
-          this.app.aws.postList(this.app.filter).subscribe(() => {
+          this.app.aws.postList(this.app.filter).subscribe(data => {
+            this.app.aws.posts = data.body;
             this.comment = <any>{};
           });
         }

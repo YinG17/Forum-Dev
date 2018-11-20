@@ -34,7 +34,7 @@ export class LoggerService {
 
   // 500,
 
-  private message(message: string) {
+  public message(message: string) {
     return alert(message);
   }
 }

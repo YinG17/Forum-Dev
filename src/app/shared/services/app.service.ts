@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class AppService {
   compose = false;
   loading = false;
-  isDraft = false;
+  status = 'posts';
 
   constructor(
     public log: LoggerService,
@@ -88,21 +88,17 @@ export class AppService {
    * rest url filter
    */
   get filter(): string {
-    let urlFilter = '';
+    let urlFilter = '?per_page=30&page=' + this.aws.currentPage;
 
-    if (this.aws.currentCategory !== 0) {
-      urlFilter += '?categories=' + this.aws.currentCategory;
+    if (this.aws.currentCategory) {
+      urlFilter += '&categories=' + this.aws.currentCategory;
     }
 
     if (this.rootUrl === '/profile') {
-      if (urlFilter !== '') {
-        urlFilter += '&author=' + this.aws.user.id;
-      } else {
-        urlFilter = '?author=' + this.aws.user.id;
-      }
+      urlFilter += '&author=' + this.aws.user.id;
 
-      if (this.isDraft) {
-        urlFilter += '&status=draft';
+      if (this.status && this.status !== 'posts') {
+        urlFilter += '&status=' + this.status;
       }
     }
 
@@ -113,18 +109,11 @@ export class AppService {
    * auto scroll
    */
 
-  page(pageIndex) {
-    let url = '';
+  page() {
     this.loading = true;
-    if (this.filter !== '') {
-      url = this.filter + '&per_page=30&page=' + pageIndex;
-    } else {
-      url = '?per_page=30&page=' + pageIndex;
-    }
-
-    this.aws.postList(url).subscribe(res => {
+    this.aws.postList(this.filter).subscribe(res => {
+      this.aws.posts.push(...res.body);
       console.log(res);
-      this.aws.currentPage++;
       this.loading = false;
     });
   }

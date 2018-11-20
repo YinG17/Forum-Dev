@@ -31,9 +31,7 @@ export class ForumComponent implements OnInit {
         this.app.aws.categories = cats;
       })
       .add(() => {
-        this.app.aws.postList().subscribe(data => {
-          this.app.loading = false;
-        });
+        this.app.page();
       });
 
     this.app.aws.userList('?orderby=name').subscribe(users => {

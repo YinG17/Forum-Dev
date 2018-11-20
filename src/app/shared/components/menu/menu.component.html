@@ -15,21 +15,20 @@
   <button
     mat-button
     *ngIf="
-      app.aws.isLogged ||
-      (app.aws.isLogged &&
-        app.rootUrl === '/profile' &&
-        app.aws.user.id === app.aws.myInfo['id'])
+      app.aws.isLogged &&
+      app.rootUrl === '/profile' &&
+      app.aws.user.id === app.aws.myInfo['id']
     "
-    (click)="getData('draft', 0)"
-    [class.active]="app.isDraft"
+    (click)="getData('draft')"
+    [class.active]="app.status === 'draft'"
   >
     DRAFTS
   </button>
   <div class="category-menu">
     <button
       mat-button
-      (click)="getData('posts', 0)"
-      [class.active]="!app.aws.currentCategory && !app.isDraft"
+      (click)="getData('posts')"
+      [class.active]="app.status === 'posts'"
     >
       ALL POSTS
     </button>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import {
   Comment,
   commentsEndpoint
@@ -8,7 +8,8 @@ import { AppService } from '../../services/app.service';
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.scss']
+  styleUrls: ['./comment.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CommentComponent implements OnInit {
   @Input() comment = <Comment>{};
@@ -46,7 +47,9 @@ export class CommentComponent implements OnInit {
     this.app.aws.restDelete(commentsEndpoint, this.comment.id).subscribe(
       data => {
         console.log(data);
-        this.app.aws.postList(this.app.filter).subscribe(res => res);
+        this.app.aws.postList(this.app.filter).subscribe(res => {
+          this.app.aws.posts = res.body;
+        });
       },
       err => this.app.log.handleError(err)
     );

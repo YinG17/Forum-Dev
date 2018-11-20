@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { AppService } from '../../services/app.service';
 import {
   Post,
@@ -8,7 +8,8 @@ import {
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss']
+  styleUrls: ['./post.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PostComponent implements OnInit {
   @Input() post = <Post>{};
@@ -49,7 +50,9 @@ export class PostComponent implements OnInit {
     this.app.aws.restDelete(postsEndpoint, this.post.id, true).subscribe(
       data => {
         console.log(data);
-        this.app.aws.postList(this.app.filter).subscribe(res => res);
+        this.app.aws.postList(this.app.filter).subscribe(res => {
+          this.app.aws.posts = res.body;
+        });
       },
       err => this.app.log.handleError(err)
     );

@@ -46,14 +46,20 @@ export class PostCreateComponent implements OnInit {
   }
 
   post() {
+    if (this.postForm.status === undefined) {
+      return this.app.log.message('Please Select Post Type');
+    }
+
     this.comment_status
       ? (this.postForm.comment_status = 'open')
       : (this.postForm.comment_status = 'closed');
+
     this.app.aws.postCreate(this.postForm).subscribe(
       res => res,
       err => this.app.log.handleError(err),
       () => {
         this.app.aws.postList(this.app.filter).subscribe(res => {
+          this.app.aws.posts = res.body;
           this.app.navigateToForum().then(() => {
             this.app.compose = false;
           });

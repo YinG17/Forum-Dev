@@ -9,7 +9,7 @@
     <mat-card-title
       class="comment"
       *ngIf="!isEdit"
-      [innerHtml]="comment.content.rendered"
+      [innerHtml]="comment.content.rendered | sanitize"
     >
     </mat-card-title>
     <!-- view -->

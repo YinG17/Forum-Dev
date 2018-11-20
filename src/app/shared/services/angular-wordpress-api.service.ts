@@ -22,9 +22,10 @@ export class AngularWordpressApiService {
   posts: Post[] = [];
   users: User[] = [];
 
-  currentCategory = 0;
+  currentCategory = null;
   currentPage = 1;
-  currentTotalPages: number;
+
+  currentTotalPages = 0;
 
   post: Post;
   user: User;
@@ -71,9 +72,6 @@ export class AngularWordpressApiService {
     let url = postsEndpoint;
     if (filter) {
       url += filter + '&_embed';
-
-      // test, to be removed.
-      console.log('ng-wp service: constructed request url filter', filter);
     } else {
       url += '?_embed';
     }
@@ -82,7 +80,7 @@ export class AngularWordpressApiService {
       .get<Array<Post>>(url, { headers: this.head, observe: 'response' })
       .pipe(
         tap(data => {
-          this.posts.push(...data.body);
+          console.log(data);
           this.currentTotalPages = +data.headers.get('X-WP-TOTALPAGES');
         })
       );
