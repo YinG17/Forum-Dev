@@ -30,6 +30,5 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.app.aws.logout();
-    // this.app.navigateToAuthPage();
   }
 }

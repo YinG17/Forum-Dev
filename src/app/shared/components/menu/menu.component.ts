@@ -41,10 +41,5 @@ export class MenuComponent implements OnInit {
 
   create() {
     this.app.compose = !this.app.compose;
-    if (this.app.compose === true) {
-      this.app.navigateToPostCreate();
-    } else {
-      this.app.navigate(this.app.previousUrlAction);
-    }
   }
 }

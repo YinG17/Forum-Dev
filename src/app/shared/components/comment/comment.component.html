@@ -17,7 +17,12 @@
     <!-- edit -->
     <mat-card-subtitle *ngIf="isEdit">
       <mat-form-field class="mx-2" appearance="outline">
-        <input matInput type="text" [(ngModel)]="comment.content.raw" />
+        <textarea
+          matInput
+          rows="5"
+          type="text"
+          [(ngModel)]="comment.content.raw"
+        ></textarea>
       </mat-form-field>
       <span class="btn-action" (click)="isEdit = !isEdit"> Cancel </span>
       <span class="btn-action" (click)="update()"> Submit </span>
@@ -26,10 +31,10 @@
 
     <!-- view buttons -->
     <mat-card-subtitle *ngIf="!isEdit">
-      <div *ngIf="app.aws.isLogged && comment.author === app.aws.myInfo['id']">
+      <span *ngIf="app.aws.isLogged && comment.author === app.aws.myInfo['id']">
         <span class="btn-action" (click)="edit()">Edit</span>
         <span class="btn-action" (click)="delete()">Delete</span>
-      </div>
+      </span>
       <span> {{ comment.date | date: 'medium' }} </span>
     </mat-card-subtitle>
     <!-- view buttons -->

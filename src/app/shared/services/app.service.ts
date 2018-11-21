@@ -66,10 +66,6 @@ export class AppService {
   navigateToProfile(name) {
     return this.navigate(`/profile/${name}/posts`);
   }
-  // navigate to profile, action = edit|update|delete
-  navigateToProfileWithAction(id, action) {
-    return this.navigate(`/profile/${id}#${action}`);
-  }
 
   // post navigate
   navigateToPost(id) {
@@ -78,10 +74,6 @@ export class AppService {
   // post navigate, action = edit|update|delete
   navigateToPostWithAction(id, action) {
     return this.navigate(`/post/${id}#${action}`);
-  }
-  // change url when creating a post, append '#post_create'
-  navigateToPostCreate() {
-    return this.navigate(`/${this.currentUrlLocation}#post_create`);
   }
 
   /**

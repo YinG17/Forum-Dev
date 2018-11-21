@@ -47,10 +47,7 @@ export interface Post {
     raw: string;
   }; // Required
   categories: number[]; // Required
-  content: {
-    rendered: string;
-    raw: string;
-  }; // Required
+  content: any; // Required
   id: number; // Required
   date?: string;
   date_gmt?: string;

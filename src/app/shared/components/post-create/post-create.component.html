@@ -29,6 +29,15 @@
       <app-emote-menu matSuffix (addEmote)="addEmote($event)"></app-emote-menu>
     </mat-form-field>
 
+    <input
+      style="display: none"
+      type="file"
+      name="file"
+      (change)="onFileChanged($event)"
+      #fileInput
+    />
+    <button (click)="fileInput.click()">Select File</button>
+
     <mat-form-field>
       <mat-select placeholder="Post Type" [(ngModel)]="postForm.status">
         <mat-option value="draft">Draft</mat-option>
@@ -45,5 +54,15 @@
 
       <button mat-button (click)="post()" class="btn-submit">Submit</button>
     </mat-card-actions>
+
+    <mat-card-footer *ngIf="selectedFile">
+      <span> Attachment </span>
+      <img
+        *ngIf="url"
+        [src]="url | urlSanitize"
+        alt="selectedFile.name"
+        height="300"
+      />
+    </mat-card-footer>
   </mat-card-content>
 </mat-card>

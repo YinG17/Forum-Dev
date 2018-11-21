@@ -12,6 +12,7 @@ import {
   MatFormFieldModule,
   MatSlideToggleModule
 } from '@angular/material';
+import { SanitizerModule } from '../../directives/sanitizer.module';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import {
     MatButtonModule,
     MatSelectModule,
     EmoteMenuModule,
+    SanitizerModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatSlideToggleModule

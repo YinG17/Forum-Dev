@@ -278,8 +278,11 @@ export class AngularWordpressApiService {
    * ==========================
    */
 
-  mediaUpload(media: Media) {
-    return this.http.post<Media>(mediaEndpoint, media, this.loginAuth);
+  mediaUpload(media: FormData) {
+    // i have to remove this since it rejects the format and returns an error.
+    const head = this.loginAuth.headers.delete('Content-Type');
+
+    return this.http.post(mediaEndpoint, media, { headers: head });
   }
 
   mediaRetrieve(id: number) {
