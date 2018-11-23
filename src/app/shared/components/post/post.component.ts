@@ -45,7 +45,7 @@ export class PostComponent implements OnInit {
   }
 
   updateInit() {
-    if (this.fileUpload.fileToUpload) {
+    if (this.fileUpload.fileName) {
       this.fileUpload.uploadAttachment().add(() => this.update());
     } else {
       this.update();

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AppService } from '../../services/app.service';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-file-upload',
@@ -49,6 +49,7 @@ export class FileUploadComponent implements OnInit {
 
   attachmentInit() {
     this.url = '';
+    this.fileName = '';
     this.fileToUpload = new FormData();
 
     this.fileID.emit(0);

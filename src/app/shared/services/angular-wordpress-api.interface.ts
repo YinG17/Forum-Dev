@@ -54,7 +54,7 @@ export interface Post {
   slug?: string;
   status?: string;
   excerpt?: Array<any>;
-  featured_media?: string;
+  featured_media?: number;
   comment_status?: string;
   ping_status?: string;
   format?: string;
