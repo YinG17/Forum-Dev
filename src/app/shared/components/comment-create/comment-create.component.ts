@@ -15,23 +15,21 @@ export class CommentCreateComponent implements OnInit {
 
   ngOnInit() {}
 
-  submit(event) {
+  submit() {
     this.comment.post = this.post_id;
-    if (event.key === 'Enter') {
-      this.app.aws.commentCreate(this.comment).subscribe(
-        res => res,
-        err => this.app.log.handleError(err),
-        () => {
-          this.app.aws.postList(this.app.filter).subscribe(data => {
-            this.app.aws.posts = data.body;
-            this.comment = <any>{};
-          });
-        }
-      );
-    }
+    this.app.aws.commentCreate(this.comment).subscribe(
+      res => res,
+      err => this.app.log.handleError(err),
+      () => {
+        this.app.aws.postList(this.app.filter).subscribe(data => {
+          this.app.aws.posts = data.body;
+          this.comment = <any>{};
+        });
+      }
+    );
   }
 
-  addEmote(e) {
+  inject(e) {
     if (this.comment.content) {
       this.comment.content += e;
     } else {

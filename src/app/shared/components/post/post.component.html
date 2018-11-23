@@ -54,7 +54,8 @@
         <input matInput type="text" [(ngModel)]="post.title.raw" />
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <textarea matInput [(ngModel)]="post.content.raw" rows="10"></textarea>
+        <textarea matInput [(ngModel)]="post.content.raw" rows="10"> </textarea>
+        <app-emote-menu matSuffix (addEmote)="inject($event)"></app-emote-menu>
       </mat-form-field>
 
       <app-file-upload
@@ -69,7 +70,12 @@
       ></app-file-upload>
 
       <button mat-button (click)="isEdit = !isEdit">CANCEL</button>
-      <button mat-button (click)="updateInit()" class="btn-submit">
+      <button
+        mat-button
+        (click)="updateInit()"
+        class="btn-submit"
+        [disabled]="submitDisable"
+      >
         SUBMIT
       </button>
     </div>

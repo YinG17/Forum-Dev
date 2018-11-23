@@ -1,10 +1,15 @@
 <mat-form-field class="p-0" appearance="outline">
-  <input
-    (keydown)="submit($event)"
+  <textarea
+    rows="2"
     matInput
     type="text"
     [(ngModel)]="comment.content"
     placeholder="Write a comment ..."
-  />
-  <app-emote-menu matSuffix (addEmote)="addEmote($event)"></app-emote-menu>
+  ></textarea>
+  <span matSuffix class="float-right">
+    <app-emote-menu (addEmote)="inject($event)"></app-emote-menu>
+    <button (click)="submit()" mat-icon-button>
+      <mat-icon>send</mat-icon>
+    </button>
+  </span>
 </mat-form-field>

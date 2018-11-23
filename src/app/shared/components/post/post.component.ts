@@ -25,6 +25,7 @@ export class PostComponent implements OnInit {
   @ViewChild(FileUploadComponent) fileUpload: FileUploadComponent;
 
   isEdit = false;
+  submitDisable = true;
 
   constructor(public app: AppService) {}
 
@@ -45,6 +46,7 @@ export class PostComponent implements OnInit {
   }
 
   updateInit() {
+    this.submitDisable = true;
     if (this.fileUpload.fileName) {
       this.fileUpload.uploadAttachment().add(() => this.update());
     } else {
@@ -56,6 +58,7 @@ export class PostComponent implements OnInit {
     this.app.aws.postUpdate(this.post).subscribe(
       res => {
         this.post = res;
+        this.submitDisable = false;
       },
       err => this.app.log.handleError(err),
       () => {
@@ -73,6 +76,14 @@ export class PostComponent implements OnInit {
       },
       err => this.app.log.handleError(err)
     );
+  }
+
+  inject(e) {
+    if (this.post.content.raw) {
+      this.post.content.raw += e;
+    } else {
+      this.post.content.raw = e;
+    }
   }
 
   // on click goto another page and show this

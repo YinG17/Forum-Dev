@@ -23,6 +23,7 @@
           type="text"
           [(ngModel)]="comment.content.raw"
         ></textarea>
+        <app-emote-menu matSuffix (addEmote)="inject($event)"></app-emote-menu>
       </mat-form-field>
       <span class="btn-action" (click)="isEdit = !isEdit"> Cancel </span>
       <span class="btn-action" (click)="update()"> Submit </span>

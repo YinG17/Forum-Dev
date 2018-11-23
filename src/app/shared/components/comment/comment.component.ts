@@ -54,4 +54,12 @@ export class CommentComponent implements OnInit {
       err => this.app.log.handleError(err)
     );
   }
+
+  inject(e) {
+    if (this.comment.content.raw) {
+      this.comment.content.raw += e;
+    } else {
+      this.comment.content.raw = e;
+    }
+  }
 }

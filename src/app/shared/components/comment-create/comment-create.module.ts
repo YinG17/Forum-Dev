@@ -6,13 +6,15 @@ import { CommentCreateComponent } from './comment-create.component';
 import {
   MatFormFieldModule,
   MatButtonModule,
-  MatInputModule
+  MatInputModule,
+  MatIconModule
 } from '@angular/material';
 
 @NgModule({
   imports: [
     FormsModule,
     CommonModule,
+    MatIconModule,
     MatInputModule,
     EmoteMenuModule,
     MatButtonModule,

@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PostComponent } from './post.component';
 import { CommentModule } from '../comment/comment.module';
+import { EmoteMenuModule } from '../emote-menu/emote-menu.module';
 import { SanitizerModule } from '../../directives/sanitizer.module';
 import { FileUploadModule } from '../file-upload/file-upload.module';
 import { CommentCreateModule } from '../comment-create/comment-create.module';
@@ -36,6 +37,7 @@ const routes: Routes = [
     FileUploadModule,
     MatButtonModule,
     SanitizerModule,
+    EmoteMenuModule,
     MatInputModule,
     MatMenuModule,
     MatCardModule,

@@ -68,7 +68,7 @@ export class EmoteMenuComponent implements OnInit {
   ngOnInit() {}
 
   push(e) {
-    e += ' ';
+    e = ' ' + e + ' ';
     this.addEmote.emit(e);
   }
 }
