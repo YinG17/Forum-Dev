@@ -118,7 +118,8 @@ export const imgSrcUrl = '/assets/img/emotes/';
 /**
  * @const wordpressUrl - set your development root url here
  */
-export const wordpressUrl = 'https://fordev.sonub.com/wp-json';
+const hostUrl = 'https://fordev.sonub.com';
+export const wordpressUrl = hostUrl + '/wp-json';
 export const restApiUrl = wordpressUrl + '/wp/v2';
 export const customApiUrl = wordpressUrl + '/custom/api';
 
@@ -128,6 +129,8 @@ export const profileEndpoint = customApiUrl + '/profile';
 export const commentsEndpoint = restApiUrl + '/comments';
 export const categoriesEndpoint = restApiUrl + '/categories';
 export const mediaEndpoint = restApiUrl + '/media';
+
+export const uploadsUrl = hostUrl + '/wp-content/uploads/';
 
 export const ERROR = {
   // auth

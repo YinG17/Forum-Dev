@@ -16,7 +16,12 @@
 
   <mat-card-content>
     <mat-form-field>
-      <input matInput placeholder="Post Title" [(ngModel)]="postForm.title" />
+      <input
+        matInput
+        placeholder="Post Title"
+        [(ngModel)]="postForm.title"
+        [disabled]="!enable"
+      />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -25,18 +30,14 @@
         placeholder="Post Content"
         [rows]="10"
         [(ngModel)]="postForm.content"
+        [disabled]="!enable"
       ></textarea>
-      <app-emote-menu matSuffix (addEmote)="addEmote($event)"></app-emote-menu>
+      <app-emote-menu matSuffix (addEmote)="inject($event)"></app-emote-menu>
     </mat-form-field>
 
-    <input
-      style="display: none"
-      type="file"
-      name="file"
-      (change)="onFileChanged($event)"
-      #fileInput
-    />
-    <button (click)="fileInput.click()">Select File</button>
+    <app-file-upload
+      (fileID)="postForm.featured_media = $event"
+    ></app-file-upload>
 
     <mat-form-field>
       <mat-select placeholder="Post Type" [(ngModel)]="postForm.status">
@@ -52,17 +53,14 @@
 
       <span class=" spacer "></span>
 
-      <button mat-button (click)="post()" class="btn-submit">Submit</button>
+      <button
+        mat-button
+        (click)="post()"
+        class="btn-submit"
+        [disabled]="!enable"
+      >
+        Submit
+      </button>
     </mat-card-actions>
-
-    <mat-card-footer *ngIf="selectedFile">
-      <span> Attachment </span>
-      <img
-        *ngIf="url"
-        [src]="url | urlSanitize"
-        alt="selectedFile.name"
-        height="300"
-      />
-    </mat-card-footer>
   </mat-card-content>
 </mat-card>

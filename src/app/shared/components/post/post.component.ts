@@ -1,9 +1,17 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewEncapsulation,
+  ViewChild
+} from '@angular/core';
 import { AppService } from '../../services/app.service';
 import {
   Post,
-  postsEndpoint
+  postsEndpoint,
+  uploadsUrl
 } from '../../services/angular-wordpress-api.interface';
+import { FileUploadComponent } from '../file-upload/file-upload.component';
 
 @Component({
   selector: 'app-post',
@@ -13,6 +21,8 @@ import {
 })
 export class PostComponent implements OnInit {
   @Input() post = <Post>{};
+
+  @ViewChild(FileUploadComponent) fileUpload: FileUploadComponent;
 
   isEdit = false;
 
@@ -32,6 +42,14 @@ export class PostComponent implements OnInit {
         this.isEdit = true;
       }
     );
+  }
+
+  updateInit() {
+    if (this.fileUpload.fileToUpload) {
+      this.fileUpload.uploadAttachment().add(() => this.update());
+    } else {
+      this.update();
+    }
   }
 
   update() {
@@ -55,5 +73,21 @@ export class PostComponent implements OnInit {
       },
       err => this.app.log.handleError(err)
     );
+  }
+
+  // on click goto another page and show this
+  get realMediaUrl() {
+    return `${uploadsUrl}${
+      this.post._embedded['wp:featuredmedia'][0].media_details.file
+    }`;
+  }
+
+  get fileName() {
+    if (this.post._embedded['wp:featuredmedia']) {
+      return this.post._embedded['wp:featuredmedia'][0].media_details.sizes.full
+        .file;
+    }
+
+    return;
   }
 }

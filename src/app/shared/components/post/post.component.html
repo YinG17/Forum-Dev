@@ -34,6 +34,17 @@
         id="post-content"
         [innerHTML]="post.content['rendered'] | sanitize"
       ></div>
+      <div *ngIf="post.featured_media" class="mt-2">
+        <span><small>Attachment:</small></span> <br />
+        <a [href]="realMediaUrl" target="_blank">
+          <img
+            [src]="
+              post._embedded['wp:featuredmedia'][0].media_details.sizes.medium
+                .source_url
+            "
+          />
+        </a>
+      </div>
     </div>
     <!-- view -->
 
@@ -45,13 +56,26 @@
       <mat-form-field appearance="outline">
         <textarea matInput [(ngModel)]="post.content.raw" rows="10"></textarea>
       </mat-form-field>
+
+      <app-file-upload
+        [fileName]="fileName ? fileName : 'No File Chosen'"
+        [url]="
+          post._embedded['wp:featuredmedia']
+            ? post._embedded['wp:featuredmedia'][0].media_details.sizes.medium
+                .source_url
+            : ''
+        "
+        (fileID)="post.featured_media = $event; show()"
+      ></app-file-upload>
+
       <button mat-button (click)="isEdit = !isEdit">CANCEL</button>
-      <button mat-button (click)="update()" class="btn-submit">SUBMIT</button>
+      <button mat-button (click)="updateInit()" class="btn-submit">
+        SUBMIT
+      </button>
     </div>
     <!-- edit -->
 
     <!-- comments / replies -->
-
     <div
       *ngIf="
         post.comment_status === 'open' && post._embedded.replies !== undefined

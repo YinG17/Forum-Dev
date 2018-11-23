@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
 import { PostCreateComponent } from './post-create.component';
 import { EmoteMenuModule } from '../emote-menu/emote-menu.module';
+import { SanitizerModule } from '../../directives/sanitizer.module';
+import { FileUploadModule } from '../file-upload/file-upload.module';
 import {
   MatCardModule,
   MatInputModule,
@@ -12,7 +15,6 @@ import {
   MatFormFieldModule,
   MatSlideToggleModule
 } from '@angular/material';
-import { SanitizerModule } from '../../directives/sanitizer.module';
 
 @NgModule({
   imports: [
@@ -24,6 +26,7 @@ import { SanitizerModule } from '../../directives/sanitizer.module';
     MatSelectModule,
     EmoteMenuModule,
     SanitizerModule,
+    FileUploadModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatSlideToggleModule

@@ -1,0 +1,19 @@
+.attach-holder {
+  margin: 2px;
+  height: 25vh;
+
+  > span > img {
+    height: 80%;
+    margin: 0 auto;
+  }
+
+  > span > mat-icon {
+    position: absolute;
+    color: gray;
+
+    &:hover {
+      color: white;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<input
+  style="display: none"
+  type="file"
+  name="file"
+  (change)="onFileChanged($event)"
+  #fileInput
+/>
+<span
+  ><button (click)="fileInput.click()">Select File</button>
+  {{ fileName ? fileName : 'No Selected File' }}</span
+>
+<div *ngIf="url" class="attach-holder text-center">
+  <span>
+    <mat-icon (click)="attachmentInit()">close</mat-icon>
+    <img *ngIf="url" [src]="url | urlSanitize" alt="selectedFile.name" />
+  </span>
+</div>
